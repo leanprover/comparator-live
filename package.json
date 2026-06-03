@@ -1,10 +1,18 @@
 {
-  "name": "sourdough",
+  "name": "comparator",
   "version": "1.0.0",
-  "description": "Sourdough Starter Code",
+  "description": "Comparator Live",
   "workspaces": [
     "frontend",
     "server",
+    "shared",
+    "scripts"
+  ],
+  "files": [
+    "*/package.json",
+    "frontend/dist",
+    "server/scripts",
+    "server/src",
     "shared"
   ],
   "scripts": {
@@ -17,7 +25,8 @@
     "dev": "concurrently -n frontend,server -c blue,green \"npm run dev -w=frontend\" \"npm run dev -w=server\"",
     "build": "npm run build -w=frontend",
     "start": "npm start -w=server",
-    "playwright": "npm run playwright -w=frontend"
+    "playwright": "npm run playwright -w=frontend",
+    "update-trusted": "npm run update-trusted -w=scripts && prettier --write trusted"
   },
   "author": "Rob Simmons",
   "devDependencies": {

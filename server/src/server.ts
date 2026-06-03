@@ -7,8 +7,8 @@ import express from "express";
 
 import { app } from "./app.ts";
 
-// This if-then-else check for NODE_ENV=production helps avoid a common source
-// of pain:
+// This if-then-else check for MODE=production helps avoid a common source of
+// pain:
 //
 // 1. You build the website (`npm run build`) and test it in production mode
 // 2. You want to update the frontend, so you start the Vite development
@@ -36,5 +36,6 @@ if (process.env.NODE_ENV === "production") {
 // Actually start the server
 const PORT = parseInt(process.env.PORT || "3000");
 app.listen(PORT, () => {
+  console.log(`Server started at ${import.meta.dirname}`);
   console.log(`Server is running on port ${PORT}`);
 });

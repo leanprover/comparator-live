@@ -4,3 +4,90 @@
   font-family: monospace;
   margin-top: 1em;
 }
+
+@keyframes popup {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.popsup {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: popup 0.5s;
+  }
+}
+
+@keyframes popup {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.popsup {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: popup 0.5s;
+  }
+}
+
+@keyframes appearance {
+  0% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+.appears {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: appearance 2s;
+  }
+}
+
+.fa-background {
+  padding-top: var(--chakra-spacing-6);
+}
+
+.failure {
+  color: oklch(0.5654 0.26 27.77);
+}
+.failure-bg {
+  background-color: oklch(0.95 0.0321 27.77);
+}
+.failure-fa-background {
+  color: oklch(0.8086 0.151 27.77);
+}
+
+.success {
+  color: oklch(0.5654 0.1835 262.86);
+}
+.success-bg {
+  background-color: oklch(0.95 0.0233 262.86);
+}
+
+.warning {
+  color: oklch(0.6409 0.1251 100);
+}
+.warning-bg {
+  background-color: oklch(0.95 0.0261 100);
+}
+
+.working,
+.stale,
+.neutral {
+  color: oklch(0.5654 0 0);
+}
+.working-bg,
+.stale-bg,
+.neutral-bg {
+  background-color: oklch(0.95 0 0);
+}

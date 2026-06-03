@@ -1,18 +1,17 @@
 {
-  "name": "@sourdough/shared",
+  "name": "@comparator/shared",
   "version": "1.0.0",
   "type": "module",
   "main": "shared.ts",
   "scripts": {
     "check": "tsc",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
     "prettier": "prettier --ignore-path ../.gitignore --check .",
     "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
-    "test": "vitest run"
+    "test": "echo 'no validator tests'"
   },
   "devDependencies": {
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.17"
   },
   "dependencies": {
     "zod": "^4.3.6"
