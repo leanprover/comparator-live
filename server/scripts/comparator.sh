@@ -6,13 +6,13 @@ PROJECT_DIR="$(realpath "$1")" # Read-only project source
 shift
 WORK_DIR="$(realpath "$1")"    # Task-specific temporary directory
 shift
-LANDRUN_ROOT="$(realpath "$1")"  # Where's Landrun?
-shift
+
+
 
 GIT_PATH=$(dirname $(realpath $(which git)))
 DIRNAME_PATH=$(dirname $(realpath $(which dirname)))
 WHICH_PATH=$(dirname $(realpath $(which which)))
-
+LANDRUN_PATH=$(dirname $(realpath $(which landrun)))
 
 cd $PROJECT_DIR
 LEAN_ROOT="$(lean --print-prefix)"
@@ -27,14 +27,21 @@ exec /lean/bin/lake env comparator/.lake/build/bin/comparator config.json
 EOF
 )
 
+
+
+
+
+
+
+
+
+
 mkdir -p "$WORK_DIR/Comparator"
 mkdir -p "$WORK_DIR/Comparator-staging"
-
 
 exec bwrap \
      --ro-bind /nix /nix \
      --ro-bind "$LEAN_ROOT" /lean \
-     --ro-bind "$LANDRUN_ROOT" /landrun \
      \
      --dev /dev \
      --tmpfs /tmp \
@@ -43,9 +50,8 @@ exec bwrap \
      --clearenv \
      --setenv HOME "/tmp" \
      --setenv LEAN_NUM_THREADS "4" \
-     --setenv PATH "/lean/bin:$GIT_PATH:$DIRNAME_PATH:$WHICH_PATH" \
+     --setenv PATH "$GIT_PATH:$DIRNAME_PATH:/lean/bin:$WHICH_PATH:$LANDRUN_PATH" \
      --setenv COMPARATOR_LEAN4EXPORT "/project/lean4export/.lake/build/bin/lean4export" \
-     --setenv COMPARATOR_LANDRUN "/landrun/landrun" \
      \
      --ro-bind "$PROJECT_DIR" /project \
      --ro-bind "$WORK_DIR/Challenge/config.json" /project/config.json \

@@ -27,6 +27,10 @@ exec /lean/bin/lake build "$MODULE_NAME"
 EOF
 )
 
+
+
+
+
 if [[ ! -d "$PROJECT_DIR/.lake/build" ]]; then
      echo "error: $PROJECT_DIR/.lake/build does not exist" >&2
      echo "(server deployment needs to ensure this directory is in place)" >&2
@@ -39,7 +43,6 @@ exec bwrap \
      --ro-bind /nix /nix \
      --ro-bind "$LEAN_ROOT" /lean \
      \
-     \
      --dev /dev \
      --tmpfs /tmp \
      --proc /proc \
@@ -49,9 +52,14 @@ exec bwrap \
      --setenv LEAN_NUM_THREADS "4" \
      --setenv PATH "$GIT_PATH:$DIRNAME_PATH" \
      \
+     \
      --ro-bind "$PROJECT_DIR" /project \
      --ro-bind "$WORK_DIR/$MODULE_NAME/$MODULE_NAME.lean" "/project/$MODULE_NAME.lean" \
+     \
+     \
      --overlay-src "$PROJECT_DIR/.lake/build" \
+     \
+     \
      --overlay "$WORK_DIR/$MODULE_NAME/.lake/build" "$WORK_DIR/$MODULE_NAME-staging" /project/.lake/build \
      \
      --unshare-all \

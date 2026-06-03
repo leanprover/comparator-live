@@ -14,7 +14,6 @@ export interface VerifyTask {
 }
 
 const PROJ_ROOT = resolve(process.env.COMPARATOR_PROJECT_BASE_PATH ?? "../Projects");
-const LANDRUN_DIR = process.env.LANDRUN_DIR ? resolve(process.env.LANDRUN_DIR) : null;
 export const WORKING_TMP_ROOT_DIR = await mkdtemp(join(tmpdir(), "comparator-"));
 console.log("Comparator project root: " + PROJ_ROOT);
 console.log("Comparator working tmp root: " + WORKING_TMP_ROOT_DIR);
@@ -234,9 +233,8 @@ export async function comparator(taskId: string, project: string, theoremNames: 
       COMPARATOR_LEAN4EXPORT: ".lake/packages/lean4export/.lake/build/bin/lean4export",
     };
   } else {
-    if (!LANDRUN_DIR) throw new Error("LANDRUN_DIR required in production");
     cmd = script("comparator.sh");
-    args = [projDir, workDir, LANDRUN_DIR];
+    args = [projDir, workDir];
     env = {};
   }
 

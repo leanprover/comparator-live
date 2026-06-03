@@ -36,14 +36,12 @@ if [[ -e "$PROJECT_DIR/.lake/build/lib/lean/Challenge.olean" ]]; then
      echo "This prevents theorems from being collected" >&2
      exit 1
 fi
-mkdir -p $WORK_DIR/ChallengeThms
-mkdir -p $WORK_DIR/ChallengeThms-staging
-
+mkdir -p "$WORK_DIR/ChallengeThms"
+mkdir -p "$WORK_DIR/ChallengeThms-staging"
 
 exec bwrap \
      --ro-bind /nix /nix \
      --ro-bind "$LEAN_ROOT" /lean \
-     \
      \
      --dev /dev \
      --tmpfs /tmp \
@@ -54,10 +52,14 @@ exec bwrap \
      --setenv LEAN_NUM_THREADS "4" \
      --setenv PATH "$GIT_PATH:$DIRNAME_PATH" \
      \
+     \
      --ro-bind "$PROJECT_DIR" /project \
      --ro-bind "$WORK_DIR/Challenge/Challenge.lean" /project/Challenge.lean \
+     \
+     \
      --overlay-src "$WORK_DIR/Challenge/.lake/build" \
      --overlay-src "$PROJECT_DIR/.lake/build" \
+     \
      --overlay "$WORK_DIR/ChallengeThms" "$WORK_DIR/ChallengeThms-staging" /project/.lake/build \
      \
      --unshare-all \

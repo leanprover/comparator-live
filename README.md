@@ -123,6 +123,7 @@ Production mode expects the following environment variables set:
 - `NODE_ENV` set to `production`
 - `COMPARATOR_PROJECT_BASE_PATH` set to the `Projects` directory configured as
   above
-- `LANDRUN_DIR` set to the directory where a comparator-compatible `LANDRUN`
-  (compiled from the main branch, as of mid-2026 the latest release is
-  insufficient)
+
+(Production mode also expects a nix-specific setup with a number of
+dependencies (including Landrun compiled from the master branch of the
+repository) to be present.)
