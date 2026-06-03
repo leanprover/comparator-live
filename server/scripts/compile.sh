@@ -27,15 +27,16 @@ exec /lean/bin/lake build "$MODULE_NAME"
 EOF
 )
 
-
-
-
-
+# Abort if the .lake/build directory is not in place
 if [[ ! -d "$PROJECT_DIR/.lake/build" ]]; then
      echo "error: $PROJECT_DIR/.lake/build does not exist" >&2
      echo "(server deployment needs to ensure this directory is in place)" >&2
      exit 1
 fi
+
+
+
+
 mkdir -p "$WORK_DIR/$MODULE_NAME/.lake/build"
 mkdir -p "$WORK_DIR/$MODULE_NAME-staging"
 

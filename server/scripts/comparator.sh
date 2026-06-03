@@ -36,6 +36,7 @@ EOF
 
 
 
+
 mkdir -p "$WORK_DIR/Comparator"
 mkdir -p "$WORK_DIR/Comparator-staging"
 

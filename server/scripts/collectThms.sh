@@ -36,6 +36,7 @@ if [[ -e "$PROJECT_DIR/.lake/build/lib/lean/Challenge.olean" ]]; then
      echo "This prevents theorems from being collected" >&2
      exit 1
 fi
+
 mkdir -p "$WORK_DIR/ChallengeThms"
 mkdir -p "$WORK_DIR/ChallengeThms-staging"
 
