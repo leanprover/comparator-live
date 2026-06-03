@@ -1,0 +1,31 @@
+{
+  "name": "@sourdough/frontend",
+  "version": "1.0.0",
+  "description": "CS4530 Template",
+  "type": "module",
+  "scripts": {
+    "check": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --ignore-path ../.gitignore --check .",
+    "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
+    "test": "playwright test",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "playwright": "playwright test --ui"
+  },
+  "author": "Rob Simmons",
+  "dependencies": {
+    "@sourdough/shared": "^1.0.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.1",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.0"
+  }
+}

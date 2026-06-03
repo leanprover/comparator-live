@@ -1,0 +1,36 @@
+name: Continuous Integration
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  basic-checks:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js 24.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24.x"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typescript
+        run: npm run check
+
+      - name: Formatting
+        run: npm run prettier
+
+      - name: Linting
+        run: npm run lint
+
+      - name: Install Playwright dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: Run tests
+        run: npm run test

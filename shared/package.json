@@ -1,0 +1,20 @@
+{
+  "name": "@sourdough/shared",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "shared.ts",
+  "scripts": {
+    "check": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --ignore-path ../.gitignore --check .",
+    "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
+}
