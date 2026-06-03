@@ -7,7 +7,6 @@
     "lint": "eslint .",
     "prettier": "prettier --ignore-path ../.gitignore --check .",
     "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
-    "test": "echo 'e2e tests disabled' # playwright test",
     "dev": "vite",
     "build": "tsc && vite build",
     "playwright": "playwright test --ui"

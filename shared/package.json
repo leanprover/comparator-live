@@ -7,8 +7,7 @@
     "check": "tsc",
     "lint": "eslint .",
     "prettier": "prettier --ignore-path ../.gitignore --check .",
-    "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
-    "test": "echo 'no validator tests'"
+    "prettier:fix": "prettier --ignore-path ../.gitignore --write ."
   },
   "devDependencies": {
     "vitest": "^4.0.17"
