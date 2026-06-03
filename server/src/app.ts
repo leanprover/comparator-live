@@ -33,7 +33,7 @@ app.post("/comparator/api/start", (req, res) => {
   if (poorlyFormed(body, res)) return;
 
   let result: StartVerifyResponse;
-  if (body.data.project !== "MathlibDemo") {
+  if (body.data.project !== "MathlibDemo" && body.data.project !== "mathlib-stable") {
     result = { type: "project-not-supported" };
   } else {
     result = { type: "enqueued", requestId: addWorkToQueue(body.data) };

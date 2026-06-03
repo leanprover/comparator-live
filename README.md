@@ -110,6 +110,13 @@ this:
      - lean4export/ (Lean v4.30.0)
 ```
 
+For bubblewrap to work correctly, several files must exist so that they can be
+used as mount points. Each project used by Comparator must contain:
+
+- Solution.lean
+- Challenge.lean (must _not_ be built)
+- config.json
+
 Production mode expects the following environment variables set:
 
 - `PORT` (optional, defaults to 3000)
