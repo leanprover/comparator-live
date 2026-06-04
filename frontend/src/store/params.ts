@@ -7,6 +7,15 @@ import { toLZCompressedString } from "../utils/compress.ts";
 import { type HashArgs, hashArgsAtom } from "./hash.ts";
 
 /**
+ * LZString lies about its return type as of 1.5.0, it can definitely return
+ * `null` (see, for example,
+ * https://github.com/pieroxy/lz-string/blob/1.5.0/libs/lz-string.js#L475)
+ */
+function decompressFromBase64(input: string): string | null {
+  return LZString.decompressFromBase64(input);
+}
+
+/**
  * Synchronizes code from the hash args: this code might be stored in
  * plain-text form, compressed form, or as a URL.
  *
@@ -25,7 +34,7 @@ function codeAtom(urlKey: string, plainTextKey: string, compressedKey: string) {
       if (hashArgs[plainTextKey]) {
         return hashArgs[plainTextKey];
       } else if (hashArgs[compressedKey]) {
-        return LZString.decompressFromBase64(hashArgs[compressedKey]);
+        return decompressFromBase64(hashArgs[compressedKey]) ?? "";
       } else {
         return "";
       }
