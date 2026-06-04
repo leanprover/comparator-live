@@ -53,7 +53,7 @@ export default function App() {
               shadow="lg"
               padding="6"
             >
-              <Text>The project "{project}" is not supported</Text>
+              <Text>The project "{project}" is not supported.</Text>
               <Text>Select a different project from the header menu to continue.</Text>
             </Box>
           </Flex>
