@@ -48,7 +48,11 @@ or untrusted solutions**.
 
 Each task runs in the context of a Lean project (e.g. `MathlibDemo`) that
 lives in a directory `$PROJECT_DIR`, and each task is given its own temporary
-working directory `$WORK_DIR`. In parallel:
+working directory `$WORK_DIR`. In general, production mode reuses the project
+directory's cached work via an overlayfs setup in bubblewrap, and development
+mode manages the same task with symlinks.
+
+The first tasks are done in parallel:
 
 - The challenge file is placed as `Challenge.lean` in an initially empty
   `$WORK_DIR/Challenge`, and that directory is used as an overlay atop

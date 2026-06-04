@@ -14,6 +14,12 @@ export interface VerifyTask {
 }
 
 const PROJ_ROOT = resolve(process.env.COMPARATOR_PROJECT_BASE_PATH ?? "../Projects");
+
+/**
+ * A fresh working directory created each time the module stais loaded. These
+ * will hang around indefinitely on the filesystem unless there's a cleanup
+ * process or unless the target for tmpdir() is a tempfs.
+ */
 export const WORKING_TMP_ROOT_DIR = await mkdtemp(join(tmpdir(), "comparator-"));
 console.log("Comparator project root: " + PROJ_ROOT);
 console.log("Comparator working tmp root: " + WORKING_TMP_ROOT_DIR);
