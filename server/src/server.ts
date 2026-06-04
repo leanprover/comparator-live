@@ -6,6 +6,7 @@ import * as path from "node:path";
 import express from "express";
 
 import { app } from "./app.ts";
+import { IS_PRODUCTION, PORT } from "./env.ts";
 
 // This if-then-else check for NODE_ENV=production helps avoid a common source
 // of pain:
@@ -17,7 +18,7 @@ import { app } from "./app.ts";
 //    serving stale files created during the build command in step #1.
 //    You can't get any frontend changes to show up in the browser, no
 //    matter what you do.
-if (process.env.NODE_ENV === "production") {
+if (IS_PRODUCTION) {
   // In production mode, we want to serve the frontend code from Express
   app.use(express.static(path.join(import.meta.dirname, "../../frontend/dist")));
   app.get(/(.*)/, (req, res) =>
@@ -34,7 +35,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Actually start the server
-const PORT = parseInt(process.env.PORT || "3000");
 app.listen(PORT, () => {
   console.log(`Server started at ${import.meta.dirname}`);
   console.log(`Server is running on port ${PORT}`);

@@ -8,6 +8,7 @@ import express, { type Response } from "express";
 import type { ZodSafeParseResult } from "zod";
 
 import { addWorkToQueue, cancelWork, checkWorkStatus, health } from "./workqueue.ts";
+import { getProjects } from "./projects.ts";
 
 export const app = express();
 app.use(express.json());
@@ -28,12 +29,12 @@ app.get("/comparator/api/health", (req, res) => {
   res.send(health());
 });
 
-app.post("/comparator/api/start", (req, res) => {
+app.post("/comparator/api/start", async (req, res) => {
   const body = zStartVerifyRequest.safeParse(req.body);
   if (poorlyFormed(body, res)) return;
 
   let result: StartVerifyResponse;
-  if (body.data.project !== "MathlibDemo" && body.data.project !== "mathlib-stable") {
+  if (!(await getProjects()).some(({ project }) => project === body.data.project)) {
     result = { type: "project-not-supported" };
   } else {
     result = { type: "enqueued", requestId: addWorkToQueue(body.data) };
@@ -55,4 +56,12 @@ app.post("/comparator/api/poll", (req, res) => {
 
   const result: CheckVerifyResponse = checkWorkStatus(body.data.requestId);
   res.send(result);
+});
+
+app.get("/comparator/api/projects", async (_req, res) => {
+  try {
+    res.send(await getProjects());
+  } catch (err) {
+    res.send({ error: err instanceof Error ? err.message : String(err) });
+  }
 });

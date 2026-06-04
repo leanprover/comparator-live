@@ -43,3 +43,6 @@ export type CheckVerifyStatus =
   | CheckVerifyResponse
   | { type: "initial-load" }
   | { type: "in-preparation" };
+
+export type ProjectListing = { project: string; name: string; hidden: boolean };
+export type ProjectsResponse = { error: string } | ProjectListing[];

@@ -1,10 +1,11 @@
 import { execFile, spawn } from "node:child_process";
 import { cp, mkdir, mkdtemp, readdir, rm, symlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 import { promisify } from "node:util";
 
 import { z } from "zod";
+import { IS_DEVELOPMENT, PROJ_ROOT } from "./env.ts";
 
 export interface VerifyTask {
   taskId: string;
@@ -12,8 +13,6 @@ export interface VerifyTask {
   challenge: string;
   solution: string;
 }
-
-const PROJ_ROOT = resolve(process.env.COMPARATOR_PROJECT_BASE_PATH ?? "../Projects");
 
 /**
  * A fresh working directory created each time the module stais loaded. These
@@ -143,7 +142,7 @@ export async function compile(
 
   let cmd: string;
   let args: string[];
-  if (process.env.NODE_ENV === "development") {
+  if (IS_DEVELOPMENT) {
     console.error("Running insecure compile without a sandbox", { taskId, project, module });
 
     await Promise.all([
@@ -173,7 +172,7 @@ export async function collectThms(taskId: string, project: string) {
 
   let cmd: string;
   let args: string[];
-  if (process.env.NODE_ENV === "development") {
+  if (IS_DEVELOPMENT) {
     console.error("Running insecure collectThms without a sandbox", { taskId, project });
 
     await cp(join(projDir, "ChallengeThms.lean"), join(workDir, module, "ChallengeThms.lean"));
@@ -217,7 +216,7 @@ export async function comparator(taskId: string, project: string, theoremNames: 
   let cmd: string;
   let args: string[];
   let env: { [key: string]: string };
-  if (process.env.NODE_ENV === "development") {
+  if (IS_DEVELOPMENT) {
     console.error("Running insecure comparator without a sandbox", {
       taskId,
       project,

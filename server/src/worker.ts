@@ -2,9 +2,7 @@ import type { StartVerifyRequest, VerifyResult } from "@comparator/shared";
 
 import { CheckingError, cleanup, collectThms, comparator, compile, createTaskDir } from "./exec.ts";
 import { doMockWork } from "./mockworker.ts";
-
-const USE_MOCK_VERIFICATION = process.env.USE_MOCK_VERIFICATION === "true";
-const KEEP_COMPARATOR_TEMP_FILES = process.env.KEEP_COMPARATOR_TEMP_FILES === "true";
+import { KEEP_COMPARATOR_TEMP_FILES, USE_MOCK_VERIFICATION } from "./env.ts";
 
 export async function doWork(
   taskId: string,
