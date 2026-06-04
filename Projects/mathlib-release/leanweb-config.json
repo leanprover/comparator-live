@@ -1,4 +1,5 @@
 {
   "name": "Latest Release (_Vers_ with mathlib)",
-  "default": true
+  "default": true,
+  "comparator": true
 }
