@@ -7,6 +7,7 @@ import LZString from "lz-string";
 
 import { toLZCompressedString } from "../utils/compress.ts";
 import { type HashArgs, hashArgsAtom } from "./hash.ts";
+import z from "zod";
 
 /**
  * LZString lies about its return type as of 1.5.0, it can definitely return
@@ -71,11 +72,21 @@ const projectListQueryAtom = atomWithQuery(() => {
     queryKey: ["project listing"],
     queryFn: async () => {
       const response = await fetch("/comparator/api/projects");
-      const body = zProjectListResponse.parse(await response.json());
-      if ("error" in body) {
-        throw new Error(body.error);
-      }
-      return body;
+      const body = z
+        .string()
+        .transform((str, ctx) => {
+          try {
+            return JSON.parse(str) as unknown;
+          } catch {
+            return z.NEVER;
+          }
+        })
+        .pipe(zProjectListResponse)
+        .safeParse(await response.text());
+
+      if (!body.success) throw new Error("Could not parse server's response.");
+      if ("error" in body.data) throw new Error(body.error);
+      return body.data;
     },
   };
 });
@@ -161,7 +172,7 @@ export const interfaceDisabledAtom = atom((get) => {
   }
   const { error } = get(projectListQueryAtom);
   if (error) {
-    return [`There was an error retreiving the list of supported projects.`, error.message];
+    return [`There was an error retrieving the list of supported projects.`, error.message];
   }
   return null;
 });

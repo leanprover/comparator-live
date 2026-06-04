@@ -69,7 +69,6 @@ export default function Header() {
         <Flex>
           <Select.Root
             collection={leanConfigs}
-            defaultValue={[defaultProject ?? "loading"]}
             disabled={!defaultProject}
             value={[projectSelection]}
             onValueChange={(e) => {
