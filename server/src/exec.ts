@@ -92,7 +92,8 @@ function spawnPromise(
       reject(new CheckingError(`${description} failed: ${err.message}`, output.join("")));
     });
     proc.on("close", () => {
-      // Close 
+      // Close event always fires last (after exit *or* error) so if we make
+      // it here we don't need the SIGKILL anymore
       clearTimeout(cancelKill);
       resolve(undefined);
     });
