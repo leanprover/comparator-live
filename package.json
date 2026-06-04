@@ -5,7 +5,8 @@
   "workspaces": [
     "frontend",
     "server",
-    "shared"
+    "shared",
+    "scripts"
   ],
   "files": [
     "*/package.json",
@@ -24,7 +25,8 @@
     "dev": "concurrently -n frontend,server -c blue,green \"npm run dev -w=frontend\" \"npm run dev -w=server\"",
     "build": "npm run build -w=frontend",
     "start": "npm start -w=server",
-    "playwright": "npm run playwright -w=frontend"
+    "playwright": "npm run playwright -w=frontend",
+    "update-trusted": "npm run update-trusted -w=scripts && prettier --write trusted"
   },
   "author": "Rob Simmons",
   "devDependencies": {
