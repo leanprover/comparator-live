@@ -33,7 +33,7 @@ not be loudly flagged as unreliable in the UI.
 
 Trusted challenges are derived from
 [`lean-eval` benchmark](https://github.com/leanprover/lean-eval/) and from
-files in `Projects/MathlibDemo/TrustedChallenges`. These can be updated by
+files in `Projects/mathlib-stable/TrustedChallenges`. These can be updated by
 running `npm run update-trusted` from the repository root.
 
 ## How Comparator Live runs `comparator`
@@ -46,7 +46,7 @@ Bubblewrap is used for sandboxing these tasks in production, **development
 mode does no sandboxing and should not be used to evaluate unknown challenges
 or untrusted solutions**.
 
-Each task runs in the context of a Lean project (e.g. `MathlibDemo`) that
+Each task runs in the context of a Lean project (e.g. `mathlib-stable`) that
 lives in a directory `$PROJECT_DIR`, and each task is given its own temporary
 working directory `$WORK_DIR`. In general, production mode reuses the project
 directory's cached work via an overlayfs setup in bubblewrap, and development
@@ -86,7 +86,7 @@ means.
 Comparator Live can be run in development mode; the only dependencies are
 `lean` and `npm`.
 
-1. In the repository's `./Projects/MathlibDemo` directory, run
+1. In each of the repository's `./Projects/` directories, run
    ```
    lake build
    lake build comparator
@@ -106,7 +106,7 @@ this:
 
 ```
  - Projects/
-   - MathlibDemo/ (Lean v4.31.0-rc1)
+   - mathlib-release/ (Lean v4.31.0-rc1)
      - comparator/ (Lean v4.31.0-rc1 or higher)
      - lean4export/ (Lean v4.31.0-rc1)
    - mathlib-stable/ (Lean v4.30.0)

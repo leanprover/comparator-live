@@ -5,7 +5,7 @@ import { exit } from "node:process";
 
 import { ROOT_DIR, sha256 } from "./util.ts";
 
-const PROJECT_DIR = join(ROOT_DIR, "Projects", "MathlibDemo", "TrustedChallenges");
+const PROJECT_DIR = join(ROOT_DIR, "Projects", "mathlib-stable", "TrustedChallenges");
 
 async function main() {
   if (!existsSync(PROJECT_DIR)) {

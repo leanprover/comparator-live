@@ -8,7 +8,7 @@ let response: Response;
 describe(`POST /comparator/api/poll`, () => {
   it("should eventually validate a valid request", async () => {
     response = await supertest(app).post(`/comparator/api/start`).send({
-      project: "MathlibDemo",
+      project: "mathlib-stable",
       challenge: `theorem triv : True := by sorry`,
       solution: `theorem triv : True := True.intro`,
     });
@@ -50,7 +50,7 @@ describe(`POST /comparator/api/cancel`, () => {
   it("should successfully cancel a valid request", async () => {
     response = await supertest(app)
       .post(`/comparator/api/start`)
-      .send({ project: "MathlibDemo", challenge: "", solution: "" });
+      .send({ project: "mathlib-stable", challenge: "", solution: "" });
     expect(response.status).toBe(200);
     expect(response.body).toStrictEqual({ type: "enqueued", requestId: expect.anything() });
     const requestId = response.body.requestId as string;
