@@ -73,7 +73,7 @@ export default function Header() {
             value={[projectSelection]}
             onValueChange={(e) => {
               if (e.value.length !== 1) return;
-              setProject(e.value[0]!);
+              setProject(e.value[0]);
             }}
           >
             <Select.HiddenSelect />

@@ -4,10 +4,10 @@ import { produce } from "immer";
 import { atom } from "jotai";
 import { atomWithQuery } from "jotai-tanstack-query";
 import LZString from "lz-string";
+import { z } from "zod";
 
 import { toLZCompressedString } from "../utils/compress.ts";
 import { type HashArgs, hashArgsAtom } from "./hash.ts";
-import z from "zod";
 
 /**
  * LZString lies about its return type as of 1.5.0, it can definitely return
