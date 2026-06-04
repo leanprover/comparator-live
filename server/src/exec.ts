@@ -85,12 +85,14 @@ function spawnPromise(
     handleStr(str);
   });
 
+  // The process will be killed after an appropriate delay
   const cancelKill = setTimeout(() => proc.kill("SIGKILL"), BACKUP_SIGKILL_MS);
   return new Promise((resolve, reject) => {
     proc.on("error", (err) => {
       reject(new CheckingError(`${description} failed: ${err.message}`, output.join("")));
     });
     proc.on("close", () => {
+      // Close 
       clearTimeout(cancelKill);
       resolve(undefined);
     });

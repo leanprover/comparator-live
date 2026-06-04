@@ -128,6 +128,7 @@ Production mode expects the following environment variables set:
 - `COMPARATOR_PROJECT_BASE_PATH` set to the `Projects` directory configured as
   above
 
-(Production mode also expects a nix-specific setup with a number of
-dependencies (including Landrun compiled from the master branch of the
-repository) to be present.)
+Production mode also expects a nix-specific setup with a number of
+dependencies to be present. This includes Landrun compiled from the master
+branch of the repository - as of mid-2026 the current release of Landrun isn't
+a security risk, it just won't work.
