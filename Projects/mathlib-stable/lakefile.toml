@@ -1,0 +1,38 @@
+name = "mathlib-demo"
+version = "0.1.0"
+keywords = ["math"]
+defaultTargets = ["Setup", "Solution", "challenge-thms"]
+
+[leanOptions]
+pp.unicode.fun = true                 # pretty-prints `fun a ↦ b`
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "lean4export"
+scope = "leanprover"
+rev = "v4.30.0"
+
+[[require]]
+name = "comparator"
+git = "https://github.com/leanprover/comparator"
+rev = "v4.30.0"
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.30.0"
+
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"
+
+[[lean_lib]]
+name = "Setup"
+
+[[lean_exe]]
+name = "challenge-thms"
+root = "ChallengeThms"

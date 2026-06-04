@@ -1,0 +1,14 @@
+{
+  "name": "@comparator/scripts",
+  "type": "module",
+  "scripts": {
+    "check": "tsc",
+    "lint": "eslint .",
+    "prettier": "prettier --ignore-path ../.gitignore --check . ",
+    "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
+    "update-trusted": "node lean-eval.ts && node demos.ts && prettier --write ../trusted"
+  },
+  "dependencies": {
+    "prettier": "^3.8.3"
+  }
+}
