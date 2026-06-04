@@ -9,7 +9,7 @@
     "prettier": "prettier --ignore-path ../.gitignore --check . ",
     "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
     "test": "vitest run --coverage",
-    "dev": "node --watch ./src/server.ts",
+    "dev": "NODE_ENV=development node --watch ./src/server.ts",
     "start": "NODE_ENV=production node ./src/server.ts"
   },
   "dependencies": {

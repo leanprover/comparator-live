@@ -13,7 +13,7 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "test": "npm run test --workspaces",
+    "test": "npm run test --workspaces --if-present",
     "dev": "concurrently -n frontend,server -c blue,green \"npm run dev -w=frontend\" \"npm run dev -w=server\"",
     "build": "npm run build -w=frontend",
     "start": "npm start -w=server",
@@ -22,7 +22,7 @@
   "author": "Rob Simmons",
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
