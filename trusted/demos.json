@@ -1,0 +1,20 @@
+{
+  "3d139f85ba4e5bb3a21bf1b30c5ee9cfd5268e2f5727af81a7c63f63b0bcf318": {
+    "name": "Infinitely Many Primes",
+    "sources": ["https://lean-lang.org/"]
+  },
+  "53dc5a6041f14ae5dd984aff076e69d6cce7d74d55ff4390b4ff265a7acb369f": {
+    "name": "Proof of True (trivial to prove)",
+    "sources": []
+  },
+  "b79b0f7a94e73c7b7ea9eebd5a0c947efa2ccbe5e1b8b38f28ba3a2ff7936bc0": {
+    "name": "Proof of False (would imply inconsistency in Lean)",
+    "sources": []
+  },
+  "e3fa1e8e23c5da05218a66796c4cd634c402f4e92904ba8b81f92887474fe410": {
+    "name": "Collatz Conjecture",
+    "sources": [
+      "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Wikipedia/CollatzConjecture.lean"
+    ]
+  }
+}
