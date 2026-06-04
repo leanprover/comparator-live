@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 
 import { z } from "zod";
+
 import { IS_DEVELOPMENT, PROJ_ROOT } from "./env.ts";
 
 export interface VerifyTask {

@@ -143,9 +143,7 @@ export default function Verifier() {
                   ", but it is possible that the challenge does not describe the theorems it appears to describe. This usually happens due to subtle oversights in the formalization statement, but it can also result from dishonest use of Lean's powerful syntax extensions"}
                 {recognitionState?.type === "user" &&
                   `, and you have chosen to trust that this challenge correctly describes the theorem${comparatorResult.theoremNames.length > 1 ? "s" : ""} it purports to describe`}
-                {recognitionState?.type === "built-in" &&
-                  ", and the challenge is known to be trustworthy"}
-                .
+                {recognitionState?.type === "built-in" && ", and the challenge is recognized"}.
               </>
             )}
           </Box>

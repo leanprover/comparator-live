@@ -7,11 +7,11 @@ import { atom } from "jotai";
 import { observe } from "jotai-effect";
 import { atomWithQuery } from "jotai-tanstack-query";
 
-import { challengeAtom, projectAtom, solutionAtom } from "./params.ts";
+import { challengeAtom, defaultProjectAtom, projectAtom, solutionAtom } from "./params.ts";
 
 interface ComparatorJobParams {
   internalId: number;
-  project: string;
+  project: string | null;
   challenge: string;
   solution: string;
 }
@@ -67,11 +67,12 @@ export const isComparatorSyncedAtom = atom((get) => {
  */
 const comparatorJobIdAtom = atomWithQuery((get) => {
   const params = get(comparatorJobParamsAtom);
+  const defaultProject = get(defaultProjectAtom);
   return {
     queryKey: ["comparator-start", params?.internalId ?? null],
-    enabled: params !== null,
+    enabled: params !== null && defaultProject !== null,
     queryFn: async ({ signal }) => {
-      if (!params)
+      if (!params || defaultProject === null)
         throw new Error(
           `invariant violation: queryFn in comparatorJobIdAtom called when query should be disabled`,
         );
@@ -80,7 +81,7 @@ const comparatorJobIdAtom = atomWithQuery((get) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          project: params.project,
+          project: params.project ?? defaultProject,
           challenge: params.challenge,
           solution: params.solution,
         }),

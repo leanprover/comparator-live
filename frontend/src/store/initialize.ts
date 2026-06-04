@@ -65,7 +65,7 @@ export function initializeStore(store: Store) {
   if (
     store.get(challengeAtom) === "" &&
     store.get(solutionAtom) === "" &&
-    store.get(projectAtom) === "MathlibDemo"
+    store.get(projectAtom) === null
   ) {
     store.set(challengeAtom, DEMO_CHALLENGE);
     store.set(solutionAtom, DEMO_SOLUTION);

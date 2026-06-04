@@ -1,9 +1,11 @@
 import { readdir, readFile, stat } from "node:fs/promises";
-import { PROJ_ROOT } from "./env.ts";
-import { z } from "zod";
 import { join } from "node:path";
-import type { ProjectListing } from "@comparator/shared";
 import { exit } from "node:process";
+
+import type { ProjectListing } from "@comparator/shared";
+import { z } from "zod";
+
+import { PROJ_ROOT } from "./env.ts";
 
 const zLeanWebProjectConfig = z.object({
   name: z.string(),
@@ -14,9 +16,9 @@ const zLeanWebProjectConfig = z.object({
 });
 
 function toolchainToName(toolchain: string, prefixLean: boolean): string {
-  const nightly = toolchain.match(/^leanprover\/lean4\:nightly-(.*)$/);
+  const nightly = toolchain.match(/^leanprover\/lean4:nightly-(.*)$/);
   if (nightly) return prefixLean ? `Lean ${nightly[1]}` : nightly[1]!;
-  const release = toolchain.match(/^leanprover\/lean4\:(.*)$/);
+  const release = toolchain.match(/^leanprover\/lean4:(.*)$/);
   if (release) return prefixLean ? `Lean ${release[1]}` : release[1]!;
   return "Lean";
 }
@@ -24,7 +26,9 @@ function toolchainToName(toolchain: string, prefixLean: boolean): string {
 /**
  * Gets a sorted list of projects that are set up for comparator.
  *
- * Mimics `/api/projects` endpoint for lean4web.
+ * Mimics `/api/projects` endpoint for lean4web, but goes ahead and sorts
+ * server-side: the client should treat the default project as the first one
+ * in the list.
  */
 export async function getProjects(): Promise<ProjectListing[]> {
   const entries = await readdir(PROJ_ROOT, { withFileTypes: true });
@@ -74,7 +78,8 @@ export async function getProjects(): Promise<ProjectListing[]> {
     .toSorted((a, b) => {
       if (a.sortOrder === b.sortOrder) return a.name.localeCompare(b.name);
       return b.sortOrder - a.sortOrder;
-    });
+    })
+    .map(({ sortOrder, ...rest }) => rest);
 
   if (projects.length === 0) {
     throw new Error(`No valid projects found in ${PROJ_ROOT}`);

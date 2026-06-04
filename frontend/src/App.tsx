@@ -4,14 +4,13 @@ import { useAtomValue } from "jotai";
 import ChallengePanel from "./ChallengePanel.tsx";
 import Header from "./Header.tsx";
 import SolutionPanel from "./SolutionPanel.tsx";
-import { projectAtom, projectSelectionAtom } from "./store/params.ts";
+import { interfaceDisabledAtom } from "./store/params.ts";
 import { statusClassAtom } from "./store/simpleStatus.ts";
 import { borderForStatus } from "./utils/style.ts";
 import Verifier from "./Verifier.tsx";
 
 export default function App() {
-  const project = useAtomValue(projectAtom);
-  const projectSelection = useAtomValue(projectSelectionAtom);
+  const interfaceDisabled = useAtomValue(interfaceDisabledAtom);
   const statusClass = useAtomValue(statusClassAtom);
   const orientation = useBreakpointValue<"horizontal" | "vertical">({
     base: "vertical",
@@ -26,8 +25,8 @@ export default function App() {
           position="relative"
           width="100%"
           height="100%"
-          opacity={projectSelection === "unknown" ? 0.35 : 1}
-          inert={projectSelection === "unknown"}
+          opacity={interfaceDisabled ? 0.35 : 1}
+          inert={!!interfaceDisabled}
         >
           <Splitter.Root
             orientation={orientation}
@@ -42,7 +41,7 @@ export default function App() {
             <SolutionPanel />
           </Splitter.Root>
         </Box>
-        {projectSelection === "unknown" && (
+        {interfaceDisabled && (
           <Flex position="absolute" inset="0" align="center" justify="center" pointerEvents="none">
             <Box
               pointerEvents="auto"
@@ -53,13 +52,14 @@ export default function App() {
               shadow="lg"
               padding="6"
             >
-              <Text>The project "{project}" is not supported.</Text>
-              <Text>Select a different project from the header menu to continue.</Text>
+              {interfaceDisabled.map((text, i) => (
+                <Text key={i}>{text}</Text>
+              ))}
             </Box>
           </Flex>
         )}
       </GridItem>
-      {projectSelection !== "unknown" && <Verifier />}
+      {!interfaceDisabled && <Verifier />}
     </Grid>
   );
 }

@@ -21,11 +21,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAtom, useAtomValue } from "jotai";
 import { useState } from "react";
 
-import { leanConfigs, projectAtom, projectSelectionAtom } from "./store/params.ts";
+import {
+  defaultProjectAtom,
+  leanConfigsAtom,
+  projectAtom,
+  projectSelectionAtom,
+} from "./store/params.ts";
 import { statusClassAtom } from "./store/simpleStatus.ts";
 import { LIVE_LEAN_URI } from "./utils/consts.ts";
 
 export default function Header() {
+  const defaultProject = useAtomValue(defaultProjectAtom);
+  const leanConfigs = useAtomValue(leanConfigsAtom);
   const statusClass = useAtomValue(statusClassAtom);
   const [project, setProject] = useAtom(projectAtom);
   const projectSelection = useAtomValue(projectSelectionAtom);
@@ -62,7 +69,8 @@ export default function Header() {
         <Flex>
           <Select.Root
             collection={leanConfigs}
-            defaultValue={["MathlibDemo"]}
+            defaultValue={[defaultProject ?? "loading"]}
+            disabled={!defaultProject}
             value={[projectSelection]}
             onValueChange={(e) => {
               if (e.value.length !== 1) return;
@@ -84,7 +92,9 @@ export default function Header() {
                 <Select.Content>
                   {leanConfigs.items
                     .filter((leanConfig) => {
-                      return leanConfig.value !== "unknown" || projectSelection === "unknown";
+                      if (leanConfig.value === "unknown") return projectSelection === "unknown";
+                      if (leanConfig.value === "loading") return projectSelection === "loading";
+                      return true;
                     })
                     .map((leanConfig) => (
                       <Select.Item item={leanConfig} key={leanConfig.value}>

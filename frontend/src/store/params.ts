@@ -1,6 +1,8 @@
 import { createListCollection } from "@chakra-ui/react";
+import { zProjectListResponse } from "@comparator/shared";
 import { produce } from "immer";
 import { atom } from "jotai";
+import { atomWithQuery } from "jotai-tanstack-query";
 import LZString from "lz-string";
 
 import { toLZCompressedString } from "../utils/compress.ts";
@@ -64,15 +66,26 @@ export const challengeAtom = codeAtom("challengeUrl", "challenge", "challengez")
  */
 export const solutionAtom = codeAtom("url", "code", "codez");
 
+const projectListQueryAtom = atomWithQuery(() => {
+  return {
+    queryKey: ["project listing"],
+    queryFn: async () => {
+      const response = await fetch("/comparator/api/projects");
+      const body = zProjectListResponse.parse(await response.json());
+      if ("error" in body) {
+        throw new Error(body.error);
+      }
+      return body;
+    },
+  };
+});
+
 /**
- * Chakra options for config
+ * Returns null if the default project isn't
  */
-export const leanConfigs = createListCollection({
-  items: [
-    { label: "Latest Release", value: "MathlibDemo" },
-    { label: "Stable Release", value: "mathlib-stable" },
-    { label: "Unsupported Project", value: "unknown" },
-  ],
+export const defaultProjectAtom = atom((get) => {
+  const { data } = get(projectListQueryAtom);
+  return data?.[0]?.project ?? null;
 });
 
 /**
@@ -81,18 +94,42 @@ export const leanConfigs = createListCollection({
 export const projectAtom = atom(
   (get) => {
     const hashArgs = get(hashArgsAtom);
-    return hashArgs.project ?? "MathlibDemo";
+    return hashArgs.project ?? null;
   },
   (get, set, project: string) => {
     const hashArgs = get(hashArgsAtom);
+    const { data } = get(projectListQueryAtom);
     set(
       hashArgsAtom,
       produce(hashArgs, (draft: HashArgs) => {
-        draft.project = project === "MathlibDemo" ? null : project;
+        if (!data) {
+          draft.project = project;
+        } else {
+          // The default project doesn't get listed
+          draft.project = project === data[0]!.project ? null : project;
+        }
       }),
     );
   },
 );
+
+/**
+ * Configuration options loaded from API
+ */
+export const leanConfigsAtom = atom((get) => {
+  const { data } = get(projectListQueryAtom);
+  if (!data) {
+    return createListCollection({
+      items: [{ label: "Loading projects...", value: "loading" }],
+    });
+  } else if (data.some(({ project }) => project === "unknown" || project === "loading")) {
+    throw new Error(`Project listing includes a project with a reserved name`);
+  } else {
+    return createListCollection({
+      items: [...data.map(({ project, name }) => ({ label: name, value: project }))],
+    });
+  }
+});
 
 /**
  * Using the projects actual key, as stored in `projectAtom`, pick the
@@ -100,6 +137,28 @@ export const projectAtom = atom(
  * the project is not supported.
  */
 export const projectSelectionAtom = atom((get) => {
-  const project = get(projectAtom);
+  const defaultProject = get(defaultProjectAtom);
+  if (!defaultProject) return "loading";
+  const project = get(projectAtom) ?? defaultProject;
+  const leanConfigs = get(leanConfigsAtom);
   return leanConfigs.has(project) ? project : "unknown";
+});
+
+/**
+ * Controls the message to put in an interface-blocking modal.
+ */
+export const interfaceDisabledAtom = atom((get) => {
+  const projectSelection = get(projectSelectionAtom);
+  if (projectSelection === "unknown") {
+    const project = get(projectAtom);
+    return [
+      `The project ${project} is not supported.`,
+      `Select a different project from the header menu to continue.`,
+    ];
+  }
+  const { error } = get(projectListQueryAtom);
+  if (error) {
+    return [`There was an error retreiving the list of supported projects.`, error.message];
+  }
+  return null;
 });

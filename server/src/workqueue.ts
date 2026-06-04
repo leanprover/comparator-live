@@ -2,9 +2,9 @@ import { randomUUID } from "node:crypto";
 
 import type { CheckVerifyResponse, StartVerifyRequest, VerifyResult } from "@comparator/shared";
 
+import { IS_PRODUCTION } from "./env.ts";
 import { Queue } from "./queue.ts";
 import { doWork } from "./worker.ts";
-import { IS_PRODUCTION } from "./env.ts";
 
 /** Number of simultaneous processes. Must be 1 in development mode.  */
 const CONCURRENCY = IS_PRODUCTION ? 4 : 1;

@@ -7,8 +7,8 @@ import {
 import express, { type Response } from "express";
 import type { ZodSafeParseResult } from "zod";
 
-import { addWorkToQueue, cancelWork, checkWorkStatus, health } from "./workqueue.ts";
 import { getProjects } from "./projects.ts";
+import { addWorkToQueue, cancelWork, checkWorkStatus, health } from "./workqueue.ts";
 
 export const app = express();
 app.use(express.json());
@@ -62,6 +62,6 @@ app.get("/comparator/api/projects", async (_req, res) => {
   try {
     res.send(await getProjects());
   } catch (err) {
-    res.send({ error: err instanceof Error ? err.message : String(err) });
+    res.status(400).send({ error: err instanceof Error ? err.message : String(err) });
   }
 });
