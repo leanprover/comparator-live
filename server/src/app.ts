@@ -1,69 +1,67 @@
 import {
-  type AddGradeResponse,
-  type AddStudentResponse,
-  type GetTranscriptResponse,
-  zAddGradeRequest,
-  zAddStudentRequest,
-  zGetTranscriptRequest,
-} from "@sourdough/shared";
-import express from "express";
+  type CheckVerifyResponse,
+  type StartVerifyResponse,
+  zStartVerifyRequest,
+  zVerifyRequest,
+} from "@comparator/shared";
+import express, { type Response } from "express";
+import type { ZodSafeParseResult } from "zod";
 
-import { checkPassword } from "./auth.service.ts";
-import { TranscriptDB } from "./transcript.service.ts";
+import { getProjects } from "./projects.ts";
+import { addWorkToQueue, cancelWork, checkWorkStatus, health } from "./workqueue.ts";
 
 export const app = express();
 app.use(express.json());
-const db = new TranscriptDB();
 
-/* Handle API requests to create a new student record */
-app.post("/api/addStudent", (req, res) => {
-  const body = zAddStudentRequest.safeParse(req.body);
-  if (!body.success) {
+/** Return false, asserting that parsing succeeded, or send a 400 response */
+function poorlyFormed<T>(
+  data: ZodSafeParseResult<T>,
+  res: Response,
+): data is Extract<ZodSafeParseResult<T>, { success: false }> {
+  if (!data.success) {
     res.status(400).send({ error: "Poorly-formed request" });
-  } else if (!checkPassword(body.data.password)) {
-    res.status(403).send({ error: "Invalid credentials" });
-  } else {
-    const response: AddStudentResponse = {
-      studentID: db.addStudent(body.data.studentName),
-    };
-    res.send(response);
+    return true;
   }
+  return false;
+}
+
+app.get("/comparator/api/health", (req, res) => {
+  res.send(health());
 });
 
-/* Handle API requests to add a grade to a student */
-app.post("/api/addGrade", (req, res) => {
-  const body = zAddGradeRequest.safeParse(req.body);
-  if (!body.success) {
-    res.status(400).send({ error: "Poorly-formed request" });
-  } else if (!checkPassword(body.data.password)) {
-    res.status(403).send({ error: "Invalid credentials" });
+app.post("/comparator/api/start", async (req, res) => {
+  const body = zStartVerifyRequest.safeParse(req.body);
+  if (poorlyFormed(body, res)) return;
+
+  let result: StartVerifyResponse;
+  if (!(await getProjects()).some(({ project }) => project === body.data.project)) {
+    result = { type: "project-not-supported" };
   } else {
-    let response: AddGradeResponse;
-    try {
-      db.addGrade(body.data.studentID, body.data.courseName, body.data.courseGrade);
-      response = { success: true };
-    } catch {
-      response = { success: false };
-    }
-    res.send(response);
+    result = { type: "enqueued", requestId: addWorkToQueue(body.data) };
   }
+  res.send(result);
 });
 
-/* Handle API requests to retrieve a student transcript */
-app.post("/api/getTranscript", (req, res) => {
-  const body = zGetTranscriptRequest.safeParse(req.body);
-  if (!body.success) {
-    res.status(400).send({ error: "Poorly-formed request" });
-  } else if (!checkPassword(body.data.password)) {
-    res.status(403).send({ error: "Invalid credentials" });
-  } else {
-    let response: GetTranscriptResponse;
-    try {
-      const transcript = db.getTranscript(body.data.studentID);
-      response = { success: true, transcript };
-    } catch {
-      response = { success: false };
-    }
-    res.send(response);
+app.post("/comparator/api/cancel", (req, res) => {
+  const body = zVerifyRequest.safeParse(req.body);
+  if (poorlyFormed(body, res)) return;
+
+  cancelWork(body.data.requestId);
+  res.send();
+});
+
+app.post("/comparator/api/poll", (req, res) => {
+  const body = zVerifyRequest.safeParse(req.body);
+  if (poorlyFormed(body, res)) return;
+
+  const result: CheckVerifyResponse = checkWorkStatus(body.data.requestId);
+  res.send(result);
+});
+
+app.get("/comparator/api/projects", async (_req, res) => {
+  try {
+    res.send(await getProjects());
+  } catch (err) {
+    res.status(400).send({ error: err instanceof Error ? err.message : String(err) });
   }
 });

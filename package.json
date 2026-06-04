@@ -1,10 +1,17 @@
 {
-  "name": "sourdough",
+  "name": "comparator",
   "version": "1.0.0",
-  "description": "Sourdough Starter Code",
+  "description": "Comparator Live",
   "workspaces": [
     "frontend",
     "server",
+    "shared"
+  ],
+  "files": [
+    "*/package.json",
+    "frontend/dist",
+    "server/scripts",
+    "server/src",
     "shared"
   ],
   "scripts": {

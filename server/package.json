@@ -1,5 +1,5 @@
 {
-  "name": "@sourdough/server",
+  "name": "@comparator/server",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -8,12 +8,13 @@
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --ignore-path ../.gitignore --check . ",
     "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
-    "test": "vitest run --coverage",
+    "test": "USE_MOCK_VERIFICATION=true vitest run --coverage",
     "dev": "NODE_ENV=development node --watch ./src/server.ts",
     "start": "NODE_ENV=production node ./src/server.ts"
   },
   "dependencies": {
-    "@sourdough/shared": "^1.0.0",
+    "@comparator/shared": "^1.0.0",
+    "amaro": "^1.1.9",
     "express": "^5.2.1",
     "zod": "^4.3.6"
   },

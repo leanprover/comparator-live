@@ -1,120 +1,65 @@
+import type { CheckVerifyResponse } from "@comparator/shared";
 import supertest, { type Response } from "supertest";
-import { beforeAll, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { app } from "./app.ts";
 let response: Response;
 
-/** it would be more robust to reset the database explicitly, but this will do. */
-const BAD_STUDENT_ID = 1_000_000_000;
-
-describe(`POST /api/addStudent`, () => {
-  it("should allow the addition of a new student", async () => {
-    response = await supertest(app)
-      .post(`/api/addStudent`)
-      .send({ password: "password", studentName: "Bob" });
+describe(`POST /comparator/api/poll`, () => {
+  it("should eventually validate a valid request", async () => {
+    response = await supertest(app).post(`/comparator/api/start`).send({
+      project: "mathlib-stable",
+      challenge: `theorem triv : True := by sorry`,
+      solution: `theorem triv : True := True.intro`,
+    });
     expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({ studentID: expect.any(Number) });
-  });
+    expect(response.body).toStrictEqual({ type: "enqueued", requestId: expect.anything() });
+    const requestId = response.body.requestId as string;
 
-  it("should reject invalid payloads", async () => {
-    response = await supertest(app).post(`/api/addStudent`).send({ whatever: false });
+    expect(
+      await (async (): Promise<CheckVerifyResponse> => {
+        for (;;) {
+          response = await supertest(app).post(`/comparator/api/poll`).send({ requestId });
+          if (response.body.type !== "in-queue" && response.body.type !== "in-progress") {
+            return response.body as CheckVerifyResponse;
+          }
+          await new Promise((resolve) => setTimeout(resolve, 200));
+        }
+      })(),
+    ).toStrictEqual({ type: "verification-ok", theoremNames: ["triv"] });
+  });
+}, 50_000);
+
+describe(`POST /comparator/api/start`, () => {
+  it("should validate request structure", async () => {
+    response = await supertest(app).post(`/comparator/api/start`).send({ random: true });
     expect(response.status).toBe(400);
+    expect(response.body).toStrictEqual({ error: "Poorly-formed request" });
   });
 
-  it("should reject invalid auth", async () => {
+  it("should reject a bogus project", async () => {
     response = await supertest(app)
-      .post(`/api/addStudent`)
-      .send({ password: "wrong", studentName: "Bob" });
-    expect(response.status).toBe(403);
+      .post(`/comparator/api/start`)
+      .send({ project: "---bogus---", challenge: "", solution: "" });
+    expect(response.status).toBe(200);
+    expect(response.body).toStrictEqual({ type: "project-not-supported" });
   });
 });
 
-describe(`POST /api/addGrade`, () => {
-  let id: number;
-  beforeAll(async () => {
+describe(`POST /comparator/api/cancel`, () => {
+  it("should successfully cancel a valid request", async () => {
     response = await supertest(app)
-      .post(`/api/addStudent`)
-      .send({ password: "password", studentName: "Bob" });
-    id = response.body.studentID;
-  });
-
-  it("should allow the addition of a new grade for an existing student", async () => {
-    response = await supertest(app)
-      .post(`/api/addGrade`)
-      .send({ password: "password", studentID: id, courseName: "Science", courseGrade: 71 });
+      .post(`/comparator/api/start`)
+      .send({ project: "mathlib-stable", challenge: "", solution: "" });
     expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({ success: true });
-  });
+    expect(response.body).toStrictEqual({ type: "enqueued", requestId: expect.anything() });
+    const requestId = response.body.requestId as string;
 
-  it("should reject the addition of a new grade for a nonexistent student id", async () => {
-    response = await supertest(app).post(`/api/addGrade`).send({
-      password: "password",
-      studentID: BAD_STUDENT_ID,
-      courseName: "Science",
-      courseGrade: 71,
-    });
+    response = await supertest(app).post(`/comparator/api/cancel`).send({ requestId });
     expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({ success: false });
-  });
 
-  it("should reject invalid payloads", async () => {
-    response = await supertest(app)
-      .post(`/api/addGrade`)
-      .send({ password: "password", courseName: "Science", courseGrade: 71 });
-    expect(response.status).toBe(400);
-  });
-
-  it("should reject invalid auth", async () => {
-    response = await supertest(app)
-      .post(`/api/addGrade`)
-      .send({ password: "wrong", studentID: id, courseName: "Science", courseGrade: 71 });
-    expect(response.status).toBe(403);
-  });
-});
-
-describe(`POST /api/getTranscript`, () => {
-  let id: number;
-  beforeAll(async () => {
-    response = await supertest(app)
-      .post(`/api/addStudent`)
-      .send({ password: "password", studentName: "Jo" });
-    id = response.body.studentID;
-    await supertest(app)
-      .post(`/api/addGrade`)
-      .send({ password: "password", studentID: id, courseName: "Science", courseGrade: 67 });
-  });
-
-  it("should get the transcript for an existing student", async () => {
-    response = await supertest(app)
-      .post(`/api/getTranscript`)
-      .send({ password: "password", studentID: id });
+    response = await supertest(app).post(`/comparator/api/poll`).send({ requestId });
     expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({
-      success: true,
-      transcript: {
-        student: { studentName: "Jo", studentID: id },
-        grades: [{ course: "Science", grade: 67 }],
-      },
-    });
-  });
-
-  it("should report failing to get the transcript for a nonexistent student", async () => {
-    response = await supertest(app)
-      .post(`/api/getTranscript`)
-      .send({ password: "password", studentID: BAD_STUDENT_ID });
-    expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({ success: false });
-  });
-
-  it("should reject invalid payloads", async () => {
-    response = await supertest(app).post(`/api/getTranscript`).send({ password: "password" });
-    expect(response.status).toBe(400);
-  });
-
-  it("should reject invalid auth", async () => {
-    response = await supertest(app)
-      .post(`/api/getTranscript`)
-      .send({ password: "wrong", studentID: id });
-    expect(response.status).toBe(403);
+    expect(response.body).toStrictEqual({ type: "not-found" });
   });
 });
