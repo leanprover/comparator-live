@@ -126,7 +126,10 @@ export const leanConfigsAtom = atom((get) => {
     throw new Error(`Project listing includes a project with a reserved name`);
   } else {
     return createListCollection({
-      items: [...data.map(({ project, name }) => ({ label: name, value: project }))],
+      items: [
+        ...data.map(({ project, name }) => ({ label: name, value: project })),
+        { label: "Unsupported project", value: "unknown" },
+      ],
     });
   }
 });
