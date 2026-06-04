@@ -5,6 +5,7 @@
   "scripts": {
     "check": "tsc",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "prettier": "prettier --ignore-path ../.gitignore --check .",
     "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
     "dev": "vite",
