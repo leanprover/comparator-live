@@ -10,7 +10,7 @@ import { doWork } from "./worker.ts";
 const CONCURRENCY = IS_PRODUCTION ? 4 : 1;
 let runningJobCount = 0;
 
-type WorkQueueEvents = {
+export type WorkQueueEvents = {
   queueUpdate: [next: number];
   running: [];
   failed: [error: string];
@@ -85,12 +85,6 @@ export function metrics() {
     }
   }
 
-  if (runningJobCount !== countRunning) {
-    console.warn(
-      `Discrepancy: active running job count is ${runningJobCount} but jobDb has ${countRunning} running jobs`,
-    );
-  }
-
   /** Turn an ms count into a cleaner seconds count */
   const cleanS = (ms: number) => {
     return Math.round(ms / 125) / 8;
@@ -122,7 +116,7 @@ export function addWorkToQueue(id: string, data: StartVerifyRequest) {
   Q.enq(id);
   const emitter = new EventEmitter<WorkQueueEvents>();
   jobDb.set(id, { type: "in-queue", ticketNumber, data, enqueuedAt: performance.now(), emitter });
-  drain();
+  queueMicrotask(drain);
   return { emitter, position: ticketNumber - nextServed };
 }
 

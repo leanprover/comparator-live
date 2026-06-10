@@ -1,4 +1,3 @@
-import type { CheckVerifyResponse } from "@comparator/shared";
 import supertest, { type Response } from "supertest";
 import { describe, expect, it } from "vitest";
 
@@ -16,17 +15,23 @@ describe(`POST /comparator/api/poll`, () => {
     expect(response.body).toStrictEqual({ type: "ready", requestId: expect.anything() });
     const requestId = response.body.requestId as string;
 
-    expect(
-      await (async (): Promise<CheckVerifyResponse> => {
-        for (;;) {
-          response = await supertest(app).post(`/comparator/api/poll`).send({ requestId });
-          if (response.body.type !== "in-queue" && response.body.type !== "in-progress") {
-            return response.body as CheckVerifyResponse;
-          }
-          await new Promise((resolve) => setTimeout(resolve, 200));
-        }
-      })(),
-    ).toStrictEqual({ type: "verification-ok", theoremNames: ["triv"] });
+    response = await supertest(app)
+      .get(`/comparator/api/track/${requestId}`)
+      .buffer(true)
+      .parse((res, cb) => {
+        let first: unknown = null;
+        let last: unknown = null;
+        res.on("data", (c: Buffer) => {
+          const contents = JSON.parse(c.toString().slice(5));
+          first = first ?? contents;
+          last = contents;
+        });
+        res.on("end", () => cb(null, [first, last]));
+      });
+    expect(response.body).toStrictEqual([
+      { type: "in-queue", position: 0 },
+      { type: "verification-ok", theoremNames: ["triv"] },
+    ]);
   });
 }, 50_000);
 
