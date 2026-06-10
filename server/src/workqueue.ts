@@ -12,10 +12,10 @@ let runningJobCount = 0;
 
 const Q: Queue<string> = new Queue();
 type JobStatus =
-  | { type: "in-queue"; ticketNumber: number; data: StartVerifyRequest }
-  | { type: "running" }
-  | { type: "failed"; error: string }
-  | { type: "complete"; result: VerifyResult };
+  | { type: "in-queue"; ticketNumber: number; data: StartVerifyRequest; enqueuedAt: number }
+  | { type: "running"; enqueuedAt: number; since: number }
+  | { type: "failed"; enqueuedAt: number; error: string }
+  | { type: "complete"; enqueuedAt: number; result: VerifyResult };
 
 const jobDb = new Map<string, JobStatus>();
 
@@ -26,7 +26,53 @@ let nextServed = 1;
  * Health check/stats
  */
 export function health() {
-  return { queueLength: Q.length, runningJobCount };
+  return {
+    uptime: performance.now(),
+    jobDbSize: jobDb.size,
+    queueLength: Q.length,
+    runningJobCount,
+    totalJobs: nextTicket - 1,
+  };
+}
+
+/**
+ * Metrics (slightly slower than health())
+ */
+export function metrics() {
+  const now = performance.now();
+  let maxJob = 0;
+  let totalJob = 0;
+  let maxRunning = 0;
+  let totalRunning = 0;
+  let countRunning = 0;
+  for (const [_key, value] of jobDb.entries()) {
+    maxJob = Math.max(maxJob, now - value.enqueuedAt);
+    totalJob += now - value.enqueuedAt;
+    if (value.type === "running") {
+      countRunning += 1;
+      maxRunning = Math.max(maxRunning, now - value.since);
+      totalRunning += now - value.since;
+    }
+  }
+
+  if (runningJobCount !== countRunning) {
+    console.warn(
+      `Discrepancy: active running job count is ${runningJobCount} but jobDb has ${countRunning} running jobs`,
+    );
+  }
+
+  return {
+    comparator_uptime_ms: now,
+    comparator_queue_length: Q.length,
+    comparator_workers_active: countRunning,
+    comparator_workers_longest_ms: maxRunning,
+    comparator_workers_total_ms: totalRunning,
+    comparator_workers_limit: CONCURRENCY,
+    comparator_jobs_longest_ms: maxJob,
+    comparator_jobs_total_ms: totalJob,
+    comparator_jobs_active: jobDb.size,
+    comparator_jobs_history_total: nextTicket - 1,
+  };
 }
 
 /**
@@ -37,7 +83,7 @@ export function addWorkToQueue(data: StartVerifyRequest) {
 
   const ticketNumber = nextTicket++;
   Q.enq(id);
-  jobDb.set(id, { type: "in-queue", ticketNumber, data });
+  jobDb.set(id, { type: "in-queue", ticketNumber, data, enqueuedAt: performance.now() });
   drain();
   return id;
 }
@@ -102,21 +148,25 @@ function drain() {
       throw new Error(`nextServed is out of sync, ${nextServed} vs ${job.ticketNumber}`);
     }
 
-    jobDb.set(id, { type: "running" });
+    jobDb.set(id, { type: "running", enqueuedAt: job.enqueuedAt, since: performance.now() });
     runningJobCount++;
     nextServed++;
     doWork(id, job.data)
       .then((result) => {
         // Check for cancellation, which means we don't care anymore
         if (!jobDb.has(id)) return;
-        jobDb.set(id, { type: "complete", result });
+        jobDb.set(id, { type: "complete", result, enqueuedAt: job.enqueuedAt });
       })
       .catch((err: unknown) => {
         // Check for cancellation, which means we don't care anymore
         if (!jobDb.has(id)) return;
 
         // retry logic would go here
-        jobDb.set(id, { type: "failed", error: err instanceof Error ? err.message : String(err) });
+        jobDb.set(id, {
+          type: "failed",
+          error: err instanceof Error ? err.message : String(err),
+          enqueuedAt: job.enqueuedAt,
+        });
       })
       .finally(() => {
         runningJobCount--;
