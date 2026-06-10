@@ -1,11 +1,22 @@
 export const challengeExamples = Object.fromEntries(
   [
     {
-      label: "Infinitely Many Primes",
+      label: "There Are Infinitely Many Primes",
       contents: `
 def IsPrime (n : Nat) := 1 < n ∧ ∀ k, 1 < k → k < n → ¬ k ∣ n
 
 theorem InfinitudeOfPrimes : ∀ n, ∃ p > n, IsPrime p := by
+  sorry`,
+    },
+    {
+      label: "Finite Ramsey theorem for graphs",
+      contents: `
+import Mathlib
+
+open SimpleGraph
+
+theorem finite_graph_ramsey_theorem :
+    ∀ r s : ℕ, 2 ≤ r → 2 ≤ s → ∃ n : ℕ, ∀ G : SimpleGraph (Fin n), ¬ G.CliqueFree r ∨ ¬ Gᶜ.CliqueFree s := by
   sorry`,
     },
     {

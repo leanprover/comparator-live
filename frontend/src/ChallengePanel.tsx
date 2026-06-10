@@ -74,15 +74,12 @@ export default function ChallengePanel() {
         <Portal>
           <Select.Positioner>
             <Select.Content>
-              {challenges.items
-                // Only show "custom" in the dropdown when it's selected
-                .filter((_, i) => i !== 1 || challengeSelection[0] === "custom")
-                .map((challenge) => (
-                  <Select.Item item={challenge} key={challenge.value}>
-                    {challenge.label}
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                ))}
+              {challenges.items.map((challenge) => (
+                <Select.Item item={challenge} key={challenge.value}>
+                  {challenge.label}
+                  <Select.ItemIndicator />
+                </Select.Item>
+              ))}
             </Select.Content>
           </Select.Positioner>
         </Portal>
