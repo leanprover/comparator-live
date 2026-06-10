@@ -90,7 +90,7 @@ export function metrics() {
     comparator_queue_live_count: activeQueue,
     comparator_queue_live_sum_seconds: cleanS(totalQueue),
     comparator_queue_live_longest_seconds: cleanS(maxQueue),
-    comparator_queue_cancelled: cancelledQueue,
+    comparator_queue_cancelled_count: cancelledQueue,
     comparator_jobs_longest_seconds: cleanS(maxJob),
     comparator_jobs_size: jobDb.size,
     comparator_jobs_total: nextTicket - 1,
