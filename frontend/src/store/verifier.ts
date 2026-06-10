@@ -134,49 +134,24 @@ export const unobserve = observe((get, set) => {
   }
 
   // If controller aborts, we mustn't set `comparatorResultAtom`
-  const controller = new AbortController();
-  (async () => {
-    for (;;) {
-      await new Promise((resolve) => setTimeout(resolve, 200 + Math.random() * 50));
-      const response = await fetch("/comparator/api/poll", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ requestId }),
-        signal: controller.signal,
-      });
-      if (response.status !== 200) throw new Error(`got ${response.status} response on poll`);
-
-      const body = zCheckVerifyResponse.parse(await response.json());
-      controller.signal.throwIfAborted();
-      set(comparatorResultAtom, body);
-      if (body.type !== "in-progress" && body.type !== "in-queue") return;
+  const source = new EventSource(`/comparator/api/track/${requestId}`);
+  source.onmessage = (event) => {
+    const message = zCheckVerifyResponse.parse(JSON.parse(event.data as string));
+    set(comparatorResultAtom, message);
+    if (message.type === "verification-failed" || message.type === "verification-ok") {
+      source.close();
     }
-  })().catch((err: unknown) => {
-    if (controller.signal.aborted) return;
-    // Don't go to an error state if the error is an AbortError. The reasoning
-    // is that it's *probably* cancellation due to a page unload event, and
-    // this avoids flashing a quick error state on some page navigation
-    // events.
-    //
-    // If we're wrong, and something else aborted the fetch, the user will see
-    // the app as stuck in the waiting state. That's better than flashing a
-    // quick error state on page navigation.
-    if (err instanceof Error && err.name === "AbortError") return;
+  };
+  source.onerror = (event) => {
+    source.close();
     set(comparatorResultAtom, {
       type: "verification-failed",
       description: `Unexpected error while waiting for response`,
-      output: err instanceof Error ? err.message : String(err),
+      output: "",
     });
-  });
-
+  };
   return () => {
-    controller.abort();
-    fetch("/comparator/api/cancel", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ requestId }),
-      keepalive: true, // run this to completion if at all possible
-    }).catch((err: unknown) => console.error(`Unexpected error during cancel`, err));
+    source.close();
   };
 });
 

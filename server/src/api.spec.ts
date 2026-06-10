@@ -4,8 +4,8 @@ import { describe, expect, it } from "vitest";
 import { app } from "./app.ts";
 let response: Response;
 
-describe(`POST /comparator/api/poll`, () => {
-  it("should eventually validate a valid request", async () => {
+describe(`POST /comparator/api/track/:requestId`, () => {
+  it("should successfully track a valid request", async () => {
     response = await supertest(app).post(`/comparator/api/start`).send({
       project: "mathlib-stable",
       challenge: `theorem triv : True := by sorry`,

@@ -1,7 +1,9 @@
-import { describe, expect, it } from "vitest";
-import { addWorkToQueue, health, metrics, type WorkQueueEvents } from "./workqueue.ts";
 import { randomUUID } from "node:crypto";
 import type { EventEmitter } from "node:stream";
+
+import { describe, expect, it } from "vitest";
+
+import { addWorkToQueue, health, metrics, type WorkQueueEvents } from "./workqueue.ts";
 
 function promisifyEmitter(emitter: EventEmitter<WorkQueueEvents>) {
   return new Promise((resolve, reject) => {
@@ -29,7 +31,7 @@ describe("the workqueue", () => {
     expect(await promisifyEmitter(emitter)).toStrictEqual({ ...basicResponse, theoremNames: [] });
   });
 
-  it("rejects on an empty challenge", async () => {
+  it("rejects on an ill-formed challenge", async () => {
     const { emitter, position } = addWorkToQueue(randomUUID(), { ...basicJob, challenge: "_bad_" });
 
     expect(position).toBe(0);

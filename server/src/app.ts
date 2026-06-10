@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 import {
   type CheckVerifyResponse,
   type StartVerifyResponse,
@@ -9,7 +11,6 @@ import { z, type ZodSafeParseResult } from "zod";
 
 import { getProjects } from "./projects.ts";
 import { addWorkToQueue, cancelWork, health, metrics } from "./workqueue.ts";
-import { randomUUID } from "node:crypto";
 
 export const app = express();
 app.use(express.json());
