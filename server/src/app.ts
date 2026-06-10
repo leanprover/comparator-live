@@ -60,6 +60,10 @@ app.post("/comparator/api/cancel", (req, res) => {
   res.send();
 });
 
+app.post("/comparator/api/track", (req, res) => {
+  
+})
+
 app.post("/comparator/api/poll", (req, res) => {
   const body = zVerifyRequest.safeParse(req.body);
   if (poorlyFormed(body, res)) return;

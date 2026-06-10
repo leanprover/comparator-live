@@ -36,6 +36,9 @@ export function health() {
 
 /**
  * Metrics (checks full jobDb and queue, so will be slower than health())
+ *
+ * Note: `comparator_jobs_size` and `comparator_jobs_longest_s` expose
+ * information about the magnitude of potential memory leaks.
  */
 export function metrics() {
   const now = performance.now();
@@ -79,16 +82,16 @@ export function metrics() {
   };
 
   return {
-    comparator_uptime_s: cleanS(now),
-    comparator_workers_active: countRunning,
-    comparator_workers_longest_s: cleanS(maxRunning),
-    comparator_workers_sum_s: cleanS(totalRunning),
+    comparator_uptime_seconds: cleanS(now),
+    comparator_workers_active_count: countRunning,
+    comparator_workers_active_sum_seconds: cleanS(totalRunning),
+    comparator_workers_active_longest_seconds: cleanS(maxRunning),
     comparator_workers_limit: CONCURRENCY,
-    comparator_queue_active: activeQueue,
-    comparator_queue_sum_s: cleanS(totalQueue),
-    comparator_queue_longest_s: cleanS(maxQueue),
+    comparator_queue_live_count: activeQueue,
+    comparator_queue_live_sum_seconds: cleanS(totalQueue),
+    comparator_queue_live_longest_seconds: cleanS(maxQueue),
     comparator_queue_cancelled: cancelledQueue,
-    comparator_jobs_longest_s: cleanS(maxJob),
+    comparator_jobs_longest_seconds: cleanS(maxJob),
     comparator_jobs_size: jobDb.size,
     comparator_jobs_total: nextTicket - 1,
   };
