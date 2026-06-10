@@ -58,8 +58,7 @@ describe(`POST /comparator/api/cancel`, () => {
     response = await supertest(app).post(`/comparator/api/cancel`).send({ requestId });
     expect(response.status).toBe(200);
 
-    response = await supertest(app).post(`/comparator/api/poll`).send({ requestId });
-    expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({ type: "not-found" });
+    response = await supertest(app).get(`/comparator/api/track/${requestId}`);
+    expect(response.status).toBe(404);
   });
 });

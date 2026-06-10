@@ -5,10 +5,10 @@ import {
   zVerifyRequest,
 } from "@comparator/shared";
 import express, { type Response } from "express";
-import type { ZodSafeParseResult } from "zod";
+import { z, type ZodSafeParseResult } from "zod";
 
 import { getProjects } from "./projects.ts";
-import { addWorkToQueue, cancelWork, checkWorkStatus, health, metrics } from "./workqueue.ts";
+import { addWorkToQueue, cancelWork, health, metrics } from "./workqueue.ts";
 import { randomUUID } from "node:crypto";
 
 export const app = express();
@@ -44,7 +44,11 @@ app.get("/comparator/api/metrics.prom", (_req, res) => {
  * Jobs are stored with a post request and enqueued when their status is first requested.
  * In between, they're temporarily stored in `readyJobs`.
  */
-const readyJobs = new Map<string, { project: string; challenge: string; solution: string }>();
+const readyJobs = new Map<
+  string,
+  { timeoutCancel: NodeJS.Timeout; job: { project: string; challenge: string; solution: string } }
+>();
+const READY_JOB_TIMEOUT_MS = 5000;
 
 app.post("/comparator/api/start", async (req, res) => {
   const body = zStartVerifyRequest.safeParse(req.body);
@@ -55,8 +59,10 @@ app.post("/comparator/api/start", async (req, res) => {
     result = { type: "project-not-supported" };
   } else {
     const uuid = randomUUID();
-    readyJobs.set(uuid, body.data);
-    setTimeout(() => readyJobs.delete(uuid), 5000);
+    readyJobs.set(uuid, {
+      timeoutCancel: setTimeout(() => readyJobs.delete(uuid), READY_JOB_TIMEOUT_MS),
+      job: body.data,
+    });
     result = { type: "ready", requestId: uuid };
   }
   res.send(result);
@@ -66,7 +72,9 @@ app.post("/comparator/api/cancel", (req, res) => {
   const body = zVerifyRequest.safeParse(req.body);
   if (poorlyFormed(body, res)) return;
 
-  if (readyJobs.has(body.data.requestId)) {
+  const readyJob = readyJobs.get(body.data.requestId);
+  if (readyJob) {
+    clearTimeout(readyJob.timeoutCancel);
     readyJobs.delete(body.data.requestId);
   } else {
     cancelWork(body.data.requestId);
@@ -75,19 +83,54 @@ app.post("/comparator/api/cancel", (req, res) => {
   res.send();
 });
 
-app.post("/comparator/api/poll", (req, res) => {
-  const body = zVerifyRequest.safeParse(req.body);
-  if (poorlyFormed(body, res)) return;
+app.get("/comparator/api/track/:requestId", (req, res) => {
+  const requestId = z.uuidv4().safeParse(req.params.requestId);
+  if (poorlyFormed(requestId, res)) return;
 
-  const readyJob = readyJobs.get(body.data.requestId);
-  if (readyJob) {
-    // requestId can be safely assumed to be an ID the server recently generated
-    addWorkToQueue(body.data.requestId, readyJob);
-    readyJobs.delete(body.data.requestId);
+  const readyJob = readyJobs.get(requestId.data);
+  if (!readyJob) {
+    res.sendStatus(404);
+    return;
   }
 
-  const result: CheckVerifyResponse = checkWorkStatus(body.data.requestId);
-  res.send(result);
+  // Server-sent events always need these
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Connection", "keep-alive");
+  // For nginx
+  res.setHeader("X-Accel-Buffering", "no");
+  res.flushHeaders();
+
+  const keepAlive: NodeJS.Timeout | undefined = setInterval(() => {
+    res.write(":\n");
+  }, 5000);
+
+  const sendMsg = (msg: CheckVerifyResponse) => {
+    res.write(`data: ${JSON.stringify(msg)}\n\n`);
+  };
+
+  clearTimeout(readyJob.timeoutCancel);
+  readyJobs.delete(requestId.data);
+
+  const { emitter, position } = addWorkToQueue(requestId.data, readyJob.job);
+  sendMsg({ type: "in-queue", position });
+  emitter.on("queueUpdate", (position) => {
+    sendMsg({ type: "in-queue", position });
+  });
+  emitter.on("complete", (response) => {
+    sendMsg(response);
+    res.end();
+  });
+  emitter.on("failed", (error) => {
+    sendMsg({ type: "verification-failed", description: "Unexpected failure", output: error });
+    res.end();
+  });
+
+  req.on("close", () => {
+    clearInterval(keepAlive);
+    emitter.removeAllListeners();
+    cancelWork(requestId.data);
+  });
 });
 
 app.get("/comparator/api/projects", async (_req, res) => {
