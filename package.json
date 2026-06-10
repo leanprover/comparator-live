@@ -15,13 +15,6 @@
     "server/src",
     "shared"
   ],
-  "files": [
-    "*/package.json",
-    "frontend/dist",
-    "server/scripts",
-    "server/src",
-    "shared"
-  ],
   "scripts": {
     "check": "npm run check --workspaces",
     "lint": "eslint .",
