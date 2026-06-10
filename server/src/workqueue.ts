@@ -35,7 +35,7 @@ export function health() {
 }
 
 /**
- * Metrics (slightly slower than health())
+ * Metrics (checks full jobDb and queue, so will be slower than health())
  */
 export function metrics() {
   const now = performance.now();
