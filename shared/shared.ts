@@ -44,6 +44,14 @@ export type CheckVerifyStatus =
   | { type: "initial-load" }
   | { type: "in-preparation" };
 
+export function checkVerifyStatusIsTerminal(status: CheckVerifyStatus) {
+  return (
+    status.type === "not-found" ||
+    status.type === "verification-failed" ||
+    status.type === "verification-ok"
+  );
+}
+
 export const zProjectListing = z.object({
   project: z.string(),
   name: z.string(),

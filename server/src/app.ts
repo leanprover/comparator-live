@@ -118,6 +118,9 @@ app.get("/comparator/api/track/:requestId", (req, res) => {
   emitter.on("queueUpdate", (position) => {
     sendMsg({ type: "in-queue", position });
   });
+  emitter.on("running", () => {
+    sendMsg({ type: "in-progress" });
+  });
   emitter.on("complete", (response) => {
     sendMsg(response);
     res.end();

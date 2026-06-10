@@ -1,9 +1,10 @@
 import {
   type CheckVerifyStatus,
+  checkVerifyStatusIsTerminal,
   zCheckVerifyResponse,
   zStartVerifyResponse,
 } from "@comparator/shared";
-import { atom } from "jotai";
+import { atom, getDefaultStore } from "jotai";
 import { observe } from "jotai-effect";
 import { atomWithQuery } from "jotai-tanstack-query";
 
@@ -38,7 +39,12 @@ const comparatorJobParamsHolder = atom<ComparatorJobParams | null>(null);
  */
 export const comparatorJobParamsAtom = atom(
   (get) => get(comparatorJobParamsHolder),
-  (get, set) => {
+  (get, set, action?: "clear") => {
+    if (action === "clear") {
+      // Reset to a "we've not sent anything to comparator" state
+      set(comparatorJobParamsHolder, null);
+      return;
+    }
     set(comparatorJobParamsHolder, {
       internalId: ++internalIdSequenceNumber,
       project: get(projectAtom),
@@ -109,6 +115,20 @@ const comparatorJobIdAtom = atomWithQuery((get) => {
  */
 export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "initial-load" });
 
+let navigatingAway = false;
+window.addEventListener("pagehide", () => {
+  navigatingAway = true;
+});
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+  const jotaiStore = getDefaultStore();
+  const message = jotaiStore.get(comparatorResultAtom);
+  if (!checkVerifyStatusIsTerminal(message)) {
+    jotaiStore.set(comparatorJobParamsAtom, "clear");
+  }
+  navigatingAway = false;
+});
+
 /**
  * Effect observer that triggers whenever `comparatorJobIdAtom` is set and
  * manages the effect.
@@ -133,20 +153,21 @@ export const unobserve = observe((get, set) => {
     return;
   }
 
-  // If controller aborts, we mustn't set `comparatorResultAtom`
   const source = new EventSource(`/comparator/api/track/${requestId}`);
   source.onmessage = (event) => {
     const message = zCheckVerifyResponse.parse(JSON.parse(event.data as string));
     set(comparatorResultAtom, message);
-    if (message.type === "verification-failed" || message.type === "verification-ok") {
+    if (checkVerifyStatusIsTerminal(message)) {
       source.close();
     }
   };
-  source.onerror = (event) => {
+
+  source.onerror = () => {
     source.close();
+    if (navigatingAway) return;
     set(comparatorResultAtom, {
       type: "verification-failed",
-      description: `Unexpected error while waiting for response`,
+      description: `Lost server connection`,
       output: "",
     });
   };
