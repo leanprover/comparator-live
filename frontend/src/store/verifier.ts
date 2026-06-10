@@ -163,6 +163,12 @@ export const unobserve = observe((get, set) => {
   };
 
   source.onerror = () => {
+    if (source.readyState === EventSource.CONNECTING) {
+      // Let the app attempt to reconnect once, this is sure to 404 based on how the backend works.
+      // This retry prevents the page from immediately flashing into an error state when the error
+      // results from the user navigating to another page.
+      return;
+    }
     source.close();
     if (navigatingAway) return;
     set(comparatorResultAtom, {
