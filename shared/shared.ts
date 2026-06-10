@@ -8,12 +8,12 @@ export const zStartVerifyRequest = z.object({
 export type StartVerifyRequest = z.infer<typeof zStartVerifyRequest>;
 
 export const zStartVerifyResponse = z.discriminatedUnion("type", [
-  z.object({ type: z.literal("enqueued"), requestId: z.uuidv4() }),
+  z.object({ type: z.literal("ready"), requestId: z.uuidv4() }),
   z.object({ type: z.literal("project-not-supported") }),
 ]);
 export type StartVerifyResponse = z.infer<typeof zStartVerifyResponse>;
 
-export const zVerifyRequest = z.object({ requestId: z.string() });
+export const zVerifyRequest = z.object({ requestId: z.uuidv4() });
 export type VerifyRequest = z.infer<typeof zVerifyRequest>;
 
 export const zVerifier = z.enum(["Lean", "Nanoda"]);

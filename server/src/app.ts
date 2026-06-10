@@ -9,6 +9,7 @@ import type { ZodSafeParseResult } from "zod";
 
 import { getProjects } from "./projects.ts";
 import { addWorkToQueue, cancelWork, checkWorkStatus, health, metrics } from "./workqueue.ts";
+import { randomUUID } from "node:crypto";
 
 export const app = express();
 app.use(express.json());
@@ -39,6 +40,12 @@ app.get("/comparator/api/metrics.prom", (_req, res) => {
   );
 });
 
+/**
+ * Jobs are stored with a post request and enqueued when their status is first requested.
+ * In between, they're temporarily stored in `readyJobs`.
+ */
+const readyJobs = new Map<string, { project: string; challenge: string; solution: string }>();
+
 app.post("/comparator/api/start", async (req, res) => {
   const body = zStartVerifyRequest.safeParse(req.body);
   if (poorlyFormed(body, res)) return;
@@ -47,7 +54,10 @@ app.post("/comparator/api/start", async (req, res) => {
   if (!(await getProjects()).some(({ project }) => project === body.data.project)) {
     result = { type: "project-not-supported" };
   } else {
-    result = { type: "enqueued", requestId: addWorkToQueue(body.data) };
+    const uuid = randomUUID();
+    readyJobs.set(uuid, body.data);
+    setTimeout(() => readyJobs.delete(uuid), 5000);
+    result = { type: "ready", requestId: uuid };
   }
   res.send(result);
 });
@@ -56,13 +66,25 @@ app.post("/comparator/api/cancel", (req, res) => {
   const body = zVerifyRequest.safeParse(req.body);
   if (poorlyFormed(body, res)) return;
 
-  cancelWork(body.data.requestId);
+  if (readyJobs.has(body.data.requestId)) {
+    readyJobs.delete(body.data.requestId);
+  } else {
+    cancelWork(body.data.requestId);
+  }
+
   res.send();
 });
 
 app.post("/comparator/api/poll", (req, res) => {
   const body = zVerifyRequest.safeParse(req.body);
   if (poorlyFormed(body, res)) return;
+
+  const readyJob = readyJobs.get(body.data.requestId);
+  if (readyJob) {
+    // requestId can be safely assumed to be an ID the server recently generated
+    addWorkToQueue(body.data.requestId, readyJob);
+    readyJobs.delete(body.data.requestId);
+  }
 
   const result: CheckVerifyResponse = checkWorkStatus(body.data.requestId);
   res.send(result);

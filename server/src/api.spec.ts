@@ -13,7 +13,7 @@ describe(`POST /comparator/api/poll`, () => {
       solution: `theorem triv : True := True.intro`,
     });
     expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({ type: "enqueued", requestId: expect.anything() });
+    expect(response.body).toStrictEqual({ type: "ready", requestId: expect.anything() });
     const requestId = response.body.requestId as string;
 
     expect(
@@ -52,7 +52,7 @@ describe(`POST /comparator/api/cancel`, () => {
       .post(`/comparator/api/start`)
       .send({ project: "mathlib-stable", challenge: "", solution: "" });
     expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({ type: "enqueued", requestId: expect.anything() });
+    expect(response.body).toStrictEqual({ type: "ready", requestId: expect.anything() });
     const requestId = response.body.requestId as string;
 
     response = await supertest(app).post(`/comparator/api/cancel`).send({ requestId });

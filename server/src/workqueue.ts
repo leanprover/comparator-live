@@ -98,11 +98,11 @@ export function metrics() {
 }
 
 /**
- * Create a new work item for a verification request
+ * Create a new work item for a verification request.
+ *
+ * `id` must be a UUID generated server-side, it can't come from the user.
  */
-export function addWorkToQueue(data: StartVerifyRequest) {
-  const id = randomUUID();
-
+export function addWorkToQueue(id: string, data: StartVerifyRequest) {
   const ticketNumber = nextTicket++;
   Q.enq(id);
   jobDb.set(id, { type: "in-queue", ticketNumber, data, enqueuedAt: performance.now() });
