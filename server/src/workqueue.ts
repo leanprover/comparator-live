@@ -12,10 +12,10 @@ let runningJobCount = 0;
 
 const Q: Queue<string> = new Queue();
 type JobStatus =
-  | { type: "in-queue"; ticketNumber: number; data: StartVerifyRequest }
-  | { type: "running" }
-  | { type: "failed"; error: string }
-  | { type: "complete"; result: VerifyResult };
+  | { type: "in-queue"; ticketNumber: number; data: StartVerifyRequest; enqueuedAt: number }
+  | { type: "running"; enqueuedAt: number; since: number }
+  | { type: "failed"; enqueuedAt: number; error: string }
+  | { type: "complete"; enqueuedAt: number; result: VerifyResult };
 
 const jobDb = new Map<string, JobStatus>();
 
@@ -26,7 +26,75 @@ let nextServed = 1;
  * Health check/stats
  */
 export function health() {
-  return { queueLength: Q.length, runningJobCount };
+  return {
+    uptime: performance.now(),
+    queueLength: Q.length,
+    runningJobCount,
+    totalJobs: nextTicket - 1,
+  };
+}
+
+/**
+ * Metrics (checks full jobDb and queue, so will be slower than health())
+ *
+ * Note: `comparator_jobs_size` and `comparator_jobs_longest_s` expose
+ * information about the magnitude of potential memory leaks.
+ */
+export function metrics() {
+  const now = performance.now();
+  let maxQueue = 0;
+  let totalQueue = 0;
+  let activeQueue = 0;
+  let cancelledQueue = 0;
+  for (const key of Q) {
+    const value = jobDb.get(key);
+    if (!value) {
+      cancelledQueue += 1;
+    } else {
+      activeQueue += 1;
+      maxQueue = Math.max(maxQueue, now - value.enqueuedAt);
+      totalQueue += now - value.enqueuedAt;
+    }
+  }
+
+  let maxJob = 0;
+  let maxRunning = 0;
+  let totalRunning = 0;
+  let countRunning = 0;
+  for (const [_key, value] of jobDb.entries()) {
+    maxJob = Math.max(maxJob, now - value.enqueuedAt);
+    if (value.type === "running") {
+      countRunning += 1;
+      maxRunning = Math.max(maxRunning, now - value.since);
+      totalRunning += now - value.since;
+    }
+  }
+
+  if (runningJobCount !== countRunning) {
+    console.warn(
+      `Discrepancy: active running job count is ${runningJobCount} but jobDb has ${countRunning} running jobs`,
+    );
+  }
+
+  /** Turn an ms count into a cleaner seconds count */
+  const cleanS = (ms: number) => {
+    return Math.round(ms / 125) / 8;
+  };
+
+  return {
+    comparator_uptime_seconds: cleanS(now),
+    comparator_workers_active_count: countRunning,
+    comparator_workers_active_sum_seconds: cleanS(totalRunning),
+    comparator_workers_active_longest_seconds: cleanS(maxRunning),
+    comparator_workers_limit: CONCURRENCY,
+    comparator_queue_live_count: activeQueue,
+    comparator_queue_live_sum_seconds: cleanS(totalQueue),
+    comparator_queue_live_longest_seconds: cleanS(maxQueue),
+    comparator_queue_cancelled_count: cancelledQueue,
+    comparator_jobs_longest_seconds: cleanS(maxJob),
+    comparator_jobs_size: jobDb.size,
+    comparator_jobs_total: nextTicket - 1,
+  };
 }
 
 /**
@@ -37,7 +105,7 @@ export function addWorkToQueue(data: StartVerifyRequest) {
 
   const ticketNumber = nextTicket++;
   Q.enq(id);
-  jobDb.set(id, { type: "in-queue", ticketNumber, data });
+  jobDb.set(id, { type: "in-queue", ticketNumber, data, enqueuedAt: performance.now() });
   drain();
   return id;
 }
@@ -102,21 +170,25 @@ function drain() {
       throw new Error(`nextServed is out of sync, ${nextServed} vs ${job.ticketNumber}`);
     }
 
-    jobDb.set(id, { type: "running" });
+    jobDb.set(id, { type: "running", enqueuedAt: job.enqueuedAt, since: performance.now() });
     runningJobCount++;
     nextServed++;
     doWork(id, job.data)
       .then((result) => {
         // Check for cancellation, which means we don't care anymore
         if (!jobDb.has(id)) return;
-        jobDb.set(id, { type: "complete", result });
+        jobDb.set(id, { type: "complete", result, enqueuedAt: job.enqueuedAt });
       })
       .catch((err: unknown) => {
         // Check for cancellation, which means we don't care anymore
         if (!jobDb.has(id)) return;
 
         // retry logic would go here
-        jobDb.set(id, { type: "failed", error: err instanceof Error ? err.message : String(err) });
+        jobDb.set(id, {
+          type: "failed",
+          error: err instanceof Error ? err.message : String(err),
+          enqueuedAt: job.enqueuedAt,
+        });
       })
       .finally(() => {
         runningJobCount--;

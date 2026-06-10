@@ -8,7 +8,7 @@ import express, { type Response } from "express";
 import type { ZodSafeParseResult } from "zod";
 
 import { getProjects } from "./projects.ts";
-import { addWorkToQueue, cancelWork, checkWorkStatus, health } from "./workqueue.ts";
+import { addWorkToQueue, cancelWork, checkWorkStatus, health, metrics } from "./workqueue.ts";
 
 export const app = express();
 app.use(express.json());
@@ -25,8 +25,18 @@ function poorlyFormed<T>(
   return false;
 }
 
-app.get("/comparator/api/health", (req, res) => {
+app.get("/comparator/api/health", (_req, res) => {
   res.send(health());
+});
+
+app.get("/comparator/api/metrics.prom", (_req, res) => {
+  res.set("Content-Type", "text/plain; charset=ascii");
+  res.send(
+    Object.entries(metrics())
+      .map(([key, value]) => `${key} ${value}\n`)
+      .toSorted()
+      .join(""),
+  );
 });
 
 app.post("/comparator/api/start", async (req, res) => {

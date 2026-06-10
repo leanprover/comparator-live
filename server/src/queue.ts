@@ -22,7 +22,7 @@ export class Queue<T> {
 
     return {
       next: () => {
-        const value = index > 0 ? this._front[index - 1] : this._back[-index];
+        const value = index > 0 ? this._front[index - 1]! : this._back[-index]!;
         index--;
         return { value, done: -index > this._back.length };
       },
