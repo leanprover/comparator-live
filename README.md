@@ -1,226 +1,134 @@
-# Sourdough
+# Comparator Live
 
-This template project is part of Sourdough, a set of JavaScript templates that
-were originally developed at Northeastern for their Software Engineering class
-in spring of 2026.
+Comparator Live gives an online interface to the
+[Lean `comparator` tool](https://github.com/leanprover/comparator/) tool,
+Lean's "gold standard" for validating proofs from untrusted sources.
 
-## Vite+Express Full-stack React Application with Workspaces
+Comparator Live is intended as a limited-purpose tool, it's goal is to clearly
+signify the conditions under which users can rely on a Lean proof from an
+unreliable, potentially malicious, or AI source. To this end, Comparator Live
+differs in several ways from the the command-line `comparator` utility that it
+invokes:
 
-This project has three parts, which together form an
-[npm workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces) project.
+- While `comparator` allows configuration of permitted axioms, Comparator Live
+  always uses the standard set of three permitted axioms: `propext`,
+  `Quot.sound`, and `Classical.choice`.
+- While `comparator` allows set of challenge theorems to be configured,
+  Comparator Live automatically infers the challenge theorems as all the
+  theorems declared in the challenge.
+- Comparator Live introduces a notion of "trusted challenges."
 
-1.  A minimal Express transcript API for a very simple transcript server (in
-    the `./server` directory)
-2.  A Vite frontend for a simple React application that uses the API server
-    (this lives in the `./frontend` directory)
-3.  Shared Zod validation and type definitions (in the `./shared` directory)
+## Trusted Challenges
 
-The shared Zod validation is why the move to workspaces is desirable in the
-first place: it's common practice to keep frontend and backend code separate
-and to define a separate project that acts as a "single source of truth" for
-the API's types and that is subsequently imported by both frontend and
-backend. Zod validators and shared types are one of the most common things
-that a project might share between the frontend and the backend.
+A trusted challenge for Comparator Live is simply one that can be relied on to
+reliably present the theorem statement. Knowing when this is the case can be
+difficult for novice users, so Comparator Live treats a built-in set of proofs
+as reliable and trusted; these challenges are identified by their hash(\*).
 
-The way this project runs in "production mode" versus "development mode" is
-very different.
+Users can additionally mark specific challenges as locally trusted; these will
+not be loudly flagged as unreliable in the UI.
 
-### Production Mode
+(\*) We normalize the trailing whitespace, so the hash of a challenge is
+`sha256(challenge.trimRight() + "\n")`
 
-Production mode is simpler: there's one server running, the Express server, on
-port 3000, accessible via the url <http://localhost:3000>. When a GET request
-doesn't match any existing API endpoints, the Express server looks in
-`./frontend/dist` to see if there's a file it can serve from that directory.
-Files are put in that directory when `npm run build` calls the `vite build`
-command.
+Trusted challenges are derived from
+[`lean-eval` benchmark](https://github.com/leanprover/lean-eval/) and from
+files in `Projects/mathlib-stable/TrustedChallenges`. These can be updated by
+running `npm run update-trusted` from the repository root.
 
-The `vite build` step is necessary because we're writing our frontend code in
-TypeScript, but browsers can't do type stripping like Node can — we have to do
-some transformation on the code we're writing to make it browser-friendly.
-(Vite is doing a bunch of other transformations for other reasons as well.)
+## How Comparator Live runs `comparator`
 
-### Development Mode
+Comparator Live does its own compilation of source files to olean files; this
+is necessary (at least for the challenge) because we need to inspect the
+challenge's olean file in order to find out what theorems it contains.
 
-Development mode is a little trickier to explain. When developing, we want our
-browser to be connecting to Vite's "development web server", not to Express,
-because Vite does a lot of nifty stuff to make sure that when we change our
-TypeScript code, it **reloads the web page**. That is _very_ handy for
-frontend web development.
+Bubblewrap is used for sandboxing these tasks in production, **development
+mode does no sandboxing and should not be used to evaluate unknown challenges
+or untrusted solutions**.
 
-However, this means your "frontend code" — the HTML and JS that the browser is
-supposed to run being served by the Vite development web server — is coming
-from a different server than the Express server that's handling API requests.
-The default convention is that Vite development web server is accessed via
-<http://localhost:5173>, and the Express API server is accessible via
-<http://localhost:3000>. If you try to have a website that is being served
-from a different website than the API service it is using, you're going to
-have to gain a nightmarish amount of literacy with
-[CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS). (A
-different port on `localhost` counts as a different website.) This wasn't a
-problem in production mode: your entire website is coming from the Express
-server. You really want your website to look like it's _all_ coming from a
-single server during development too.
+Each task runs in the context of a Lean project (e.g. `mathlib-stable`) that
+lives in a directory `$PROJECT_DIR`, and each task is given its own temporary
+working directory `$WORK_DIR`. In general, production mode reuses the project
+directory's cached work via an overlayfs setup in bubblewrap, and development
+mode manages the same task with symlinks.
 
-The easy way to do this is to have the development server _only_ respond to
-API requests, and have the Vite development server forward all API requests to
-the Express server. This is called "proxying", and it means that you can
-access a complete Vite server from <http://localhost:5173>. (The Vite
-development server needs to know what an API request is: it's configured to
-treat every route starting with `/api` as an API endpoint.)
+The first tasks are done in parallel:
 
-### Express API
+- The challenge file is placed as `Challenge.lean` in an initially empty
+  `$WORK_DIR/Challenge`, and that directory is used as an overlay atop
+  `$PROJECT_DIR` for compiling the challenge. Compilation is only able to
+  write to `$WORK_DIR/Challenge/.lake/build`.
+- The candidate solution is placed as `Solution.lean` in an initially empty
+  `$WORK_DIR/Solution`, and that directory is used as an overlay directory
+  atop `$PROJECT_DIR` for compiling the solution. Compilation is only able to
+  write to `$WORK_DIR/Solution/.lake/build`.
 
-The Express server's API has the following endpoints:
+After this, the `challenge-thms` utility is run with an overlay setup of
+`$WORK_DIR/Challenge` -> `$PROJECT_DIR` -> (temp dir to capture writes).
+Putting the `$PROJECT_DIR` on top helps ensure the integrity of the
+`challenge-thms` executable, which lives in `$PROJECT_DIR`.
 
-| Endpoint             | Method | Description                         |
-| -------------------- | ------ | ----------------------------------- |
-| `/api/addStudent`    | POST   | Add a new student                   |
-| `/api/addGrade`      | POST   | Add a grade for an existing student |
-| `/api/getTranscript` | POST   | Look up information for a student   |
+Finally, the `comparator` utility is run with an overlay setup of
+`$PROJECT_DIR` -> `$WORK_DIR/Solution` -> `$WORK_DIR/Challenge` -> (temp dir
+to capture writes). Placing the challenge on top in the overlay ensures that
+the the solution cannot corrupt the challenge: any files written by the
+challenge compilation process will be visible regardless of what files the
+solution wrote.
 
-## Base configuration
+It's not necessary for `comparator` to have access to the compiled `.olean`
+files. We needed to compile the challenge ourselves anyway in order to get the
+list of relevant theorems, and comparator is designed to avoid recompiling the
+challenge and solution if they've already been compiled to olean by other
+means.
 
-The base project configuration follows a philosophy of "minimalism, mostly."
-Project configuration should be minimal and have a bias towards implicit
-defaults. Deviations from this principle should be justified and documented
-(here or elsewhere).
+## Development mode setup
 
-Notable exceptions to this principle:
+Comparator Live can be run in development mode; the only dependencies are
+`lean` and `npm`.
 
-- `.gitignore` takes a kitchen-sink approach and should freely accept
-  additions. (For example, if a student accidentally checks in a file that
-  could have been ignored, it makes sense to add that file here.)
+1. In each of the repository's `./Projects/` directories, run
+   ```
+   lake build
+   lake build comparator
+   lake build lean4export
+   ```
+2. Run `npm install` and then `npm run dev` in the repository's root directory
+3. Go to `http://localhost/5173`
 
-- The ESLint configuration is a maximalist attempt at keeping new TypeScript
-  programmers on the rails in a complicated codebase, and also giving them a
-  sense of working inside style conventions of a project that may differ from
-  their own.
+## Production mode setup
 
-- If we can have all project variants using the _exact_ same `tsconfig.json`
-  file or `eslint.config.mjs` file by adding a bit of cruft to the base
-  configuration, that's a reasonable trade. Things are going to inevitably get
-  copy-pasted, and so the fewer copies of configuration files there are, the
-  better.
+In development mode, `comparator` and `lean4export` are dependencies of the
+project.
 
-  This is why the `.vscode/settings.json` applies Prettier to html and css
-  files even though that's not relevant to the base project, and why
-  `eslint.config.mjs` includes React's Rules of Hooks despite most of the
-  project variants not including any React code.
+In production mode, the correct version of comparator or lean4export needs to
+be _checked out_ and built in a subdirectory of each supported project, like
+this:
 
-### NPM Scripts
-
-This sets up a set of commands that projects should consistently support, when
-appropriate:
-
-- `npm run check` runs TypeScript
-- `npm run lint` runs ESLint, and `npm run lint:fix` runs eslint with the
-  `--fix` option
-- `npm run prettier` checks formatting, and `npm run prettier:fix` writes
-  formatted files back to disk
-- `npm run test` runs appropriate tests on all projects: vitest without
-  coverage for the shared project (it's mostly validators and types anyway),
-  vitest with coverage for the API server, and Playwright end-to-end tests in
-  the frontend project that exercise the frontend and backend together
-- `npm run playwright` runs the Playwright end-to-end tests with the
-  interactive Playwright UI
-- `npm run dev` starts a development server or watch process
-- `npm run build` prepares the project for production-style deployment
-- `npm start` runs the project in production mode
-
-These are tested by github actions in `.github/workflows/main.yml`.
-
-### ESLint
-
-This base project has an opinionated ESLint configuration that relies on
-[typed linting](https://typescript-eslint.io/getting-started/typed-linting).
-The ESLint configuration makes some assumptions about project structure:
-
-- Frontend code is code that lives in `./frontend` or `./client`, and
-  optionally uses React and JSX. This code is subject to different linter
-  rules.
-- Test code lives in a `**/tests` directory OR has a `*.spec.ts(x)` or a
-  `*.test.ts(x)` filename. Tests can use devDependencies, unlike other code.
-- Config files all have `*.config.mjs` filenames (vite, vitest, playwright,
-  and eslint all can follow this convention). Config files can also import
-  devDependencies, like tests but unlike other code.
-- Most everything should be registered as `error`. Warnings don't fail CI
-  checks. Exceptions should have a documented reason. Notable exceptions where
-  we either turn on warnings or leave the warn default in place:
-  - `no-console` is `warn` because no-console regularly gets turned off by
-    line or file specific rules: we want to discourage excessive `no-console`
-    use but it is more like the admonition to not check in commented-out code:
-    it's mostly a problem when done excessively and it's easy to check in
-    visual inspection.
-  - `prettier` is `warn` because red squigglies for `prettier` are especially
-    distracting and we can check for prettier failures in CI separately.
-  - `simple-import-sort/imports` is `warn` — it's a property much like
-    prettier in that it's a mechanical fix and the red squigglies are
-    extremely distracting. It's also no huge loss if this doesn't get flagged
-    in CI.
-  - We do not override the default setting of `warn` for
-    `react-hooks/exhaustive-deps` in the default configuration. This rule
-    makes the (horrible) suggestion to remove the dependency array, and people
-    breaking their projects by blindly following that suggestion would be a
-    bad outcome.
-
-### TypeScript
-
-TypeScript is configured with options that support
-[type stripping](https://nodejs.org/api/typescript.html#type-stripping).
-Beyond this, the TypeScript configuration enables
-`noFallthroughCasesInSwitch`, `noImplicitOverride`, `noImplicitReturns`, and
-`noUncheckedIndexedAccess`, which are linter-like properties that don't seem
-to be well-supported by typed linting in ESLint.
-
-[Matt Pocock's cheat sheet](https://www.totaltypescript.com/tsconfig-cheat-sheet)
-is a reasonable source for more on minimal typescript configuration.
-
-### Prettier
-
-The `.prettierrc` file is intended to use some reasonable defaults. A
-`.vscode/settings.json` file is added to encourage Visual Studio Code to treat
-Prettier as the default formatter for javascript, typescript, json, css, and
-html files even if a students' global configuration uses other defaults.
-
-### LF Line Endings
-
-The `.prettierrc`, `.gitattributes`, and `.vscode/settings.json` files
-conspire to generally force projects to use `\n` file endings instead of
-Windows-style `\r\n` line endings (LF instead of CRLF).
-
-## Project Tree
-
-The various Sourdough starters live in a single git repository as a series of
-Git branches that build off of one another.
-
-- [`base`](https://github.com/robsimmons/sourdough/tree/base), the base
-  configuration
-- [`express`](https://github.com/robsimmons/sourdough/tree/express), adds an
-  Express server and API tests
-- [`fullstack`](https://github.com/robsimmons/sourdough/tree/fullstack), adds
-  a Vite frontend (+ Playwright end-to-end tests) for a simple client/server
-  setup
-- [`fullstack-react`](https://github.com/robsimmons/sourdough/tree/fullstack-react),
-  makes the Vite frontend use React
-- [`workspaces`](https://github.com/robsimmons/sourdough/tree/workspaces),
-  uses NPM workspaces to mediate validation and types that can be productively
-  shared between the frontend and backend
-
-## Using Sourdough as a Starter
-
-The `main` and `fullstack-react` branches should coincide, so you can use
-GitHub to fork the full-stack React project by just forking this repository.
-
-For other branches, or if you don't want to deal with the weirdness of being a
-forked GitHub project, you'll want to follow a pattern like this, replacing
-the three bits in square brackets as needed:
-
-```sh
-git init
-git branch -M main
-git remote add upstream git@github.com:robsimmons/sourdough.git
-git remote add origin git@github.com:[MY_USERNAME]/[MY_PROJECT].git
-git fetch upstream
-git merge upstream/[THE_STARTER_YOU_WISH_TO_FORK]
-git push -u origin main
 ```
+ - Projects/
+   - mathlib-release/ (Lean v4.31.0-rc1)
+     - comparator/ (Lean v4.31.0-rc1 or higher)
+     - lean4export/ (Lean v4.31.0-rc1)
+   - mathlib-stable/ (Lean v4.30.0)
+     - comparator/ (Lean v4.30.0 or higher)
+     - lean4export/ (Lean v4.30.0)
+```
+
+For bubblewrap to work correctly, several files must exist so that they can be
+used as mount points. Each project used by Comparator must contain:
+
+- Solution.lean
+- Challenge.lean (must _not_ be built)
+- config.json
+
+Production mode expects the following environment variables set:
+
+- `PORT` (optional, defaults to 3000)
+- `NODE_ENV` set to `production`
+- `COMPARATOR_PROJECT_BASE_PATH` set to the `Projects` directory configured as
+  above
+
+Production mode also expects a nix-specific setup with a number of
+dependencies to be present. This includes Landrun compiled from the master
+branch of the repository - as of mid-2026 the current release of Landrun isn't
+a security risk, it just won't work.

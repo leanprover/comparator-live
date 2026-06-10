@@ -167,48 +167,17 @@ export default function Header() {
                 <Dialog.Title>About Comparator</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body display="flex" flexDir="column" gap="2">
-                {/*<Text>
-                  When you've working with a mathematical proof, it's always important to be sure
-                  that the proof actually proves what you think it proves.
-                </Text>
                 <Text>
-                  <Strong>Without Comparator</Strong>, validating a Lean proof from an unknown
-                  source can sometimes be tricky. Lean has features that can be misused to make{" "}
+                  Comparator Live is an online version of Lean's{" "}
                   <Link
-                    href={LIVE_LEAN_URI}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      window.open(`${LIVE_LEAN_URI}${window.location.hash}`, "_blank");
-                    }}
+                    href="https://github.com/leanprover/comparator"
                     target="_blank"
+                    colorPalette="teal"
                   >
-                    Lean's Infoview UI
-                  </Link>{" "}
-                  appear to accept an invalid proof. We don't want to get rid of these features:
-                  they're part of what make Lean such a powerful tool for honest mathematicians.
+                    Comparator verification tool
+                  </Link>
+                  .
                 </Text>
-                <Text>
-                  <Strong>Comparator makes this part easy.</Strong> “Comparator” is a software tool
-                  that takes two files. The first file is a <Em>trusted challenge</Em>, a Lean file
-                  with a theorem that you're certain says what you want it to say (because you, or
-                  someone you trust, read and understood it carefully). The challenge doesn't
-                  contain a proof of that theorem: it can just say "<Code>by sorry</Code>", which is
-                  how you say Lean "I don't know how to prove this" in Lean. The second file is a{" "}
-                  <Em>candidate solution</Em> that claims to prove the same theorem; you shouldn't
-                  need to read or understand this file in order to use Comparator correctly.
-                </Text>
-                <Text>
-                  Comparator checks that the candidate solution contains a real proof of the theorem
-                  described in the challenge with no tricks, no shortcuts, and no caveats. If you
-                  believe that the theorem statement written in the challenge is correct, then you
-                  can be confident that the candidate solution contains a proof of that same theorem
-                  according to the rules of Lean.
-                </Text>
-                <Text>
-                  Comparator shouldn't be necessary if you're doing mathematics collaboratively and
-                  in good faith, but it's an important tool when you have a proof that came from an
-                  AI or an unknown source.
-                </Text>*/}
                 <Text>
                   More details can be found in the reference manual page on{" "}
                   <Link
