@@ -1,69 +1,57 @@
 import { z } from "zod";
 
-/** Validator for error responses from the API */
-export const zError = z.object({ error: z.string() });
-
-/** Validator for POST `/api/addStudent` requests */
-export const zAddStudentRequest = z.object({
-  password: z.string(),
-  studentName: z.string(),
+export const zStartVerifyRequest = z.object({
+  project: z.string(),
+  challenge: z.string(),
+  solution: z.string(),
 });
-/** Request type for POST `/api/addStudent` */
-export type AddStudentRequest = z.infer<typeof zAddStudentRequest>;
+export type StartVerifyRequest = z.infer<typeof zStartVerifyRequest>;
 
-/** Validator for POST `/api/addStudent` 200 responses */
-export const zAddStudentResponse = z.object({ studentID: z.int() });
-/** Response type for POST `/api/addStudent` */
-export type AddStudentResponse = z.infer<typeof zAddStudentResponse>;
-
-/** Validator for POST `/api/addGrade` requests */
-export const zAddGradeRequest = z.object({
-  password: z.string(),
-  studentID: z.int().gte(0),
-  courseName: z.string(),
-  courseGrade: z.number().gte(0).lte(100),
-});
-/** Request type for POST `/api/addGrade` */
-export type AddGradeRequest = z.infer<typeof zAddGradeRequest>;
-
-/** Validator for POST `/api/addGrade` 200 responses */
-export const zAddGradeResponse = z.discriminatedUnion("success", [
-  z.object({ success: z.literal(true) }),
-  z.object({ success: z.literal(false) }),
+export const zStartVerifyResponse = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("enqueued"), requestId: z.uuidv4() }),
+  z.object({ type: z.literal("project-not-supported") }),
 ]);
-/** Response type for POST `/api/addGrade` */
-export type AddGradeResponse = z.infer<typeof zAddGradeResponse>;
+export type StartVerifyResponse = z.infer<typeof zStartVerifyResponse>;
 
-/** Validator for student records */
-export const zStudent = z.object({ studentID: z.int(), studentName: z.string() });
-export type Student = z.infer<typeof zStudent>;
+export const zVerifyRequest = z.object({ requestId: z.string() });
+export type VerifyRequest = z.infer<typeof zVerifyRequest>;
 
-/** Validator for individual course grade records */
-export const zCourseGrade = z.object({ course: z.string(), grade: z.number() });
-export type CourseGrade = z.infer<typeof zCourseGrade>;
+export const zVerifier = z.enum(["Lean", "Nanoda"]);
+export type Verifier = z.infer<typeof zVerifier>;
 
-/** Validator for transcripts */
-export const zTranscript = z.object({ student: zStudent, grades: z.array(zCourseGrade) });
-/** Type of student transcripts */
-export type Transcript = z.infer<typeof zTranscript>;
+const zVerifyPossibilities = [
+  z.object({ type: z.literal("verification-ok"), theoremNames: z.array(z.string()) }),
+  z.object({
+    type: z.literal("verification-failed"),
+    description: z.string(),
+    output: z.optional(z.string()),
+  }),
+] as const;
+export const zVerifyResult = z.discriminatedUnion("type", zVerifyPossibilities);
+export type VerifyResult = z.infer<typeof zVerifyResult>;
 
-/** Validator for POST `/api/getTranscript` requests */
-export const zGetTranscriptRequest = z.object({
-  password: z.string(),
-  studentID: z.int().gte(0),
-});
-/** Request type for POST `/api/getTranscript` */
-export type GetTranscriptRequest = z.infer<typeof zGetTranscriptRequest>;
-
-/** Validator for POST `/api/getTranscript` 200 responses */
-export const zGetTranscriptResponse = z.discriminatedUnion("success", [
-  z.object({ success: z.literal(false) }),
-  z.object({ success: z.literal(true), transcript: zTranscript }),
+export const zCheckVerifyResponse = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("in-queue"), position: z.int().gte(0) }),
+  z.object({ type: z.literal("in-progress") }),
+  z.object({ type: z.literal("not-found") }),
+  ...zVerifyPossibilities,
 ]);
-/** Response type for POST `/api/getTranscript` */
-export type GetTranscriptResponse = z.infer<typeof zGetTranscriptResponse>;
+export type CheckVerifyResponse = z.infer<typeof zCheckVerifyResponse>;
 
-// Aliases for simple types
+/** Client-only superset of `CheckVerifyResponse` */
+export type CheckVerifyStatus =
+  | CheckVerifyResponse
+  | { type: "initial-load" }
+  | { type: "in-preparation" };
 
-export type Course = string;
-export type StudentID = number;
+export const zProjectListing = z.object({
+  project: z.string(),
+  name: z.string(),
+  hidden: z.boolean(),
+});
+
+export type ProjectListing = z.infer<typeof zProjectListing>;
+export const zProjectListResponse = z.union([
+  z.object({ error: z.string() }),
+  z.array(zProjectListing),
+]);

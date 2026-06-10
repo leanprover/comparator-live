@@ -1,5 +1,5 @@
 {
-  "name": "@sourdough/shared",
+  "name": "@comparator/shared",
   "version": "1.0.0",
   "type": "module",
   "main": "shared.ts",
@@ -8,8 +8,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --ignore-path ../.gitignore --check .",
-    "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
-    "test": "vitest run"
+    "prettier:fix": "prettier --ignore-path ../.gitignore --write ."
   },
   "devDependencies": {
     "vitest": "^4.0.18"

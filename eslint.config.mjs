@@ -14,6 +14,7 @@ export default defineConfig([
     "**/.stryker-tmp/", // stryker mutation reports
     "**/coverage", // istanbul coverage reports
     "**/playwright-report/", // playwright test reports
+    "**/Projects", // Lean stuff
   ]),
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
@@ -104,9 +105,8 @@ export default defineConfig([
           leadingUnderscore: "require",
         },
         {
-          // No limits on things like 'Content-Type' in a fetch object
+          // No limits on names that might be specified by someone else's JSON
           selector: "objectLiteralProperty",
-          modifiers: ["requiresQuotes"],
           format: null,
         },
         {
