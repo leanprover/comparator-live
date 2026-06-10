@@ -33,9 +33,9 @@ app.get("/comparator/api/metrics.prom", (_req, res) => {
   res.set("Content-Type", "text/plain; charset=ascii");
   res.send(
     Object.entries(metrics())
-      .map(([key, value]) => `${key} ${value}`)
+      .map(([key, value]) => `${key} ${value}\n`)
       .toSorted()
-      .join("\n"),
+      .join(""),
   );
 });
 

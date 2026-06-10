@@ -28,7 +28,6 @@ let nextServed = 1;
 export function health() {
   return {
     uptime: performance.now(),
-    jobDbSize: jobDb.size,
     queueLength: Q.length,
     runningJobCount,
     totalJobs: nextTicket - 1,
@@ -40,14 +39,27 @@ export function health() {
  */
 export function metrics() {
   const now = performance.now();
+  let maxQueue = 0;
+  let totalQueue = 0;
+  let activeQueue = 0;
+  let cancelledQueue = 0;
+  for (const key of Q) {
+    const value = jobDb.get(key);
+    if (!value) {
+      cancelledQueue += 1;
+    } else {
+      activeQueue += 1;
+      maxQueue = Math.max(maxQueue, now - value.enqueuedAt);
+      totalQueue += now - value.enqueuedAt;
+    }
+  }
+
   let maxJob = 0;
-  let totalJob = 0;
   let maxRunning = 0;
   let totalRunning = 0;
   let countRunning = 0;
   for (const [_key, value] of jobDb.entries()) {
     maxJob = Math.max(maxJob, now - value.enqueuedAt);
-    totalJob += now - value.enqueuedAt;
     if (value.type === "running") {
       countRunning += 1;
       maxRunning = Math.max(maxRunning, now - value.since);
@@ -61,17 +73,24 @@ export function metrics() {
     );
   }
 
+  /** Turn an ms count into a cleaner seconds count */
+  const cleanS = (ms: number) => {
+    return Math.round(ms / 125) / 8;
+  };
+
   return {
-    comparator_uptime_ms: now,
-    comparator_queue_length: Q.length,
+    comparator_uptime_s: cleanS(now),
     comparator_workers_active: countRunning,
-    comparator_workers_longest_ms: maxRunning,
-    comparator_workers_total_ms: totalRunning,
+    comparator_workers_longest_s: cleanS(maxRunning),
+    comparator_workers_sum_s: cleanS(totalRunning),
     comparator_workers_limit: CONCURRENCY,
-    comparator_jobs_longest_ms: maxJob,
-    comparator_jobs_total_ms: totalJob,
-    comparator_jobs_active: jobDb.size,
-    comparator_jobs_history_total: nextTicket - 1,
+    comparator_queue_active: activeQueue,
+    comparator_queue_sum_s: cleanS(totalQueue),
+    comparator_queue_longest_s: cleanS(maxQueue),
+    comparator_queue_cancelled: cancelledQueue,
+    comparator_jobs_longest_s: cleanS(maxJob),
+    comparator_jobs_size: jobDb.size,
+    comparator_jobs_total: nextTicket - 1,
   };
 }
 
