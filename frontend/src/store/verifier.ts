@@ -116,7 +116,9 @@ const comparatorJobIdAtom = atomWithQuery((get) => {
 export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "initial-load" });
 
 /**
- * Effect observer that cancels an in-flight request if you edit things.
+ * Effect observer that cancels an in-flight request if you edit things. (It's
+ * nice to leave completed requests in place in case the user wants to undo
+ * their edit.)
  */
 const deSyncedTaskEffectCanceller = observe((get, set) => {
   if (get(isComparatorSyncedAtom)) return;
