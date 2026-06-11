@@ -37,6 +37,7 @@ export const requestVerificationAtom = atom(null, (get, set) => {
   const challenge = get(challengeAtom);
   const solution = get(solutionAtom);
   set(comparatorJobAtom, { project, challenge, solution });
+  set(comparatorResultAtom, { type: "in-preparation" });
   get(generateRequestIdAtom).mutate({ project: project ?? defaultProject, challenge, solution });
 });
 
