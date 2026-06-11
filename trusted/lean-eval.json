@@ -1,4 +1,32 @@
 {
+  "18722351cc202fa002db45ee5bb011260f8ed59b645a4fbce9919aed1e0273ca": {
+    "name": "Abel–Ruffini theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/abel_ruffini/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/abel_ruffini/"
+    ]
+  },
+  "5e52d6873125690384b54161d3d44a4bdf8d782d5a70e9ba1617a99b85acf7db": {
+    "name": "The alternating sign matrix theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/alternating_sign_matrix_count/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/alternating_sign_matrix_count/"
+    ]
+  },
+  "054a7687ad7bf73a8cf61ccba3cb35dee3d6e86cdd6498e8d26d9e9adf17928b": {
+    "name": "Anosov–Bowen shadowing lemma",
+    "sources": [
+      "https://lean-lang.org/eval/problems/anosov_bowen_shadowing/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/anosov_bowen_shadowing/"
+    ]
+  },
+  "54a2521d65d4a4bc010417a00ca13a4e85b62e96c87440703b770998dcb8f60c": {
+    "name": "Baer–Suzuki theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/baer_suzuki/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/baer_suzuki/"
+    ]
+  },
   "464ce917998bd195a768cee68610f96eb5c20c8352295785dea5b2c3ba3e519d": {
     "name": "Baker-Wüstholz theorem on linear forms in logarithms",
     "sources": [
@@ -13,11 +41,74 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/balanceable_bounded_partitions/"
     ]
   },
+  "1ed992b351c45f40050de9f1a290962263317c526f3c089ed300651e0e2a890b": {
+    "name": "Bourbaki's locally convex extension of Banach–Alaoglu",
+    "sources": [
+      "https://lean-lang.org/eval/problems/banach_alaoglu_bourbaki/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/banach_alaoglu_bourbaki/"
+    ]
+  },
+  "7c7b12373d9f3bb390caf38a5f9e4530369fb2c57ad7a7f07935d4f6cc95f625": {
+    "name": "Bauer's uniqueness at extreme points",
+    "sources": [
+      "https://lean-lang.org/eval/problems/bauer_extreme_point_uniqueness/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/bauer_extreme_point_uniqueness/"
+    ]
+  },
+  "54c78255e554b2c0e45d16617431f90c528c63ef4b318ce49a4a518f9d7c7b12": {
+    "name": "Bézout's theorem (projective, with multiplicity)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/bezout_projective_multiplicity/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/bezout_projective_multiplicity/"
+    ]
+  },
+  "811e2d12865f1f35cb55de27dc7119e35aecb0e236511c3b7c6caf5efe8f21dd": {
+    "name": "Boone–Higman theorem (easy direction)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/boone_higman_embedding/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/boone_higman_embedding/"
+    ]
+  },
+  "cb801141f1fd310a19aeff9dfd42982135bd8a4e9007161c63d6765d32e3cbd9": {
+    "name": "Kuznetsov's theorem: finitely presented simple groups have solvable word problem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/boone_higman_simple/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/boone_higman_simple/"
+    ]
+  },
   "d3294b87ff644c9ee9876d0911effbc5b995144190a39d45fb1a034cff1d721c": {
     "name": "Character values of finite groups lie in cyclotomic fields",
     "sources": [
       "https://lean-lang.org/eval/problems/brauer_character_in_cyclotomic/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/brauer_character_in_cyclotomic/"
+    ]
+  },
+  "5276b95e8b0dca8be36d00b34c1eed9a8a618ad99c7d7b4b682e086fc570e563": {
+    "name": "Brauer–Fowler theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/brauer_fowler/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/brauer_fowler/"
+    ]
+  },
+  "d44a71dc56dfc7f1fae63727d317434e1ad28bbe4ada77f4a6fd7e3ccadffe50": {
+    "name": "Brauer's splitting field theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/brauer_splitting_field/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/brauer_splitting_field/"
+    ]
+  },
+  "deefdf1b91f5e0d6ca1f97f266f4be723f43f9d8056b7b0cc8978ffcb7cc231a": {
+    "name": "Brauer–Suzuki theorem (quaternion Sylow 2-subgroup)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/brauer_suzuki/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/brauer_suzuki/"
+    ]
+  },
+  "43f40d46384d58c48181ab38912bca74cfbc3718afff7b78e676abacc6a8a714": {
+    "name": "Brouwer fixed-point theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/brouwer_fixed_point/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/brouwer_fixed_point/"
     ]
   },
   "6430f39e1a487f9335b23c8fa0eea6b075ed08e15bc847e68221fe3288e93dd5": {
@@ -27,11 +118,32 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/bvp_comparison/"
     ]
   },
+  "a17efa2e09c655f2612335c8128623c8e547dbaebba35c014f53be1db85530fe": {
+    "name": "Cauchy–Kovalevskaya theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/cauchy_kovalevskaya/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/cauchy_kovalevskaya/"
+    ]
+  },
   "9959c9cb023eb1b0940e502caa1c178ba8f29982189c94e4d112c53442d11d37": {
     "name": "Cerf's theorem: every self-diffeomorphism of S3 is smoothly isotopic to a linear isometry",
     "sources": [
       "https://lean-lang.org/eval/problems/cerf_gamma_four/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/cerf_gamma_four/"
+    ]
+  },
+  "dedca402f889c1a021a0a4997967be121fc4e5c07c777f62c63630e4238664f0": {
+    "name": "Hardy–Littlewood sign-change for the prime race mod 4",
+    "sources": [
+      "https://lean-lang.org/eval/problems/chebyshev_sign_change/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/chebyshev_sign_change/"
+    ]
+  },
+  "2ebcb708d931e5ca9ba63717521c2eb241ae7e01c1cfdf26094cd5b448e83314": {
+    "name": "Choquet's representation theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/choquet_representation_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/choquet_representation_theorem/"
     ]
   },
   "3cd52010f2091256f8081e1f509a5d1d376f8f4a29885b74d296eda95a9f1042": {
@@ -48,11 +160,39 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/ci_regenerate_main_check/"
     ]
   },
+  "6cae3090c29f4f7145b64cf409e656f8f13b9a1351f5e94a8d273730384e9990": {
+    "name": "Commuting probabilities are closed",
+    "sources": [
+      "https://lean-lang.org/eval/problems/commProb_closed/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/commProb_closed/"
+    ]
+  },
   "439b5dac3c32d1664945e88099d84b65e510333f159e26bd172b90a76323cb58": {
     "name": "Bing's house with two rooms is contractible",
     "sources": [
       "https://lean-lang.org/eval/problems/contractibleSpace_houseWithTwoRooms/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/contractibleSpace_houseWithTwoRooms/"
+    ]
+  },
+  "7e571df9fdc38da4761d9b4ad04f2af6898aeed1c303a2817ae53be46256dc7d": {
+    "name": "The Conway knot is not smoothly slice",
+    "sources": [
+      "https://lean-lang.org/eval/problems/conway_knot_not_smoothly_slice/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/conway_knot_not_smoothly_slice/"
+    ]
+  },
+  "9cd68b3b34bdd93d219574eca7ebb14e8ce3f844880e292dd33cd0e57c24684e": {
+    "name": "The Conway knot is topologically slice",
+    "sources": [
+      "https://lean-lang.org/eval/problems/conway_knot_topologically_slice/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/conway_knot_topologically_slice/"
+    ]
+  },
+  "6c4f8af110553344e5150bf04ccbf625bae0187b18e3f08bf69d976a1512c9f6": {
+    "name": "Conway–Schneeberger fifteen theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/conway_schneeberger_fifteen/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/conway_schneeberger_fifteen/"
     ]
   },
   "60832ff10e5401203c660429a28bc09d682ac0230e049f18269d3b54989475cb": {
@@ -76,6 +216,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/cyclotomic_integer_house_le_two/"
     ]
   },
+  "2d26752b3db082d2bbafacd167915643cbe76e8c5b25a9202e99eb8ba7acf50d": {
+    "name": "Darboux's theorem (symplectic forms are locally standard)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/darboux/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/darboux/"
+    ]
+  },
   "8e8b580a862f6c377cd30f4354405c792936294dd94ded657482b28b877105ff": {
     "name": "De Branges's theorem (Bieberbach conjecture)",
     "sources": [
@@ -88,6 +235,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/def_hole_example/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/def_hole_example/"
+    ]
+  },
+  "e8fdaf608f3db872f52ec33b266acf678a5195ee8561a2452951499edb97b934": {
+    "name": "Dehn–Sommerville equations for simplicial spheres",
+    "sources": [
+      "https://lean-lang.org/eval/problems/dehn_sommerville/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/dehn_sommerville/"
     ]
   },
   "f1bc83af1c70f994f5fe9418fd6c2543bdbd9947d3e05b38056aabed42ccea44": {
@@ -109,6 +263,27 @@
     "sources": [
       "https://lean-lang.org/eval/problems/e8_irrep_tensor_square_decomp/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/e8_irrep_tensor_square_decomp/"
+    ]
+  },
+  "c4e6d4f32f14a32cca9009f93914294c9a6f6a16f8eabdbcb5cd82c7017d1a47": {
+    "name": "Lai-Sang Young entropy–dimension–Lyapunov theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/entropy_dimension_lyapunov/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/entropy_dimension_lyapunov/"
+    ]
+  },
+  "47fb4a3d715921b4a000026a5373b78f53d6f70a81fbef17181ef5c97914ebcd": {
+    "name": "Erdős's unit-distance conjecture is false",
+    "sources": [
+      "https://lean-lang.org/eval/problems/erdos_unit_distance_conjecture_false/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/erdos_unit_distance_conjecture_false/"
+    ]
+  },
+  "15526f3854f6522630ca379a15f876bb25a1bb976b837fbf2518aaa46c299142": {
+    "name": "Euler–Lagrange equation",
+    "sources": [
+      "https://lean-lang.org/eval/problems/euler_lagrange_equation/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/euler_lagrange_equation/"
     ]
   },
   "296058da16939e33c20f3fbe2c1d6e3dff746fba54e5f682492f067e8eae038b": {
@@ -139,6 +314,48 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/exists_nonisotopic_link/"
     ]
   },
+  "71de2e36f881f5dea9cb6e36cca462c2d81db3ea39b6d81183787f0c36164e4d": {
+    "name": "Existence of a topologically slice, not smoothly slice knot",
+    "sources": [
+      "https://lean-lang.org/eval/problems/exists_topologically_slice_not_smoothly_slice/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/exists_topologically_slice_not_smoothly_slice/"
+    ]
+  },
+  "c8ff19379e85fea0da904150a32fe8fde984df4000608e7529acf063c1841995": {
+    "name": "Morrison–Walker Lemma B.0.1: adapting families of maps to open covers",
+    "sources": [
+      "https://lean-lang.org/eval/problems/families_of_maps_b01/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/families_of_maps_b01/"
+    ]
+  },
+  "3d40154e3a402b1b4dd422079407672755a18ee10e86814bffd49349cc0bc9fd": {
+    "name": "Fang–Xia: tiling of the symmetric group by transpositions implies λ-transitivity",
+    "sources": [
+      "https://lean-lang.org/eval/problems/fang_xia_tiling_partition_transitive/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/fang_xia_tiling_partition_transitive/"
+    ]
+  },
+  "afdafa9204e23c89e3c4f5b80d97348eac1a49b679fadb6b72694b9c22218d3d": {
+    "name": "Fáry–Milnor theorem (knot total curvature ≤ 4π implies unknotted)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/fary_milnor/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/fary_milnor/"
+    ]
+  },
+  "019f8590b840c13ced9f54eab827ae57317fd0606b06cd2b0f9f7e43de76cfa8": {
+    "name": "Fatou–Julia / Cantor dichotomy",
+    "sources": [
+      "https://lean-lang.org/eval/problems/fatou_julia_dichotomy/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/fatou_julia_dichotomy/"
+    ]
+  },
+  "a312db0b896c44b563f8138ccfb1b6a3835715f433f039682a5115e15b692d9a": {
+    "name": "Feit–Thompson odd-order theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/feit_thompson/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/feit_thompson/"
+    ]
+  },
   "9c5583e07fe7a0f2ca6bafbb3af5fce916b03407fb89ba62c2322f51ae1c49df": {
     "name": "Fermat's Last Theorem",
     "sources": [
@@ -167,11 +384,46 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/five_transitive_card_classification/"
     ]
   },
+  "3620b79f1f324605ed79b535758499ba5fe33bca637553591283211b02832740": {
+    "name": "Pointwise and Cesàro convergence of Fourier series (Dirichlet, Fejér)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/fourier_dirichlet_fejer/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/fourier_dirichlet_fejer/"
+    ]
+  },
+  "565a0c5367680504b16e34e6596f60d8e28cf7a6d8e5fc13ec13457498372831": {
+    "name": "Fraser: Fourier decay for finite-field Kakeya sets is q^{-1} and sharp",
+    "sources": [
+      "https://lean-lang.org/eval/problems/fraser_kakeya_fourier_decay/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/fraser_kakeya_fourier_decay/"
+    ]
+  },
   "3114ffd5b33f867e868a630630215c50939500b74047a20b2eab6648552298ce": {
     "name": "Frobenius's theorem: the Frobenius kernel is normal",
     "sources": [
       "https://lean-lang.org/eval/problems/frobenius_kernel_isNormal/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/frobenius_kernel_isNormal/"
+    ]
+  },
+  "136aed77ba3c064ac33b8f5a404043175f1632d8c7844678c49ece0e93175019": {
+    "name": "Fundamental theorem of topos theory",
+    "sources": [
+      "https://lean-lang.org/eval/problems/fundamental_topos_theory/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/fundamental_topos_theory/"
+    ]
+  },
+  "fd78fce760b53ea7509ed550b3466464efe201aa212c3fa7bd3ec117c2f760f6": {
+    "name": "Furstenberg measure-preserving multiple recurrence",
+    "sources": [
+      "https://lean-lang.org/eval/problems/furstenberg_measure/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/furstenberg_measure/"
+    ]
+  },
+  "89f9a5baf3af91a042a5ebe92db64de4ef32b4743d6a762b1160cd768681d460": {
+    "name": "Furstenberg–Weiss topological multiple recurrence (single-transformation form)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/furstenberg_topological/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/furstenberg_topological/"
     ]
   },
   "06077b3b4e6e06ca5e19e2be0fdf7b734a27041bc807069c01c524155152750b": {
@@ -209,11 +461,102 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/gleason_theorem_separable/"
     ]
   },
+  "21eea17179db8df1470300679a85f7220778a2e6fd8a3df95db072a55fa359f7": {
+    "name": "The Golod–Shafarevich inequality",
+    "sources": [
+      "https://lean-lang.org/eval/problems/golod_shafarevich_inequality/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/golod_shafarevich_inequality/"
+    ]
+  },
+  "88ca508d18a32c6389c0b33916b1743a56e7ef8923b10cd451e71848936194da": {
+    "name": "Gorenstein–Walter theorem (dihedral Sylow 2-subgroup)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/gorenstein_walter/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/gorenstein_walter/"
+    ]
+  },
+  "7d7425dca45622892633f9f3793e0b20f06595d1f08ebdccd60d1c335ea63eb8": {
+    "name": "Green–Tao theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/green_tao/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/green_tao/"
+    ]
+  },
+  "fe238c8da4119ffe7650a71a4bc0ef798f8ec4d1f633399cebf5fdd728072454": {
+    "name": "Hadwiger's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hadwiger/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hadwiger/"
+    ]
+  },
+  "eae19ef4efe44b89904a3a589d08aa7f29b8aa36ebfefdc1204e099991b2bdda": {
+    "name": "Halmos's generic weak-mixing theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/halmos_generic_weak_mixing/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/halmos_generic_weak_mixing/"
+    ]
+  },
+  "d583f137b6e7ae23ed649382e939efdd12722f5ec65f89354fd1f346823c1411": {
+    "name": "Hausdorff moment problem: absolute-continuity criterion",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hausdorff_absolute_continuity/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hausdorff_absolute_continuity/"
+    ]
+  },
+  "2dd4d178babf371685ffece59bb6f2565412bff7f6b60946450b1441836f5b0b": {
+    "name": "The Hausdorff–Hildebrandt–Schoenberg moment theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hausdorff_hildebrandt_schoenberg/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hausdorff_hildebrandt_schoenberg/"
+    ]
+  },
+  "975e35a9e447c8b70abda0b9db9f35616b3a662de324060a30f1accd4fdacab3": {
+    "name": "The Hausdorff positivity (complete-monotonicity) criterion",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hausdorff_positivity_criterion/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hausdorff_positivity_criterion/"
+    ]
+  },
   "92aefa610babaf6365c79d0d9055bbdd8e3b3c0b24b28a630dd51c47d4edb4fc": {
     "name": "Gaussian heat kernel solves the 1D heat equation",
     "sources": [
       "https://lean-lang.org/eval/problems/heat_kernel_solves_heat_equation/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/heat_kernel_solves_heat_equation/"
+    ]
+  },
+  "dd7c99c87988e2766056ac35d00a9c64c738d0ab06b2615d774123286fd26ee7": {
+    "name": "Higman's infinite finitely-presented simple group",
+    "sources": [
+      "https://lean-lang.org/eval/problems/higman_infinite_simple/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/higman_infinite_simple/"
+    ]
+  },
+  "0df76829ae9170ab4909cf39040add2303ebd36a68269770da9cfeec6fdf8af6": {
+    "name": "Hippocrates' theorem on lunes",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hippocrates_lunes/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hippocrates_lunes/"
+    ]
+  },
+  "72faea4e31b8ad750380424f34f5ad2983f4505ca0fb216e53709ce69cadc348": {
+    "name": "Hopf–Rinow theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hopf_rinow/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hopf_rinow/"
+    ]
+  },
+  "fe55c262335969ab99db7a9e1e1ba90661dff10b06b0571493d509e53572a5f5": {
+    "name": "The Hopf Umlaufsatz (theorem of turning tangents)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hopf_umlaufsatz/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hopf_umlaufsatz/"
+    ]
+  },
+  "9ab22be9de30f5938f71c21874d43e48f0a2a995987cee91fa514d3c7f280ff2": {
+    "name": "Hurewicz theorem in degree 1 (H₁ = abelianization of π₁)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hurewicz_h1_abelianization/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hurewicz_h1_abelianization/"
     ]
   },
   "c95cad44c1c34ca877147f7de942989ea098426d0577122f1dd644f004a4b0c7": {
@@ -230,6 +573,20 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/irreducible_nonnegative_matrix_has_positive_eigenvector_at_spectralRadius/"
     ]
   },
+  "275248ec7c95dd711dc20394592526da52e42c85f86c1fb4be3a775da16be11d": {
+    "name": "Onsager's 2D Ising phase transition",
+    "sources": [
+      "https://lean-lang.org/eval/problems/ising_2d_phase_transition/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/ising_2d_phase_transition/"
+    ]
+  },
+  "f5a90d8f97153530a214b5338774a6eee237859fb05036289c5b1a06680c6fd4": {
+    "name": "Isoperimetric inequality (n-dim, topological-frontier form)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/isoperimetric_inequality/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/isoperimetric_inequality/"
+    ]
+  },
   "5bd20676910804f5afce2d8cdeb508c219bede5c1f9526f5e793029c202d8020": {
     "name": "Jacobian of a smooth proper curve (Merten challenge)",
     "sources": [
@@ -244,11 +601,123 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/jacobian_challenge_diffgeo/"
     ]
   },
+  "9883855675d71b9e4514739f44d1e5e40cd610d94bbfe2ce8aa7573142eb9df0": {
+    "name": "Jordan–Brouwer separation theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/jordan_brouwer/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/jordan_brouwer/"
+    ]
+  },
+  "0cf165ad9a35d1307dd8905e0111db1e4ac976235af8c967e0d4cea72e436dcb": {
+    "name": "Jordan curve theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/jordan_curve/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/jordan_curve/"
+    ]
+  },
+  "13aefd059924f7a7510dce3a566806ef088d74355d9f51435c4b3ee5e5d8001e": {
+    "name": "Jordan normal form",
+    "sources": [
+      "https://lean-lang.org/eval/problems/jordan_normal_form/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/jordan_normal_form/"
+    ]
+  },
+  "dfc186b72cf37f0ecece6e649fe8e66ee276be6ce2b5c3d7bd309c9770cbbdb9": {
+    "name": "Kakutani fixed-point theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/kakutani_fixed_point/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/kakutani_fixed_point/"
+    ]
+  },
+  "8466b2c8f0b59911a5a3e202ea862d8afa1a9542a1df26e40ed4f4e6293d190f": {
+    "name": "KAM persistence of an invariant curve",
+    "sources": [
+      "https://lean-lang.org/eval/problems/kam_invariant_curve/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/kam_invariant_curve/"
+    ]
+  },
+  "9339e15db9e4e0c991fa2dab21ca2aa4522c3cfcb43062550848a52073139294": {
+    "name": "Kepler conjecture (optimal sphere packing in ℝ³)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/kepler_conjecture/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/kepler_conjecture/"
+    ]
+  },
+  "48b7611c9e10784de1269ce96371530dce48ec2884bc53d3e4a56976f1702a73": {
+    "name": "Kolmogorov–Arnold superposition theorem (non-universal Lorentz form)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/kolmogorov_arnold_superposition/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/kolmogorov_arnold_superposition/"
+    ]
+  },
+  "bd9416fcb4ee995cfeccb4f40d1c699924146d9dd01e2f8bd99eeda6ea80b5a4": {
+    "name": "Koszul formula",
+    "sources": [
+      "https://lean-lang.org/eval/problems/koszul_formula/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/koszul_formula/"
+    ]
+  },
+  "af720de99c345084c777fab143da352b6e50083e7c336c6c4a1fbc57d51ca8c4": {
+    "name": "The Landsberg–Schaar relation",
+    "sources": [
+      "https://lean-lang.org/eval/problems/landsberg_schaar/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/landsberg_schaar/"
+    ]
+  },
+  "d43f11c54118d1430c0c6870d913f9d6223cc7ce79ccd9fc1e0e48c29593dc25": {
+    "name": "Lax's approximation theorem for toral homeomorphisms",
+    "sources": [
+      "https://lean-lang.org/eval/problems/lax_approximation/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/lax_approximation/"
+    ]
+  },
+  "e980dfb3f4d4955052ded15a546d22f21203a13b37822c9c10a982aebfadca2c": {
+    "name": "Fundamental theorem of Riemannian geometry (Levi-Civita)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/levi_civita_exists_unique/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/levi_civita_exists_unique/"
+    ]
+  },
+  "6b53afc1c3044039bb02219fe019b5af85875c1b12de50e0b792db7e7aa215b4": {
+    "name": "Lidskii's inequality",
+    "sources": [
+      "https://lean-lang.org/eval/problems/lidskii_inequality/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/lidskii_inequality/"
+    ]
+  },
+  "759609d46a83216fee0191e429e76a4109c09f04ca4e56cb6a717b84b1a295fc": {
+    "name": "Lidskii–Last eigenvalue-perturbation theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/lidskii_last/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/lidskii_last/"
+    ]
+  },
+  "f0b2c645191844a1546e866d5a765dd49b8c7123805757f8db54ba65356a3f4b": {
+    "name": "Lindemann's theorem (e and π transcendental)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/lindemann/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/lindemann/"
+    ]
+  },
+  "f0fae3684fddbb690cf9876b4805464c18d38963af0b6a7c3aa4a37a81dcd969": {
+    "name": "The Lindemann–Weierstrass theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/lindemann_weierstrass/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/lindemann_weierstrass/"
+    ]
+  },
   "a8b64818a3152fc9808a3cf083e83afc466580dda26a27ed41279cf090571199": {
     "name": "Linear ODE with negative-real-part eigenvalues is asymptotically stable",
     "sources": [
       "https://lean-lang.org/eval/problems/linear_ode_asymptotic_stability/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/linear_ode_asymptotic_stability/"
+    ]
+  },
+  "c7954c18a83c00afa7c214209999074889a178bf1aaf6b6a1ced6e27e5a5db39": {
+    "name": "Liouville–Arnold theorem on integrable systems",
+    "sources": [
+      "https://lean-lang.org/eval/problems/liouville_arnold/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/liouville_arnold/"
     ]
   },
   "496ba7c8dd85ca6ee4d580267e2c9a3f1edac4598f55e5909fe456b10b71bf94": {
@@ -258,11 +727,53 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/list_append_singleton_length/"
     ]
   },
+  "732f7253875ad2e239fb4c0ff35adb1bdc62b19647717f62cb941a31873dfa5a": {
+    "name": "Linear programming: maximum principle and vertex optimality",
+    "sources": [
+      "https://lean-lang.org/eval/problems/lp_maximum_principle/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/lp_maximum_principle/"
+    ]
+  },
   "c6cf977be8e354b6fb4837cef8d76e7e7a5a8d0d0d018bd2ed8c214d18c32b91": {
     "name": "Existence of an order-10200960 group with a 22-dim irrep whose tensor square has 4 isotypic components",
     "sources": [
       "https://lean-lang.org/eval/problems/m23_irrep_tensor_square_decomp/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/m23_irrep_tensor_square_decomp/"
+    ]
+  },
+  "9a95bc3e12b168ca108b363f36ac3b5ff403f874b77001ec527f54169f87fea7": {
+    "name": "Mandelbar (tricorn) is not path-connected (Hubbard–Schleicher)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/mandelbar_not_path_connected/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/mandelbar_not_path_connected/"
+    ]
+  },
+  "c1da87e15b14e2142fb8b24f547a9b18972e1c40f934c39bea57858960eb2b1e": {
+    "name": "Mandelbrot set is connected (Douady–Hubbard)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/mandelbrot_connected/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/mandelbrot_connected/"
+    ]
+  },
+  "d295237f29debb240aae8d229b6e44e6d11b2f15de0bbc09d01be055bac014bd": {
+    "name": "Margulis–Ruelle inequality",
+    "sources": [
+      "https://lean-lang.org/eval/problems/margulis_ruelle/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/margulis_ruelle/"
+    ]
+  },
+  "a5b3079ef2aa99ab28466dc6f8346a686d16416906a945844aa9169fd8a1e4f8": {
+    "name": "Martinet's asymptotically-good totally real towers",
+    "sources": [
+      "https://lean-lang.org/eval/problems/martinet_totally_real_towers/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/martinet_totally_real_towers/"
+    ]
+  },
+  "06a795b24d4b4c77d841e1bb570a81f58ff39a9975cf2ab21cafeb8bf7e026bb": {
+    "name": "Mazur's torsion theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/mazur_torsion/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/mazur_torsion/"
     ]
   },
   "9216761d95ce7c20b50a56f5ed6dcf6f8c67cbf7f69829b24c135550cc712db3": {
@@ -272,11 +783,81 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/mem_convexHull_finset_extremePoints_of_mem_compact_convex/"
     ]
   },
+  "223ebfe58d15b092c1fb378587efd815adba58f0083a00513c9ffecda94bbf4e": {
+    "name": "Mergelyan's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/mergelyan_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/mergelyan_theorem/"
+    ]
+  },
+  "fdb1def1290da18c3e26643a1ea40bff71855eb79b35311f7128b6e1040127be": {
+    "name": "Milnor's exotic 7-sphere",
+    "sources": [
+      "https://lean-lang.org/eval/problems/milnor_exotic_sphere_seven/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/milnor_exotic_sphere_seven/"
+    ]
+  },
+  "f2a1f122957b625e4cd86fa95f9742c7ff970a33d89dd7b2c51ec7b37a957f51": {
+    "name": "Monge–Kantorovich existence theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/monge_kantorovich/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/monge_kantorovich/"
+    ]
+  },
+  "e5c76f8bcd7abce70c1b99cec19094d6f7ff85727b7dc6ba10d58fdcb7a7b5b7": {
+    "name": "Moran's equality for affine-symmetric iterated function systems",
+    "sources": [
+      "https://lean-lang.org/eval/problems/moran_equality_affine/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/moran_equality_affine/"
+    ]
+  },
+  "6ec2bf70e10805b57d44d3b2b698dff58a0d399cdf343a439af4feaece3bf044": {
+    "name": "Morley's categoricity theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/morley_categoricity_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/morley_categoricity_theorem/"
+    ]
+  },
+  "e245dadf240ebe15de701aee9e58b90b1557be1e312e0b33e77aaeea47299f9b": {
+    "name": "Morley's trisector theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/morley_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/morley_theorem/"
+    ]
+  },
+  "d8249b83758298e94ace14e81621e81f266205c63a6e1a93774bed79818e1b59": {
+    "name": "Morse inequalities",
+    "sources": [
+      "https://lean-lang.org/eval/problems/morse_inequality/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/morse_inequality/"
+    ]
+  },
+  "56ce17941e13cc09e0a39cc8993a86927783f3ef9db422ec2eb90385f7f07e7e": {
+    "name": "Mountain Pass Theorem (Ambrosetti–Rabinowitz 1973)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/mountain_pass/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/mountain_pass/"
+    ]
+  },
   "7b61bcb3717a2667824eaf3635148c3eae6871bde3dadb96d3d6bd311451ec5a": {
     "name": "Cayley graph connected iff generators generate the group",
     "sources": [
       "https://lean-lang.org/eval/problems/mulCayley_connected_iff_closure_eq_top/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/mulCayley_connected_iff_closure_eq_top/"
+    ]
+  },
+  "ef0d1adbc1611ce8b902a5db33caba8f16ccd75f50f103194f7ad30cf5f20271": {
+    "name": "multi-hole-with-helpers regression example",
+    "sources": [
+      "https://lean-lang.org/eval/problems/multi_hole_helpers_example/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/multi_hole_helpers_example/"
+    ]
+  },
+  "afc8d7b4af3f60b203a729ad700fd9fb28b99ff474466e53e5204456aff3cdad": {
+    "name": "Nash equilibrium existence theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/nash_equilibrium_exists/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/nash_equilibrium_exists/"
     ]
   },
   "2c385fde821630118cf6da96797e99baf51426015ea2a97f86e527c48e9b2b86": {
@@ -286,6 +867,20 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/neukirch_uchida/"
     ]
   },
+  "23a5123e3d4bb32682485786e5c940ccb8d79fc88798f50163a8543864ee1fd1": {
+    "name": "noncomputable-hole minimal example",
+    "sources": [
+      "https://lean-lang.org/eval/problems/noncomputable_hole_example/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/noncomputable_hole_example/"
+    ]
+  },
+  "334646eda0b4b2e7805338cd288e6924b7d27fcb3f99f718507e2025a7a74cd6": {
+    "name": "Novikov's theorem: the word problem is undecidable for finitely presented groups",
+    "sources": [
+      "https://lean-lang.org/eval/problems/novikov_unsolvable/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/novikov_unsolvable/"
+    ]
+  },
   "1e44f1388ab52888f0bfe86c1bb01602705430133fc39a3f22a69bafb00ef6fb": {
     "name": "Oppenheim's inequality for Hadamard products",
     "sources": [
@@ -293,11 +888,46 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/oppenheim_inequality/"
     ]
   },
+  "612800d4e175909dbfa7ff920c95e4f1e94bccf0dbdb8851c26a6b3a4b1fc16e": {
+    "name": "Ornstein–Weiss ℤᵈ Rokhlin lemma",
+    "sources": [
+      "https://lean-lang.org/eval/problems/ornstein_weiss_rokhlin/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/ornstein_weiss_rokhlin/"
+    ]
+  },
+  "cbfabbc315b01357a246f6f9cca6167caa6573fcf464c0a009c4c4a6328ae84a": {
+    "name": "Independence of the parallel postulate",
+    "sources": [
+      "https://lean-lang.org/eval/problems/parallel_postulate_independent/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/parallel_postulate_independent/"
+    ]
+  },
+  "24a5103988e0e6283a3b79dff80cf1fa07a886a2630c80fc58a34ecd7f3e6505": {
+    "name": "Pascal's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/pascal/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/pascal/"
+    ]
+  },
+  "b77e42866bf2b6f4cde4ee38c8f5ac9a30e905fe639b3936ae0810e689c03e7f": {
+    "name": "Pell solutions are convergents of √d",
+    "sources": [
+      "https://lean-lang.org/eval/problems/pell_solution_convergent/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/pell_solution_convergent/"
+    ]
+  },
   "0112ad5fcaa6645e944a2efd913840ff3751e80393d426666f90950e09acddc8": {
     "name": "A competition programming problem about permuting a permutation to be unimodal",
     "sources": [
       "https://lean-lang.org/eval/problems/permute_to_unimodal/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/permute_to_unimodal/"
+    ]
+  },
+  "51d294e7adbc982577e188ea3c41c0dd8210358eb4e5bd6e99e192996cefb4c6": {
+    "name": "Pesin entropy formula (symplectic surface case)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/pesin_formula/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/pesin_formula/"
     ]
   },
   "84c7c37374b5b45ecad44fd32ce881f33aaa2709e22bf9a4b3beb762de6cf0e2": {
@@ -321,11 +951,67 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/pi3_sphere_two_mulEquiv_int/"
     ]
   },
+  "323297ccbd8e60108f0900a1eb3169fd53ff60742a302d8f403914291a1fbcd0": {
+    "name": "Pick's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/pick/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/pick/"
+    ]
+  },
   "81240cbfef00fd83d071d9ebda475e57df111dff24b9d4364cc1000230933c55": {
     "name": "pi_n of the n-sphere is Z",
     "sources": [
       "https://lean-lang.org/eval/problems/pin_sphere_n_mulEquiv_int/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/pin_sphere_n_mulEquiv_int/"
+    ]
+  },
+  "2b5e13108de040d48bd30aa5f0a065ad2243c7b6b0bcdffe209e7acd1ff0d17b": {
+    "name": "Platonic classification",
+    "sources": [
+      "https://lean-lang.org/eval/problems/platonic_classification/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/platonic_classification/"
+    ]
+  },
+  "2c6d98e0b4dec00506f1555fccf4e3d24a0fe2b687f40710380baf09f26a655e": {
+    "name": "3D smooth Poincaré conjecture (Perelman)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/poincare_3d_smooth/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/poincare_3d_smooth/"
+    ]
+  },
+  "195fab7efbcc2bc3168429d2df3aea38ff960cc9c795d9152cbeb24608909007": {
+    "name": "3D topological Poincaré conjecture (Perelman)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/poincare_3d_topological/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/poincare_3d_topological/"
+    ]
+  },
+  "794cbdc335e26fcc4cd04b3b0047dfa8a415b57a5ae8de20e5ab32674dfa17d6": {
+    "name": "4D topological Poincaré conjecture (Freedman)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/poincare_4d_topological/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/poincare_4d_topological/"
+    ]
+  },
+  "58f4dca7532f86f2a749add4ff018c89dbb07b9224cff0fbcce79081a15fbff5": {
+    "name": "Poincaré–Bendixson theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/poincare_bendixson/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/poincare_bendixson/"
+    ]
+  },
+  "3cf65cc0082eb53a3a49c692cf4b01c64f117d7d733b3ad91377edac5bed561a": {
+    "name": "Generalized topological Poincaré conjecture in dimensions ≥ 5 (Smale)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/poincare_high_dim_topological/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/poincare_high_dim_topological/"
+    ]
+  },
+  "e5132ff6720bff2d9d075db0750ae0b59f5e672f32dc9088a2891c848918f613": {
+    "name": "Poincaré–Siegel linearisation theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/poincare_siegel_linearisation/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/poincare_siegel_linearisation/"
     ]
   },
   "14019469ec383901d11a103bdc176295d72ce15309e69a0a0125b66c5fb3505d": {
@@ -342,11 +1028,39 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/rado_riemannSurface/"
     ]
   },
+  "19061792efc7039d3ee879b4f09256d35350c2f3905f4b9f21aea9839e897443": {
+    "name": "Radon transform: Fourier-slice diagonalization and pseudo-inversion",
+    "sources": [
+      "https://lean-lang.org/eval/problems/radon_transform_inversion/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/radon_transform_inversion/"
+    ]
+  },
+  "a297a0b9f0bb30cab938abc2621d77153bc326e3d07ec2e65b2ff60984e8a1aa": {
+    "name": "Sard's regular-value corollary",
+    "sources": [
+      "https://lean-lang.org/eval/problems/regular_value_ae/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/regular_value_ae/"
+    ]
+  },
   "0383b61f31537593ebf8ecc3e61de69c72b647250a7d85342c1a68882e13c4af": {
     "name": "Lagarias criterion is equivalent to RH",
     "sources": [
       "https://lean-lang.org/eval/problems/riemann_hypothesis_iff_lagarias_elementary_criterion/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/riemann_hypothesis_iff_lagarias_elementary_criterion/"
+    ]
+  },
+  "7d367bf46e93578ad54bf4450b7873318d457d9a14e3dfa11b69fe70027d5b2f": {
+    "name": "Riesz's rising sun lemma",
+    "sources": [
+      "https://lean-lang.org/eval/problems/rising_sun_lemma/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/rising_sun_lemma/"
+    ]
+  },
+  "f826d52392ca39c1ca7beaea0469883c080e80125059f08480838c4dc8b0e1c6": {
+    "name": "Rokhlin lemma",
+    "sources": [
+      "https://lean-lang.org/eval/problems/rokhlin_lemma/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/rokhlin_lemma/"
     ]
   },
   "000863326594fb9bdd7d3fbe95a337f70783ba7717d98609fa343594a1f544db": {
@@ -356,6 +1070,41 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/rouche_zero_count_eq/"
     ]
   },
+  "67da8b3987bfdef366583d10ad09bd7c8f32ba269a59ba5d987416a0a7e5e6a8": {
+    "name": "Runge's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/runge_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/runge_theorem/"
+    ]
+  },
+  "d36dc66e327ffb5667277246fa2380350d493e09920890fa4f4fd9aeb6adb8fd": {
+    "name": "Sard's theorem (critical-set image has measure zero)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/sard_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/sard_theorem/"
+    ]
+  },
+  "ee0516b89cab7119bb715ea780bdc8467993d5d6b7836a802d4d270b767c4658": {
+    "name": "Schauder fixed-point theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/schauder_fixed_point/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/schauder_fixed_point/"
+    ]
+  },
+  "a1ce850ab956364c7e394722fc9f09d47d941911725711553343eba7f11d6b44": {
+    "name": "Schläfli classification of regular polytopes",
+    "sources": [
+      "https://lean-lang.org/eval/problems/schlafli_classification/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/schlafli_classification/"
+    ]
+  },
+  "1795bc41e76c3d10cd87948a93e48e1b6288f5d3e3256c92883332ef25f0f315": {
+    "name": "Schoenflies theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/schoenflies/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/schoenflies/"
+    ]
+  },
   "bee0547113542c017c584d8c442a40f54b2b5f9debd01516419342d86a9d9ea1": {
     "name": "Schreier's conjecture: outer automorphism group of a finite simple group is solvable",
     "sources": [
@@ -363,11 +1112,74 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/schreier_conjecture/"
     ]
   },
+  "214651886b853141960d6fd27e1b3e55eb7c0c30dbcff99485068e5dc4a849e9": {
+    "name": "Shafarevich's relation-rank bound",
+    "sources": [
+      "https://lean-lang.org/eval/problems/shafarevich_relation_rank_bound/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/shafarevich_relation_rank_bound/"
+    ]
+  },
   "f72fd8621807a08193cd14a124d7a2c4bf7be8010d2662b5ac6a96d9aacb1dcb": {
     "name": "Smale conjecture (Hatcher) in relative parameterized form",
     "sources": [
       "https://lean-lang.org/eval/problems/smale_conjecture/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/smale_conjecture/"
+    ]
+  },
+  "b4b1d036a515151ce584860453932992a45381c43109aaa08f73b2c145cac6c1": {
+    "name": "Pannwitz–Kuperberg quadrisecant theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/smooth_knot_has_quadrisecant/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/smooth_knot_has_quadrisecant/"
+    ]
+  },
+  "91e2582d736994c7404e14aeda3bed7cb0557b947fbc3d77a34474a742776db1": {
+    "name": "Sobolev embedding theorem (Morrey regime)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/sobolev_embedding_morrey/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/sobolev_embedding_morrey/"
+    ]
+  },
+  "0074b7915d3c2bb21867593a1046941d2e7e287ba33643044d9d0eeee70cf0cb": {
+    "name": "Solvable extensions ↔ solvable groups (the missing converse in Abel–Ruffini)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/solvable_by_radicals_converse/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/solvable_by_radicals_converse/"
+    ]
+  },
+  "cd90a83c4ac3f9940c125f239ff79167eec46b4d301583b17c2f4bf5896209b7": {
+    "name": "230 space groups (Fedorov 1891 / Schoenflies 1891)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/space_groups_230/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/space_groups_230/"
+    ]
+  },
+  "861d8c0ab932e763fa9dcced5a6ea4952e2a912212b193c5372e79af37596722": {
+    "name": "Differentiable sphere theorem (Brendle–Schoen)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/sphere_theorem_differentiable/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/sphere_theorem_differentiable/"
+    ]
+  },
+  "a3e548dd08cda796a0573c317e5e4518cedc6513c41f051f4d70c801862dfd2b": {
+    "name": "Topological sphere theorem (Berger–Klingenberg–Rauch)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/sphere_theorem_topological/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/sphere_theorem_topological/"
+    ]
+  },
+  "f978ebc8d23d7f70bf71d84fdb7f5e0cf26da232e331c212a19921279ad9c029": {
+    "name": "Local stable/unstable sets at a hyperbolic fixed point (set-level Hadamard–Perron)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/stable_unstable_manifolds/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/stable_unstable_manifolds/"
+    ]
+  },
+  "53ecf254fd856a26083f1207705ff3d9a0b7ef34066299c1a0217f4135fe579c": {
+    "name": "Sturm's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/sturm/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/sturm/"
     ]
   },
   "b00e78df6b79e3788edcc9f4dcdad22fa26010770fa7a78a95df2c3cc69e22e9": {
@@ -391,11 +1203,39 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/symAction_range_eq_centralizer_glAction/"
     ]
   },
+  "7e761ef96a041fd27d65d66f416ea743c0c5e2ab94f4470ea7b6fd3618ced081": {
+    "name": "Symplectic matrices have determinant 1",
+    "sources": [
+      "https://lean-lang.org/eval/problems/symplectic_matrix_det/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/symplectic_matrix_det/"
+    ]
+  },
+  "de186e07ba9c4d04a23e2c68cc5084d4ff00c68219a1bff6c97a69118c7caf7c": {
+    "name": "Szemerédi's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/szemeredi/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/szemeredi/"
+    ]
+  },
+  "9a84ef624e87c86df56fa4366253d840486b213117ec4d8c50683cbd83399e79": {
+    "name": "Thue–Siegel–Roth theorem (irrationality measure ≤ 2 for algebraic irrationals)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/thue_siegel_roth/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/thue_siegel_roth/"
+    ]
+  },
   "1a20ac4122b916b1c85be9a44d495aacd9028de720a8d7419324dbc5a0ddc4e2": {
     "name": "Topological classification of surfaces",
     "sources": [
       "https://lean-lang.org/eval/problems/topological_classification_of_surfaces/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/topological_classification_of_surfaces/"
+    ]
+  },
+  "21fefc7fafe16596fc203dec02e0cadfeeeaa8464a0248a5d1755e88cc741cca": {
+    "name": "Tverberg's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/tverberg_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/tverberg_theorem/"
     ]
   },
   "cfe3cc12caa3ef57ccb6114ca41241c0e6636c4a14d5b30db06745771a67f6f6": {
@@ -412,11 +1252,81 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/uniformization/"
     ]
   },
+  "0b8652f44ca7e5b8bcd6bf09bf739a404a5658cc7c11e613fca3bc1ad1a7b408": {
+    "name": "Spencer-Szemerédi-Trotter unit-distance upper bound",
+    "sources": [
+      "https://lean-lang.org/eval/problems/unit_distance_upper_bound/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/unit_distance_upper_bound/"
+    ]
+  },
+  "39679e876db1997e988f6111c38eeae535caea885587ae922c46fb2b80630670": {
+    "name": "Upper bound theorem for geometric simplicial spheres (Stanley 1975)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/upper_bound_simplicial_spheres/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/upper_bound_simplicial_spheres/"
+    ]
+  },
+  "eb98b72f4cfcdb9b100711afca43bd20c117194aa10ac6b544bfdf7662f93ac3": {
+    "name": "variable-binder minimal example",
+    "sources": [
+      "https://lean-lang.org/eval/problems/variable_binder_example/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/variable_binder_example/"
+    ]
+  },
   "4a0fcd0bf049cd1161a25811e46a4d634de1014df956691235fc8f382ae8c543": {
     "name": "von Neumann double commutant theorem",
     "sources": [
       "https://lean-lang.org/eval/problems/vonNeumann_doubleCommutant_tfae/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/vonNeumann_doubleCommutant_tfae/"
+    ]
+  },
+  "eafb66d237efa078134ac95eb185c45fd0de7ee68719c27da3f7b91b03e689f1": {
+    "name": "Seventeen wallpaper groups (Pólya–Niggli 1924)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/wallpaper_groups_17/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/wallpaper_groups_17/"
+    ]
+  },
+  "e0ed7eb10cd7c96d1f2bb9de96f46557a1bc99c7868eca5bc8bb4ffae3664f1e": {
+    "name": "Weak Morse inequalities",
+    "sources": [
+      "https://lean-lang.org/eval/problems/weak_morse_inequality/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/weak_morse_inequality/"
+    ]
+  },
+  "e17c602358aa87adc5cf5aebbafdc77344e75def5a12058dccd749fcf786fa47": {
+    "name": "Weinstein conjecture in dimension three (Taubes 2007)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/weinstein_conjecture_dim3/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/weinstein_conjecture_dim3/"
+    ]
+  },
+  "908f7aac3fa2026a0536c60db294c573403eda5f16b1b8b7f638c5bc63340f3d": {
+    "name": "Whitney embedding theorem (strong form, dimension 2n)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/whitney_embedding/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/whitney_embedding/"
+    ]
+  },
+  "63e6f3249092e8770dadbaee4cf88ff0c947461657368897871ba6e841b0ae21": {
+    "name": "Wieferich's theorem g(3) = 9",
+    "sources": [
+      "https://lean-lang.org/eval/problems/wieferich_g_three/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/wieferich_g_three/"
+    ]
+  },
+  "9bed943c2efa1d7136bb13e8f6dc33be5f162fb1b149de210abc380bc15058c1": {
+    "name": "Wiener's atom-detection formula",
+    "sources": [
+      "https://lean-lang.org/eval/problems/wiener_atom_detection/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/wiener_atom_detection/"
+    ]
+  },
+  "151f6c182aab48480d8d3f12c162edfbfb522d474d4188dd3c668759ac87acef": {
+    "name": "Wigner semicircle law",
+    "sources": [
+      "https://lean-lang.org/eval/problems/wigner_semicircle/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/wigner_semicircle/"
     ]
   }
 }

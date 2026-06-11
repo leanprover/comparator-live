@@ -9,6 +9,16 @@ theorem InfinitudeOfPrimes : ∀ n, ∃ p > n, IsPrime p := by
   sorry`,
     },
     {
+      label: "Fermat's Last Theorem",
+      contents: `
+import Mathlib.Data.PNat.Basic
+theorem PNat.pow_add_pow_ne_pow
+    (x y z : ℕ+)
+    (n : ℕ) (hn : n > 2) :
+    x^n + y^n ≠ z^n :=
+  by sorry`,
+    },
+    {
       label: "Finite Ramsey theorem for graphs",
       contents: `
 import Mathlib
