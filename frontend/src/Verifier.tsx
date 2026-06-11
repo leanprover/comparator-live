@@ -33,7 +33,6 @@ export default function Verifier() {
   const recognitionState = useAtomValue(recognitionStateAtom);
   const requestVerification = useSetAtom(requestVerificationAtom);
   const [isOpen, setIsOpen] = useState(false);
-  console.log({ comparatorResult, statusClass, isComparatorSynced, isComparatorInitialized, recognitionState });
 
   let status: JSX.Element;
   let action: JSX.Element | null;
