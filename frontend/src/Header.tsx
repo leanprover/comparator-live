@@ -12,6 +12,7 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
+import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons/faCircleInfo";
@@ -138,6 +139,11 @@ export default function Header() {
                 <Menu.Item value="lean-fro" asChild>
                   <a href="https://lean-lang.org/fro/" target="_blank">
                     <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Lean FRO
+                  </a>
+                </Menu.Item>
+                <Menu.Item value="github" asChild>
+                  <a href="https://github.com/leanprover/comparator-live/" target="_blank">
+                    <FontAwesomeIcon icon={faGithub} /> GitHub
                   </a>
                 </Menu.Item>
                 <Menu.Item value="privacy" asChild>

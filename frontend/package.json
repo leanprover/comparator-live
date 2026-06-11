@@ -15,9 +15,10 @@
   "author": "Rob Simmons",
   "dependencies": {
     "@chakra-ui/react": "^3.35.0",
+    "@comparator/shared": "^1.0.0",
+    "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.3.1",
-    "@comparator/shared": "^1.0.0",
     "@tanstack/query-core": "^5.100.9",
     "immer": "^11.1.7",
     "jotai": "^2.19.1",
