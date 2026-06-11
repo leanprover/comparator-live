@@ -116,6 +116,15 @@ const comparatorJobIdAtom = atomWithQuery((get) => {
 export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "initial-load" });
 
 /**
+ * Effect observer that cancels an in-flight request if you edit things.
+ */
+observe((get, set) => {
+  if (get(isComparatorSyncedAtom)) return;
+  if (checkVerifyStatusIsTerminal(get(comparatorResultAtom))) return;
+  set(comparatorJobParamsAtom, "clear");
+});
+
+/**
  * Effect observer that triggers whenever `comparatorJobIdAtom` is set and
  * manages the effect.
  */
