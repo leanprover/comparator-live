@@ -31,6 +31,10 @@
     "name": "Proof of False (would imply inconsistency in Lean)",
     "sources": []
   },
+  "b8bf65e0df6a9088859d82cdb57ce721202fd1e663f46c53ab138b8a9b0014f9": {
+    "name": "Proof of False named 'unsound'",
+    "sources": []
+  },
   "b8e75f1791df1004a12cf83625f2e50258e00d9b66e14a5b10970a6bc495bf87": {
     "name": "Fermat's Last Theorem (from Mathlib)",
     "sources": [
