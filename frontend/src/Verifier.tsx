@@ -43,6 +43,7 @@ export default function Verifier() {
   );
 
   if (!isComparatorInitialized) {
+    // Matches the in-progress status that will appear shortly if all goes well
     status = (
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
         <Text>Verifying that the solution solves the challenge with comparator.</Text>
