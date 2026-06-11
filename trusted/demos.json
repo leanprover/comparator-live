@@ -1,20 +1,46 @@
 {
+  "2865bbba24e965e6a6f43e113776e10ae55b81639152b46befe1ab06b73b180d": {
+    "name": "Proof of False named \"boom1\"",
+    "sources": []
+  },
   "3d139f85ba4e5bb3a21bf1b30c5ee9cfd5268e2f5727af81a7c63f63b0bcf318": {
     "name": "Infinitely Many Primes",
     "sources": ["https://lean-lang.org/"]
+  },
+  "49b03916563683a95160ef6fcc0c805a0af2517b24a68eeadc360e3862edf4e3": {
+    "name": "Proof of False named \"boom\"",
+    "sources": []
   },
   "53dc5a6041f14ae5dd984aff076e69d6cce7d74d55ff4390b4ff265a7acb369f": {
     "name": "Proof of True (trivial to prove)",
     "sources": []
   },
+  "56b938e3d7987500955cac26943754a0e634b1181f791bd9709dbb1f476fed99": {
+    "name": "Proof of False named \"amazing\"",
+    "sources": []
+  },
+  "88822a178b0fb12bdb1072090f9400728d6f047376d6def550c41e21e63a74f4": {
+    "name": "Fermat's Last Theorem",
+    "sources": ["https://github.com/ImperialCollegeLondon/FLT/blob/main/FermatsLastTheorem.lean"]
+  },
   "b79b0f7a94e73c7b7ea9eebd5a0c947efa2ccbe5e1b8b38f28ba3a2ff7936bc0": {
     "name": "Proof of False (would imply inconsistency in Lean)",
     "sources": []
+  },
+  "b8e75f1791df1004a12cf83625f2e50258e00d9b66e14a5b10970a6bc495bf87": {
+    "name": "Fermat's Last Theorem (from Mathlib)",
+    "sources": [
+      "https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/NumberTheory/FLT/Basic.lean"
+    ]
   },
   "e3fa1e8e23c5da05218a66796c4cd634c402f4e92904ba8b81f92887474fe410": {
     "name": "Collatz Conjecture",
     "sources": [
       "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Wikipedia/CollatzConjecture.lean"
     ]
+  },
+  "ff421251bad95b7c31d363aae2f151fc98083e68cff6c3bd08c5c409fce4776b": {
+    "name": "Proof of False named \"falsy\"",
+    "sources": []
   }
 }

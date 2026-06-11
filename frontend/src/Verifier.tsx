@@ -116,10 +116,9 @@ export default function Verifier() {
           <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
             {comparatorResult.theoremNames.length === 0 && (
               <>
-                <Strong>Internal Consistency of Solution Verified.</Strong> Lean's kernel verified
-                that the solution makes sense, but there are no theorems stated in the challenge.
-                Therefore, it's not possible to verify the contents of the solution against a
-                challenge.
+                <Strong>Nothing For Comparator To Check.</Strong> There are no theorems stated in
+                the challenge. Therefore, it's not possible to verify the contents of the solution
+                against a challenge.
               </>
             )}
             {comparatorResult.theoremNames.length > 0 && (
