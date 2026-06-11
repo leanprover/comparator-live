@@ -4,7 +4,6 @@ import {
   type CheckVerifyResponse,
   type StartVerifyResponse,
   zStartVerifyRequest,
-  zVerifyRequest,
 } from "@comparator/shared";
 import express, { type Response } from "express";
 import { z, type ZodSafeParseResult } from "zod";

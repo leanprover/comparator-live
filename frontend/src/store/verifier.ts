@@ -115,20 +115,6 @@ const comparatorJobIdAtom = atomWithQuery((get) => {
  */
 export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "initial-load" });
 
-let navigatingAway = false;
-window.addEventListener("pagehide", () => {
-  navigatingAway = true;
-});
-window.addEventListener("pageshow", (event) => {
-  if (!event.persisted) return;
-  const jotaiStore = getDefaultStore();
-  const message = jotaiStore.get(comparatorResultAtom);
-  if (!checkVerifyStatusIsTerminal(message)) {
-    jotaiStore.set(comparatorJobParamsAtom, "clear");
-  }
-  navigatingAway = false;
-});
-
 /**
  * Effect observer that triggers whenever `comparatorJobIdAtom` is set and
  * manages the effect.
@@ -171,17 +157,21 @@ export const unobserve = observe((get, set) => {
       // state when the user navigates to another page.
       return;
     }
-    source.close();
-    if (navigatingAway) return;
-    set(comparatorResultAtom, {
-      type: "verification-failed",
-      description: `Lost server connection`,
-      output: "",
-    });
+    set(comparatorResultAtom, { type: "connection-lost" });
   };
   return () => {
     source.close();
   };
+});
+
+// Reset job status if page is closed
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+  const jotaiStore = getDefaultStore();
+  const message = jotaiStore.get(comparatorResultAtom);
+  if (!checkVerifyStatusIsTerminal(message)) {
+    jotaiStore.set(comparatorJobParamsAtom, "clear");
+  }
 });
 
 if (import.meta.hot) {

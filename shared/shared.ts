@@ -42,7 +42,8 @@ export type CheckVerifyResponse = z.infer<typeof zCheckVerifyResponse>;
 export type CheckVerifyStatus =
   | CheckVerifyResponse
   | { type: "initial-load" }
-  | { type: "in-preparation" };
+  | { type: "in-preparation" }
+  | { type: "connection-lost" };
 
 export function checkVerifyStatusIsTerminal(status: CheckVerifyStatus) {
   return (

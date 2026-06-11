@@ -52,4 +52,3 @@ describe(`POST /comparator/api/start`, () => {
     expect(response.body).toStrictEqual({ type: "project-not-supported" });
   });
 });
-
