@@ -59,7 +59,9 @@ export const recognitionAtom = atom<Promise<TrustRecognition>>(async (get) => {
   if (get(challengeAtom).trim() === "") {
     return { type: "empty" };
   }
+
   const challengeHash = await get(challengeHashAtom);
+
   const { builtInTrusted } = await import("./builtInTrusted.ts");
   const builtInTrust = builtInTrusted[challengeHash];
   if (builtInTrust) return { type: "built-in", ...builtInTrust };
