@@ -116,10 +116,21 @@ const comparatorJobIdAtom = atomWithQuery((get) => {
 export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "initial-load" });
 
 /**
+ * Effect observer that cancels an in-flight request if you edit things. (It's
+ * nice to leave completed requests in place in case the user wants to undo
+ * their edit.)
+ */
+const deSyncedTaskEffectCanceller = observe((get, set) => {
+  if (get(isComparatorSyncedAtom)) return;
+  if (checkVerifyStatusIsTerminal(get(comparatorResultAtom))) return;
+  set(comparatorJobParamsAtom, "clear");
+});
+
+/**
  * Effect observer that triggers whenever `comparatorJobIdAtom` is set and
  * manages the effect.
  */
-export const unobserve = observe((get, set) => {
+const comparatorTaskEffectCanceller = observe((get, set) => {
   const { data: requestId, status, isEnabled } = get(comparatorJobIdAtom);
   if (!isEnabled) {
     set(comparatorResultAtom, { type: "initial-load" });
@@ -175,5 +186,8 @@ window.addEventListener("pageshow", (event) => {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.dispose(unobserve);
+  import.meta.hot.dispose(() => {
+    deSyncedTaskEffectCanceller();
+    comparatorTaskEffectCanceller();
+  });
 }
