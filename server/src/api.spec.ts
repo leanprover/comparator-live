@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { app } from "./app.ts";
 let response: Response;
 
-describe(`POST /comparator/api/track/:requestId`, () => {
+describe(`GET /comparator/api/track/:requestId`, () => {
   it("should successfully track a valid request", async () => {
     response = await supertest(app).post(`/comparator/api/start`).send({
       project: "mathlib-stable",
@@ -21,6 +21,8 @@ describe(`POST /comparator/api/track/:requestId`, () => {
       .parse((res, cb) => {
         let first: unknown = null;
         let last: unknown = null;
+
+        // Fragile: this could fail if node ever decides to merge messages
         res.on("data", (c: Buffer) => {
           const contents = JSON.parse(c.toString().slice(5));
           first = first ?? contents;
@@ -51,19 +53,3 @@ describe(`POST /comparator/api/start`, () => {
   });
 });
 
-describe(`POST /comparator/api/cancel`, () => {
-  it("should successfully cancel a valid request", async () => {
-    response = await supertest(app)
-      .post(`/comparator/api/start`)
-      .send({ project: "mathlib-stable", challenge: "", solution: "" });
-    expect(response.status).toBe(200);
-    expect(response.body).toStrictEqual({ type: "ready", requestId: expect.anything() });
-    const requestId = response.body.requestId as string;
-
-    response = await supertest(app).post(`/comparator/api/cancel`).send({ requestId });
-    expect(response.status).toBe(200);
-
-    response = await supertest(app).get(`/comparator/api/track/${requestId}`);
-    expect(response.status).toBe(404);
-  });
-});

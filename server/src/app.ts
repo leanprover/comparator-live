@@ -69,21 +69,6 @@ app.post("/comparator/api/start", async (req, res) => {
   res.send(result);
 });
 
-app.post("/comparator/api/cancel", (req, res) => {
-  const body = zVerifyRequest.safeParse(req.body);
-  if (poorlyFormed(body, res)) return;
-
-  const readyJob = readyJobs.get(body.data.requestId);
-  if (readyJob) {
-    clearTimeout(readyJob.timeoutCancel);
-    readyJobs.delete(body.data.requestId);
-  } else {
-    cancelWork(body.data.requestId);
-  }
-
-  res.send();
-});
-
 app.get("/comparator/api/track/:requestId", (req, res) => {
   const requestId = z.uuidv4().safeParse(req.params.requestId);
   if (poorlyFormed(requestId, res)) return;
@@ -130,6 +115,7 @@ app.get("/comparator/api/track/:requestId", (req, res) => {
     res.end();
   });
 
+  // Close always fires after res.end, so cleanup can happen here
   req.on("close", () => {
     clearInterval(keepAlive);
     emitter.removeAllListeners();

@@ -164,9 +164,11 @@ export const unobserve = observe((get, set) => {
 
   source.onerror = () => {
     if (source.readyState === EventSource.CONNECTING) {
-      // Let the app attempt to reconnect once, this is sure to 404 based on how the backend works.
-      // This retry prevents the page from immediately flashing into an error state when the error
-      // results from the user navigating to another page.
+      // The connection was interrupted, but we're going to try to reestablish the connection
+      // https://html.spec.whatwg.org/multipage/server-sent-events.html#reestablish-the-connection
+      // We actually want to let the app try to reconnect, despite knowing for sure (based on how
+      // our backend works) that it will be a 404. If we skip this, we'll get a flashed error
+      // state when the user navigates to another page.
       return;
     }
     source.close();
