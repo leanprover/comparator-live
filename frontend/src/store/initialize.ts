@@ -1,7 +1,8 @@
-import type { Store } from "jotai/vanilla/store";
+import { getDefaultStore } from "jotai";
 
-import { challengeAtom, projectAtom, solutionAtom } from "./params";
-import { comparatorJobParamsAtom } from "./verifier";
+import { whenAtom } from "../utils/jotai.ts";
+import { challengeAtom, defaultProjectAtom, projectAtom, solutionAtom } from "./params.ts";
+import { requestVerificationAtom } from "./verifier.ts";
 
 const DEMO_CHALLENGE = `def IsPrime (n : Nat) := 1 < n ∧ ∀ k, 1 < k → k < n → ¬ k ∣ n
 
@@ -61,7 +62,8 @@ theorem InfinitudeOfPrimes : ∀ n, ∃ p > n, IsPrime p := by
  * Initialize appropriate first-time defaults and kick off the first
  * comparator job. Uses a demo if there's nothing given.
  */
-export function initializeStore(store: Store) {
+export function initializeDefaultStore() {
+  const store = getDefaultStore();
   if (
     store.get(challengeAtom) === "" &&
     store.get(solutionAtom) === "" &&
@@ -70,5 +72,9 @@ export function initializeStore(store: Store) {
     store.set(challengeAtom, DEMO_CHALLENGE);
     store.set(solutionAtom, DEMO_SOLUTION);
   }
-  store.set(comparatorJobParamsAtom);
+
+  // As soon as there's a default project we'll request verification
+  void whenAtom(store, defaultProjectAtom, (p) => p !== null).then(() =>
+    store.set(requestVerificationAtom),
+  );
 }

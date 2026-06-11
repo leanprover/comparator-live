@@ -1,108 +1,83 @@
 import {
   type CheckVerifyStatus,
   checkVerifyStatusIsTerminal,
+  type StartVerifyRequest,
   zCheckVerifyResponse,
   zStartVerifyResponse,
 } from "@comparator/shared";
 import { atom, getDefaultStore } from "jotai";
 import { observe } from "jotai-effect";
-import { atomWithQuery } from "jotai-tanstack-query";
+import { atomWithMutation } from "jotai-tanstack-query";
 
 import { challengeAtom, defaultProjectAtom, projectAtom, solutionAtom } from "./params.ts";
 
+/** Snapshot of editor state that can be sent to comparator. */
 interface ComparatorJobParams {
-  internalId: number;
   project: string | null;
   challenge: string;
   solution: string;
 }
-let internalIdSequenceNumber = 0;
 
 /**
- * Stores the last version of code sent to comparator.
- *
- * Must only be accessed through `comparatorJobParamsAtom`
+ * Stores the last editor state snapshot that was sent to comparator.
+ * Written to by `requestVerificationAtom` (when a verification is requested),
+ * by `clearVerificationAtom` (when a verification is cancelled). Not written
+ * anywhere else.
  */
-const comparatorJobParamsHolder = atom<ComparatorJobParams | null>(null);
+const comparatorJobAtom = atom<ComparatorJobParams | null>(null);
 
-/**
- * Action atom that can be read to get the version of the code that was most
- * recently sent to comparator (see
- * https://jotai.org/docs/guides/composing-atoms#action-atoms).
- *
- * Setting this atom with no arguments does two things:
- *
- *  - snapshots the current code into `comparatorJobParamsHolder`, which is
- *    only accessed through this atom.
- *  - incrementing a counter that forces a new Comparator query via
- *    `comparatorJobIdAtom`.
- */
-export const comparatorJobParamsAtom = atom(
-  (get) => get(comparatorJobParamsHolder),
-  (get, set, action?: "clear") => {
-    if (action === "clear") {
-      // Reset to a "we've not sent anything to comparator" state
-      set(comparatorJobParamsHolder, null);
-      return;
-    }
-    set(comparatorJobParamsHolder, {
-      internalId: ++internalIdSequenceNumber,
-      project: get(projectAtom),
-      challenge: get(challengeAtom),
-      solution: get(solutionAtom),
+/** Action atom: request verification of the current editor state */
+export const requestVerificationAtom = atom(null, (get, set) => {
+  const defaultProject = get(defaultProjectAtom);
+  if (defaultProject === null) {
+    throw new Error("Invariant: requestVerificationAtom triggered before defaultProject resolved");
+  }
+
+  const project = get(projectAtom);
+  const challenge = get(challengeAtom);
+  const solution = get(solutionAtom);
+  set(comparatorJobAtom, { project, challenge, solution });
+  get(generateRequestIdAtom).mutate({ project: project ?? defaultProject, challenge, solution });
+});
+
+/** Action atom: cancel any in-flight requests */
+export const cancelActiveVerificationAtom = atom(null, (get, set) => {
+  if (checkVerifyStatusIsTerminal(get(comparatorResultAtom))) return;
+  set(comparatorJobAtom, null);
+});
+
+const generateRequestIdAtom = atomWithMutation(() => ({
+  mutationFn: async (request: StartVerifyRequest) => {
+    const response = await fetch("/comparator/api/start", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(request),
     });
+
+    // todo: if (response.status === 429) set a new rate-limiting non-terminal status
+    if (response.status !== 200) throw new Error(`got ${response.status} response on start`);
+
+    const body = zStartVerifyResponse.parse(await response.json());
+    if (body.type === "project-not-supported") {
+      throw new Error(`Current project type not supported`);
+    }
+
+    return body.requestId;
   },
-);
+}));
 
 /**
  * Tracks whether the version of code that's been sent to comparator most
  * recently is the code we're looking at.
  */
 export const isComparatorSyncedAtom = atom((get) => {
-  const params = get(comparatorJobParamsAtom);
+  const params = get(comparatorJobAtom);
   if (!params) return false;
   return (
     params.project === get(projectAtom) &&
     params.challenge === get(challengeAtom) &&
     params.solution === get(solutionAtom)
   );
-});
-
-/**
- * Comparator API query, triggered whenever `comparatorJobParamsAtom` is set.
- */
-const comparatorJobIdAtom = atomWithQuery((get) => {
-  const params = get(comparatorJobParamsAtom);
-  const defaultProject = get(defaultProjectAtom);
-  return {
-    queryKey: ["comparator-start", params?.internalId ?? null],
-    enabled: params !== null && defaultProject !== null,
-    queryFn: async ({ signal }) => {
-      if (!params || defaultProject === null)
-        throw new Error(
-          `invariant violation: queryFn in comparatorJobIdAtom called when query should be disabled`,
-        );
-
-      const response = await fetch("/comparator/api/start", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          project: params.project ?? defaultProject,
-          challenge: params.challenge,
-          solution: params.solution,
-        }),
-        signal,
-      });
-      if (response.status !== 200) throw new Error(`got ${response.status} response on start`);
-
-      const body = zStartVerifyResponse.parse(await response.json());
-      if (body.type === "project-not-supported") {
-        throw new Error(`Current project type not supported`);
-      }
-
-      return body.requestId;
-    },
-  };
 });
 
 /**
@@ -122,8 +97,7 @@ export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "initial-loa
  */
 const deSyncedTaskEffectCanceller = observe((get, set) => {
   if (get(isComparatorSyncedAtom)) return;
-  if (checkVerifyStatusIsTerminal(get(comparatorResultAtom))) return;
-  set(comparatorJobParamsAtom, "clear");
+  set(cancelActiveVerificationAtom);
 });
 
 /**
@@ -131,8 +105,8 @@ const deSyncedTaskEffectCanceller = observe((get, set) => {
  * manages the effect.
  */
 const comparatorTaskEffectCanceller = observe((get, set) => {
-  const { data: requestId, status, isEnabled } = get(comparatorJobIdAtom);
-  if (!isEnabled) {
+  const { data: requestId, status } = get(generateRequestIdAtom);
+  if (status === "idle") {
     set(comparatorResultAtom, { type: "initial-load" });
     return;
   }
@@ -178,11 +152,7 @@ const comparatorTaskEffectCanceller = observe((get, set) => {
 // Reset job status if page is closed
 window.addEventListener("pageshow", (event) => {
   if (!event.persisted) return;
-  const jotaiStore = getDefaultStore();
-  const message = jotaiStore.get(comparatorResultAtom);
-  if (!checkVerifyStatusIsTerminal(message)) {
-    jotaiStore.set(comparatorJobParamsAtom, "clear");
-  }
+  getDefaultStore().set(cancelActiveVerificationAtom);
 });
 
 if (import.meta.hot) {

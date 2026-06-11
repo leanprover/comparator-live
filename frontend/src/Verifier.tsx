@@ -18,9 +18,9 @@ import { type JSX, useState } from "react";
 import { statusClassAtom } from "./store/simpleStatus.ts";
 import { recognitionStateAtom } from "./store/trusted.ts";
 import {
-  comparatorJobParamsAtom,
   comparatorResultAtom,
   isComparatorSyncedAtom,
+  requestVerificationAtom,
 } from "./store/verifier.ts";
 import { oxford } from "./utils/language.tsx";
 
@@ -29,7 +29,7 @@ export default function Verifier() {
   const isComparatorSynced = useAtomValue(isComparatorSyncedAtom);
   const comparatorResult = useAtomValue(comparatorResultAtom);
   const recognitionState = useAtomValue(recognitionStateAtom);
-  const reset = useSetAtom(comparatorJobParamsAtom);
+  const requestVerification = useSetAtom(requestVerificationAtom);
   const [isOpen, setIsOpen] = useState(false);
 
   let status: JSX.Element;
@@ -49,7 +49,7 @@ export default function Verifier() {
       );
     }
     action = (
-      <Button size="2xl" marginInline="3" marginBlock="1" onClick={() => reset()}>
+      <Button size="2xl" marginInline="3" marginBlock="1" onClick={() => requestVerification()}>
         Run Verification
       </Button>
     );
