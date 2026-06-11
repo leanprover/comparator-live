@@ -1,9 +1,10 @@
 import {
   type CheckVerifyStatus,
+  checkVerifyStatusIsTerminal,
   zCheckVerifyResponse,
   zStartVerifyResponse,
 } from "@comparator/shared";
-import { atom } from "jotai";
+import { atom, getDefaultStore } from "jotai";
 import { observe } from "jotai-effect";
 import { atomWithQuery } from "jotai-tanstack-query";
 
@@ -38,7 +39,12 @@ const comparatorJobParamsHolder = atom<ComparatorJobParams | null>(null);
  */
 export const comparatorJobParamsAtom = atom(
   (get) => get(comparatorJobParamsHolder),
-  (get, set) => {
+  (get, set, action?: "clear") => {
+    if (action === "clear") {
+      // Reset to a "we've not sent anything to comparator" state
+      set(comparatorJobParamsHolder, null);
+      return;
+    }
     set(comparatorJobParamsHolder, {
       internalId: ++internalIdSequenceNumber,
       project: get(projectAtom),
@@ -133,51 +139,39 @@ export const unobserve = observe((get, set) => {
     return;
   }
 
-  // If controller aborts, we mustn't set `comparatorResultAtom`
-  const controller = new AbortController();
-  (async () => {
-    for (;;) {
-      await new Promise((resolve) => setTimeout(resolve, 200 + Math.random() * 50));
-      const response = await fetch("/comparator/api/poll", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ requestId }),
-        signal: controller.signal,
-      });
-      if (response.status !== 200) throw new Error(`got ${response.status} response on poll`);
-
-      const body = zCheckVerifyResponse.parse(await response.json());
-      controller.signal.throwIfAborted();
-      set(comparatorResultAtom, body);
-      if (body.type !== "in-progress" && body.type !== "in-queue") return;
+  const source = new EventSource(`/comparator/api/track/${requestId}`);
+  source.onmessage = (event) => {
+    const message = zCheckVerifyResponse.parse(JSON.parse(event.data as string));
+    set(comparatorResultAtom, message);
+    if (checkVerifyStatusIsTerminal(message)) {
+      source.close();
     }
-  })().catch((err: unknown) => {
-    if (controller.signal.aborted) return;
-    // Don't go to an error state if the error is an AbortError. The reasoning
-    // is that it's *probably* cancellation due to a page unload event, and
-    // this avoids flashing a quick error state on some page navigation
-    // events.
-    //
-    // If we're wrong, and something else aborted the fetch, the user will see
-    // the app as stuck in the waiting state. That's better than flashing a
-    // quick error state on page navigation.
-    if (err instanceof Error && err.name === "AbortError") return;
-    set(comparatorResultAtom, {
-      type: "verification-failed",
-      description: `Unexpected error while waiting for response`,
-      output: err instanceof Error ? err.message : String(err),
-    });
-  });
-
-  return () => {
-    controller.abort();
-    fetch("/comparator/api/cancel", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ requestId }),
-      keepalive: true, // run this to completion if at all possible
-    }).catch((err: unknown) => console.error(`Unexpected error during cancel`, err));
   };
+
+  source.onerror = () => {
+    if (source.readyState === EventSource.CONNECTING) {
+      // The connection was interrupted, but we're going to try to reestablish the connection
+      // https://html.spec.whatwg.org/multipage/server-sent-events.html#reestablish-the-connection
+      // We actually want to let the app try to reconnect, despite knowing for sure (based on how
+      // our backend works) that it will be a 404. If we skip this, we'll get a flashed error
+      // state when the user navigates to another page.
+      return;
+    }
+    set(comparatorResultAtom, { type: "connection-lost" });
+  };
+  return () => {
+    source.close();
+  };
+});
+
+// Reset job status if page is closed
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted) return;
+  const jotaiStore = getDefaultStore();
+  const message = jotaiStore.get(comparatorResultAtom);
+  if (!checkVerifyStatusIsTerminal(message)) {
+    jotaiStore.set(comparatorJobParamsAtom, "clear");
+  }
 });
 
 if (import.meta.hot) {

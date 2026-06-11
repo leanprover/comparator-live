@@ -1,14 +1,15 @@
+import { randomUUID } from "node:crypto";
+
 import {
   type CheckVerifyResponse,
   type StartVerifyResponse,
   zStartVerifyRequest,
-  zVerifyRequest,
 } from "@comparator/shared";
 import express, { type Response } from "express";
-import type { ZodSafeParseResult } from "zod";
+import { z, type ZodSafeParseResult } from "zod";
 
 import { getProjects } from "./projects.ts";
-import { addWorkToQueue, cancelWork, checkWorkStatus, health, metrics } from "./workqueue.ts";
+import { addWorkToQueue, cancelWork, health, metrics } from "./workqueue.ts";
 
 export const app = express();
 app.use(express.json());
@@ -39,6 +40,16 @@ app.get("/comparator/api/metrics.prom", (_req, res) => {
   );
 });
 
+/**
+ * Jobs are stored with a post request and enqueued when their status is first requested.
+ * In between, they're temporarily stored in `readyJobs`.
+ */
+const readyJobs = new Map<
+  string,
+  { timeoutCancel: NodeJS.Timeout; job: { project: string; challenge: string; solution: string } }
+>();
+const READY_JOB_TIMEOUT_MS = 5000;
+
 app.post("/comparator/api/start", async (req, res) => {
   const body = zStartVerifyRequest.safeParse(req.body);
   if (poorlyFormed(body, res)) return;
@@ -47,25 +58,68 @@ app.post("/comparator/api/start", async (req, res) => {
   if (!(await getProjects()).some(({ project }) => project === body.data.project)) {
     result = { type: "project-not-supported" };
   } else {
-    result = { type: "enqueued", requestId: addWorkToQueue(body.data) };
+    const uuid = randomUUID();
+    readyJobs.set(uuid, {
+      timeoutCancel: setTimeout(() => readyJobs.delete(uuid), READY_JOB_TIMEOUT_MS),
+      job: body.data,
+    });
+    result = { type: "ready", requestId: uuid };
   }
   res.send(result);
 });
 
-app.post("/comparator/api/cancel", (req, res) => {
-  const body = zVerifyRequest.safeParse(req.body);
-  if (poorlyFormed(body, res)) return;
+app.get("/comparator/api/track/:requestId", (req, res) => {
+  const requestId = z.uuidv4().safeParse(req.params.requestId);
+  if (poorlyFormed(requestId, res)) return;
 
-  cancelWork(body.data.requestId);
-  res.send();
-});
+  const readyJob = readyJobs.get(requestId.data);
+  if (!readyJob) {
+    res.sendStatus(404);
+    return;
+  }
 
-app.post("/comparator/api/poll", (req, res) => {
-  const body = zVerifyRequest.safeParse(req.body);
-  if (poorlyFormed(body, res)) return;
+  // Server-sent events always need these
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Connection", "keep-alive");
+  // For nginx
+  res.setHeader("X-Accel-Buffering", "no");
+  res.flushHeaders();
 
-  const result: CheckVerifyResponse = checkWorkStatus(body.data.requestId);
-  res.send(result);
+  const keepAlive: NodeJS.Timeout | undefined = setInterval(() => {
+    res.write(":\n");
+  }, 5000);
+
+  const sendMsg = (msg: CheckVerifyResponse) => {
+    res.write(`data: ${JSON.stringify(msg)}\n\n`);
+  };
+
+  clearTimeout(readyJob.timeoutCancel);
+  readyJobs.delete(requestId.data);
+
+  const { emitter, position } = addWorkToQueue(requestId.data, readyJob.job);
+  sendMsg({ type: "in-queue", position });
+  emitter.on("queueUpdate", (position) => {
+    sendMsg({ type: "in-queue", position });
+  });
+  emitter.on("running", () => {
+    sendMsg({ type: "in-progress" });
+  });
+  emitter.on("complete", (response) => {
+    sendMsg(response);
+    res.end();
+  });
+  emitter.on("failed", (error) => {
+    sendMsg({ type: "verification-failed", description: "Unexpected failure", output: error });
+    res.end();
+  });
+
+  // Close always fires after res.end, so cleanup can happen here
+  req.on("close", () => {
+    clearInterval(keepAlive);
+    emitter.removeAllListeners();
+    cancelWork(requestId.data);
+  });
 });
 
 app.get("/comparator/api/projects", async (_req, res) => {

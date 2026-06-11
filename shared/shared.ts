@@ -8,13 +8,10 @@ export const zStartVerifyRequest = z.object({
 export type StartVerifyRequest = z.infer<typeof zStartVerifyRequest>;
 
 export const zStartVerifyResponse = z.discriminatedUnion("type", [
-  z.object({ type: z.literal("enqueued"), requestId: z.uuidv4() }),
+  z.object({ type: z.literal("ready"), requestId: z.uuidv4() }),
   z.object({ type: z.literal("project-not-supported") }),
 ]);
 export type StartVerifyResponse = z.infer<typeof zStartVerifyResponse>;
-
-export const zVerifyRequest = z.object({ requestId: z.string() });
-export type VerifyRequest = z.infer<typeof zVerifyRequest>;
 
 export const zVerifier = z.enum(["Lean", "Nanoda"]);
 export type Verifier = z.infer<typeof zVerifier>;
@@ -33,7 +30,6 @@ export type VerifyResult = z.infer<typeof zVerifyResult>;
 export const zCheckVerifyResponse = z.discriminatedUnion("type", [
   z.object({ type: z.literal("in-queue"), position: z.int().gte(0) }),
   z.object({ type: z.literal("in-progress") }),
-  z.object({ type: z.literal("not-found") }),
   ...zVerifyPossibilities,
 ]);
 export type CheckVerifyResponse = z.infer<typeof zCheckVerifyResponse>;
@@ -42,7 +38,12 @@ export type CheckVerifyResponse = z.infer<typeof zCheckVerifyResponse>;
 export type CheckVerifyStatus =
   | CheckVerifyResponse
   | { type: "initial-load" }
-  | { type: "in-preparation" };
+  | { type: "in-preparation" }
+  | { type: "connection-lost" };
+
+export function checkVerifyStatusIsTerminal(status: CheckVerifyStatus) {
+  return status.type === "verification-failed" || status.type === "verification-ok";
+}
 
 export const zProjectListing = z.object({
   project: z.string(),
