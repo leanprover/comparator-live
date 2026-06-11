@@ -36,35 +36,34 @@ export default function Verifier() {
 
   let status: JSX.Element;
   let action: JSX.Element | null;
+  const infoIconAction = (icon: typeof faQuestion) => (
+    <FontAwesomeIcon
+      size="3x"
+      style={{ padding: "var(--chakra-spacing-3)", marginBlock: "auto" }}
+      icon={faQuestion}
+      className={statusClass}
+    />
+  );
   const runVerificationAction = (
     <Button size="2xl" marginInline="3" marginBlock="1" onClick={() => requestVerification()}>
       Run Verification
     </Button>
   );
 
-  if (!isComparatorInitialized) {
-    // Matches the in-progress status that will appear shortly if all goes well
+  if (!isComparatorInitialized || comparatorResult.type === "in-preparation") {
     status = (
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
         <Text>Verifying that the solution solves the challenge with comparator.</Text>
         <Text>Loading...</Text>
       </Box>
     );
-    action = (
-      <FontAwesomeIcon
-        size="3x"
-        style={{ padding: "var(--chakra-spacing-3)", marginBlock: "auto" }}
-        icon={faQuestion}
-        className={statusClass}
-      />
-    );
+    action = infoIconAction(faQuestion);
   } else if (!isComparatorSynced || comparatorResult.type === "idle") {
     status = (
       <Text paddingLeft="3" paddingBlock="1" marginBlock="auto">
         <Strong>Not Verified.</Strong> Press the button to request verification.
       </Text>
     );
-
     action = runVerificationAction;
   } else if (comparatorResult.type === "connection-lost") {
     status = (
@@ -146,19 +145,11 @@ export default function Verifier() {
         )}
       </Box>
     );
-    action = (
-      <FontAwesomeIcon
-        size="3x"
-        style={{ padding: "var(--chakra-spacing-3)", marginBlock: "auto" }}
-        icon={comparatorResult.theoremNames.length > 0 ? faCheck : faQuestion}
-        className={statusClass}
-      />
-    );
+    action = infoIconAction(comparatorResult.theoremNames.length > 0 ? faCheck : faQuestion);
   } else {
     status = (
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
         <Text>Verifying that the solution solves the challenge with comparator.</Text>
-        {comparatorResult.type === "in-preparation" && <Text>Loading...</Text>}
         {comparatorResult.type === "in-queue" && (
           <Text>
             Waiting in queue ({comparatorResult.position === 0 && "next in line"}
@@ -168,14 +159,7 @@ export default function Verifier() {
         {comparatorResult.type === "in-progress" && <Text>Currently running...</Text>}
       </Box>
     );
-    action = (
-      <FontAwesomeIcon
-        size="3x"
-        style={{ padding: "var(--chakra-spacing-3)", marginBlock: "auto" }}
-        icon={faQuestion}
-        className={statusClass}
-      />
-    );
+    action = infoIconAction(faQuestion);
   }
 
   return (
