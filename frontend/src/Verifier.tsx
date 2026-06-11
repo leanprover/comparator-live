@@ -150,7 +150,7 @@ export default function Verifier() {
             )}
           </Box>
         );
-        icon = faCheck;
+        icon = comparatorResult.theoremNames.length > 0 ? faCheck : faQuestion;
         break;
       }
     }
