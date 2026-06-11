@@ -17,8 +17,8 @@ import {
  * information is most relevant to the task at hand.
  */
 export const statusClassAtom = atom((get): SimpleStatus => {
-  if (get(isComparatorInitializedAtom)) return "working";
-  if (get(isComparatorSyncedAtom)) return "stale";
+  if (!get(isComparatorInitializedAtom)) return "working";
+  if (!get(isComparatorSyncedAtom)) return "stale";
 
   const recognitionState = get(recognitionStateAtom);
   if (!recognitionState) return "working";
