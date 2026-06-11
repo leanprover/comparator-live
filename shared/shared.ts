@@ -30,7 +30,6 @@ export type VerifyResult = z.infer<typeof zVerifyResult>;
 export const zCheckVerifyResponse = z.discriminatedUnion("type", [
   z.object({ type: z.literal("in-queue"), position: z.int().gte(0) }),
   z.object({ type: z.literal("in-progress") }),
-  z.object({ type: z.literal("not-found") }),
   ...zVerifyPossibilities,
 ]);
 export type CheckVerifyResponse = z.infer<typeof zCheckVerifyResponse>;
@@ -43,11 +42,7 @@ export type CheckVerifyStatus =
   | { type: "connection-lost" };
 
 export function checkVerifyStatusIsTerminal(status: CheckVerifyStatus) {
-  return (
-    status.type === "not-found" ||
-    status.type === "verification-failed" ||
-    status.type === "verification-ok"
-  );
+  return status.type === "verification-failed" || status.type === "verification-ok";
 }
 
 export const zProjectListing = z.object({

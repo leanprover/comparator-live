@@ -34,26 +34,14 @@ export default function Verifier() {
 
   let status: JSX.Element;
   let action: JSX.Element | null;
-  if (
-    !isComparatorSynced ||
-    comparatorResult.type === "not-found" ||
-    comparatorResult.type === "connection-lost"
-  ) {
+  if (!isComparatorSynced || comparatorResult.type === "connection-lost") {
     if (isComparatorSynced) {
-      status = (
-        <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
-          <Strong>Job Lost.</Strong> This can happen when the server restarts; re-running
-          verification or reloading the page should help.
-        </Box>
-      );
-    } else if (comparatorResult.type === "connection-lost") {
       status = (
         <Text paddingLeft="3" paddingBlock="1" marginBlock="auto">
           <Strong>Connection Lost.</Strong> Press the button to restart request.
         </Text>
       );
     } else {
-      // assert: comparatorResult.type === "not-found"
       status = (
         <Text paddingLeft="3" paddingBlock="1" marginBlock="auto">
           <Strong>Not Verified.</Strong> Press the button to request verification.
