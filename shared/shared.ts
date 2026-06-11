@@ -37,7 +37,7 @@ export type CheckVerifyResponse = z.infer<typeof zCheckVerifyResponse>;
 /** Client-only superset of `CheckVerifyResponse` */
 export type CheckVerifyStatus =
   | CheckVerifyResponse
-  | { type: "initial-load" }
+  | { type: "idle" }
   | { type: "in-preparation" }
   | { type: "connection-lost" };
 

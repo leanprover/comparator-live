@@ -44,6 +44,10 @@ export const requestVerificationAtom = atom(null, (get, set) => {
 export const cancelActiveVerificationAtom = atom(null, (get, set) => {
   if (checkVerifyStatusIsTerminal(get(comparatorResultAtom))) return;
   set(comparatorJobAtom, null);
+  const mutation = get(generateRequestIdAtom);
+  if (mutation.status !== "idle") {
+    mutation.reset();
+  }
 });
 
 const generateRequestIdAtom = atomWithMutation(() => ({
@@ -88,7 +92,7 @@ export const isComparatorSyncedAtom = atom((get) => {
  * Not explicitly read-only, but should only be set by the effect observer in
  * `src/store/verifier.ts`.
  */
-export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "initial-load" });
+export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "idle" });
 
 /**
  * Effect observer that cancels an in-flight request if you edit things. (It's
@@ -100,6 +104,9 @@ const deSyncedTaskEffectCanceller = observe((get, set) => {
   set(cancelActiveVerificationAtom);
 });
 
+/** Set to true once the first request starts */
+export const isComparatorInitializedAtom = atom(false);
+
 /**
  * Effect observer that triggers whenever `comparatorJobIdAtom` is set and
  * manages the effect.
@@ -107,10 +114,11 @@ const deSyncedTaskEffectCanceller = observe((get, set) => {
 const comparatorTaskEffectCanceller = observe((get, set) => {
   const { data: requestId, status } = get(generateRequestIdAtom);
   if (status === "idle") {
-    set(comparatorResultAtom, { type: "initial-load" });
+    set(comparatorResultAtom, { type: "idle" });
     return;
   }
 
+  set(isComparatorInitializedAtom, true);
   if (status === "pending") {
     set(comparatorResultAtom, { type: "in-preparation" });
     return;
