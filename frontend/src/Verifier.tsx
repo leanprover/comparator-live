@@ -46,16 +46,17 @@ export default function Verifier() {
           verification or reloading the page should help.
         </Box>
       );
-    } else if (comparatorResult.type === "not-found") {
-      status = (
-        <Text paddingLeft="3" paddingBlock="1" marginBlock="auto">
-          <Strong>Not Verified.</Strong> Press the button to request verification.
-        </Text>
-      );
     } else if (comparatorResult.type === "connection-lost") {
       status = (
         <Text paddingLeft="3" paddingBlock="1" marginBlock="auto">
           <Strong>Connection Lost.</Strong> Press the button to restart request.
+        </Text>
+      );
+    } else {
+      // assert: comparatorResult.type === "not-found"
+      status = (
+        <Text paddingLeft="3" paddingBlock="1" marginBlock="auto">
+          <Strong>Not Verified.</Strong> Press the button to request verification.
         </Text>
       );
     }

@@ -13,9 +13,6 @@ export const zStartVerifyResponse = z.discriminatedUnion("type", [
 ]);
 export type StartVerifyResponse = z.infer<typeof zStartVerifyResponse>;
 
-export const zVerifyRequest = z.object({ requestId: z.uuidv4() });
-export type VerifyRequest = z.infer<typeof zVerifyRequest>;
-
 export const zVerifier = z.enum(["Lean", "Nanoda"]);
 export type Verifier = z.infer<typeof zVerifier>;
 
