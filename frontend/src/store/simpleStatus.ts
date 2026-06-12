@@ -2,7 +2,11 @@ import { atom } from "jotai";
 
 import { type SimpleStatus } from "../utils/style.ts";
 import { recognitionStateAtom } from "./trusted.ts";
-import { comparatorResultAtom, isComparatorSyncedAtom } from "./verifier.ts";
+import {
+  comparatorResultAtom,
+  isComparatorInitializedAtom,
+  isComparatorSyncedAtom,
+} from "./verifier.ts";
 
 /**
  * Atom for calculating the current global UI styling.
@@ -13,15 +17,15 @@ import { comparatorResultAtom, isComparatorSyncedAtom } from "./verifier.ts";
  * information is most relevant to the task at hand.
  */
 export const statusClassAtom = atom((get): SimpleStatus => {
-  const isComparatorSynced = get(isComparatorSyncedAtom);
+  if (!get(isComparatorInitializedAtom)) return "working";
+  if (!get(isComparatorSyncedAtom)) return "stale";
+
   const recognitionState = get(recognitionStateAtom);
-  if (!isComparatorSynced) return "stale";
   if (!recognitionState) return "working";
 
   const comparator = get(comparatorResultAtom);
-
   switch (comparator.type) {
-    case "initial-load":
+    case "idle":
     case "in-preparation":
     case "in-progress":
     case "in-queue": {
