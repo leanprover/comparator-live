@@ -4,7 +4,7 @@ Comparator Live gives an online interface to the
 [Lean `comparator` tool](https://github.com/leanprover/comparator/) tool,
 Lean's "gold standard" for validating proofs from untrusted sources.
 
-Comparator Live is intended as a limited-purpose tool, it's goal is to clearly
+Comparator Live is intended as a limited-purpose tool: its goal is to clearly
 signify the conditions under which users can rely on a Lean proof from an
 unreliable, potentially malicious, or AI source. To this end, Comparator Live
 differs in several ways from the the command-line `comparator` utility that it
@@ -20,7 +20,7 @@ invokes:
 
 ## Trusted Challenges
 
-A trusted challenge for Comparator Live is simply one that can be relied on to
+A trusted challenge for Comparator Live is simply one that can be assumed to
 reliably present the theorem statement. Knowing when this is the case can be
 difficult for novice users, so Comparator Live treats a built-in set of proofs
 as reliable and trusted; these challenges are identified by their hash(\*).
@@ -40,11 +40,12 @@ running `npm run update-trusted` from the repository root.
 
 Comparator Live does its own compilation of source files to olean files; this
 is necessary (at least for the challenge) because we need to inspect the
-challenge's olean file in order to find out what theorems it contains.
+challenge's olean file in order to discover the names of the theorems it
+contains.
 
-Bubblewrap is used for sandboxing these tasks in production, **development
-mode does no sandboxing and should not be used to evaluate unknown challenges
-or untrusted solutions**.
+[Bubblewrap](https://github.com/containers/bubblewrap) is used for sandboxing
+these tasks in production, **development mode does no sandboxing and should
+not be used to evaluate unknown challenges or untrusted solutions**.
 
 Each task runs in the context of a Lean project (e.g. `mathlib-stable`) that
 lives in a directory `$PROJECT_DIR`, and each task is given its own temporary
