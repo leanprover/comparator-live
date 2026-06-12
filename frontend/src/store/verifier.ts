@@ -110,12 +110,12 @@ observe((get, set) => {
     return;
   }
 
+  set(isComparatorInitializedAtom, true);
   if (status === "pending") {
     set(comparatorResultAtom, { type: "in-preparation" });
     return;
   }
 
-  set(isComparatorInitializedAtom, true);
   if (status === "error") {
     set(comparatorResultAtom, {
       type: "verification-failed",
@@ -159,5 +159,5 @@ if (import.meta.hot) {
   // Force a full reload on any update
   import.meta.hot.accept(() => {
     import.meta.hot?.invalidate();
-  })
+  });
 }
