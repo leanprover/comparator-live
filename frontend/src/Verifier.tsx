@@ -50,7 +50,7 @@ export default function Verifier() {
     </Button>
   );
 
-  if (!isComparatorInitialized || comparatorResult.type === "in-preparation") {
+  if (!isComparatorInitialized) {
     status = (
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
         <Text>Verifying that the solution solves the challenge with comparator.</Text>
@@ -150,6 +150,7 @@ export default function Verifier() {
     status = (
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
         <Text>Verifying that the solution solves the challenge with comparator.</Text>
+        {comparatorResult.type === "in-preparation" && <Text>Loading...</Text>}
         {comparatorResult.type === "in-queue" && (
           <Text>
             Waiting in queue ({comparatorResult.position === 0 && "next in line"}

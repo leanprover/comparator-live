@@ -26,6 +26,16 @@ interface ComparatorJobParams {
  */
 const comparatorJobAtom = atom<ComparatorJobParams | null>(null);
 
+/**
+ * The last known output from comparator for the current code. (If
+ * isComparatorSyncedAtom is false, this should not be shown to the user, as
+ * it's out of date!)
+ *
+ * Not explicitly read-only, but should only be set within this module by
+ * the generateRequestIdAtom mutation and the observer it triggers.
+ */
+export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "idle" });
+
 /** Action atom: request verification of the current editor state */
 export const requestVerificationAtom = atom(null, (get, set) => {
   const defaultProject = get(defaultProjectAtom);
@@ -85,46 +95,27 @@ export const isComparatorSyncedAtom = atom((get) => {
   );
 });
 
-/**
- * The last known output from comparator for the current code. (If
- * isComparatorSyncedAtom is false, this should not be shown to the user, as
- * it's out of date!)
- *
- * Not explicitly read-only, but should only be set by the effect observer in
- * `src/store/verifier.ts`.
- */
-export const comparatorResultAtom = atom<CheckVerifyStatus>({ type: "idle" });
-
-/**
- * Effect observer that cancels an in-flight request if you edit things. (It's
- * nice to leave completed requests in place in case the user wants to undo
- * their edit.)
- */
-const deSyncedTaskEffectCanceller = observe((get, set) => {
+observe((get, set) => {
   if (get(isComparatorSyncedAtom)) return;
   set(cancelActiveVerificationAtom);
 });
 
-/** Set to true once the first request starts */
+/** Set to true once the first request moves past "pending" for the first time */
 export const isComparatorInitializedAtom = atom(false);
 
-/**
- * Effect observer that triggers whenever `comparatorJobIdAtom` is set and
- * manages the effect.
- */
-const comparatorTaskEffectCanceller = observe((get, set) => {
+observe((get, set) => {
   const { data: requestId, status } = get(generateRequestIdAtom);
   if (status === "idle") {
     set(comparatorResultAtom, { type: "idle" });
     return;
   }
 
-  set(isComparatorInitializedAtom, true);
   if (status === "pending") {
     set(comparatorResultAtom, { type: "in-preparation" });
     return;
   }
 
+  set(isComparatorInitializedAtom, true);
   if (status === "error") {
     set(comparatorResultAtom, {
       type: "verification-failed",
@@ -165,8 +156,8 @@ window.addEventListener("pageshow", (event) => {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.dispose(() => {
-    deSyncedTaskEffectCanceller();
-    comparatorTaskEffectCanceller();
-  });
+  // Force a full reload on any update
+  import.meta.hot.accept(() => {
+    import.meta.hot?.invalidate();
+  })
 }
