@@ -321,7 +321,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/exists_topologically_slice_not_smoothly_slice/"
     ]
   },
-  "c8ff19379e85fea0da904150a32fe8fde984df4000608e7529acf063c1841995": {
+  "600a2f70ab90c5130ffc7592569546084581472cf54320ccd558b1ba3e0b0a4e": {
     "name": "Morrison–Walker Lemma B.0.1: adapting families of maps to open covers",
     "sources": [
       "https://lean-lang.org/eval/problems/families_of_maps_b01/",
@@ -384,7 +384,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/five_transitive_card_classification/"
     ]
   },
-  "3620b79f1f324605ed79b535758499ba5fe33bca637553591283211b02832740": {
+  "66a5b156588210a548699b6842c140805e0c2fd12c034c1cc3da2ee3709825fe": {
     "name": "Pointwise and Cesàro convergence of Fourier series (Dirichlet, Fejér)",
     "sources": [
       "https://lean-lang.org/eval/problems/fourier_dirichlet_fejer/",
@@ -538,7 +538,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/hippocrates_lunes/"
     ]
   },
-  "72faea4e31b8ad750380424f34f5ad2983f4505ca0fb216e53709ce69cadc348": {
+  "19616eb08ebb87dfa26e66c5dd7d75e6469ff57c315b1b2ddc132823d7331060": {
     "name": "Hopf–Rinow theorem",
     "sources": [
       "https://lean-lang.org/eval/problems/hopf_rinow/",
@@ -650,7 +650,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/kolmogorov_arnold_superposition/"
     ]
   },
-  "bd9416fcb4ee995cfeccb4f40d1c699924146d9dd01e2f8bd99eeda6ea80b5a4": {
+  "a90adbdff084092dbdb99001c8696cee294763d441047b3c71bddcc0d9c781cb": {
     "name": "Koszul formula",
     "sources": [
       "https://lean-lang.org/eval/problems/koszul_formula/",
@@ -671,7 +671,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/lax_approximation/"
     ]
   },
-  "e980dfb3f4d4955052ded15a546d22f21203a13b37822c9c10a982aebfadca2c": {
+  "92d328703c8593c24f5759732f96298e22cf23f2dee7ab690ea221b516cf4f80": {
     "name": "Fundamental theorem of Riemannian geometry (Levi-Civita)",
     "sources": [
       "https://lean-lang.org/eval/problems/levi_civita_exists_unique/",
@@ -727,7 +727,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/list_append_singleton_length/"
     ]
   },
-  "732f7253875ad2e239fb4c0ff35adb1bdc62b19647717f62cb941a31873dfa5a": {
+  "a50035fd3628bbadc2251428806098419e32618381abc24bde24b3074417cf16": {
     "name": "Linear programming: maximum principle and vertex optimality",
     "sources": [
       "https://lean-lang.org/eval/problems/lp_maximum_principle/",
@@ -846,7 +846,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/mulCayley_connected_iff_closure_eq_top/"
     ]
   },
-  "ef0d1adbc1611ce8b902a5db33caba8f16ccd75f50f103194f7ad30cf5f20271": {
+  "625ac188f435e7972d4dd7ccedef86e22274efb928ee76bb23e46cad4546ce30": {
     "name": "multi-hole-with-helpers regression example",
     "sources": [
       "https://lean-lang.org/eval/problems/multi_hole_helpers_example/",
@@ -1175,6 +1175,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/stable_unstable_manifolds/"
     ]
   },
+  "8565e40cbd710c15d675cf82c8587a8d1ae5b0379d6a635a6e3757939a8a1be1": {
+    "name": "Strong Subadditivity of von Neumann Entropy",
+    "sources": [
+      "https://lean-lang.org/eval/problems/strong_subadditivity/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/strong_subadditivity/"
+    ]
+  },
   "53ecf254fd856a26083f1207705ff3d9a0b7ef34066299c1a0217f4135fe579c": {
     "name": "Sturm's theorem",
     "sources": [
@@ -1273,7 +1280,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/variable_binder_example/"
     ]
   },
-  "4a0fcd0bf049cd1161a25811e46a4d634de1014df956691235fc8f382ae8c543": {
+  "7cae22191fb8a06c8a06a88d5208aa38ef6170b6062ddc46a1c78ca1008221af": {
     "name": "von Neumann double commutant theorem",
     "sources": [
       "https://lean-lang.org/eval/problems/vonNeumann_doubleCommutant_tfae/",

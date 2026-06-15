@@ -1,7 +1,7 @@
 # Comparator Live
 
-Comparator Live gives an online interface to the
-[Lean `comparator` tool](https://github.com/leanprover/comparator/) tool,
+Comparator Live gives an online interface to
+[Lean's Comparator tool](https://github.com/leanprover/comparator/) tool,
 Lean's "gold standard" for validating proofs from untrusted sources.
 
 Comparator Live is intended as a limited-purpose tool: its goal is to clearly
@@ -10,12 +10,12 @@ unreliable, potentially malicious, or AI source. To this end, Comparator Live
 differs in several ways from the the command-line `comparator` utility that it
 invokes:
 
-- While `comparator` allows configuration of permitted axioms, Comparator Live
-  always uses the standard set of three permitted axioms: `propext`,
-  `Quot.sound`, and `Classical.choice`.
-- While `comparator` allows set of challenge theorems to be configured,
-  Comparator Live automatically infers the challenge theorems as all the
-  theorems declared in the challenge.
+- While the command-line tool `comparator` allows configuration of permitted
+  axioms, Comparator Live always uses the standard set of three permitted
+  axioms: `propext`, `Quot.sound`, and `Classical.choice`.
+- While the command-line tool `comparator` allows set of challenge theorems to
+  be configured, Comparator Live automatically infers the challenge theorems
+  as all the theorems declared in the challenge.
 - Comparator Live introduces a notion of "trusted challenges."
 
 ## Trusted Challenges
@@ -36,7 +36,7 @@ Trusted challenges are derived from
 files in `Projects/mathlib-stable/TrustedChallenges`. These can be updated by
 running `npm run update-trusted` from the repository root.
 
-## How Comparator Live runs `comparator`
+## How Comparator Live runs Comparator
 
 Comparator Live does its own compilation of source files to olean files; this
 is necessary (at least for the challenge) because we need to inspect the
@@ -76,9 +76,10 @@ the the solution cannot corrupt the challenge: any files written by the
 challenge compilation process will be visible regardless of what files the
 solution wrote.
 
-It's not necessary for `comparator` to have access to the compiled `.olean`
-files. We needed to compile the challenge ourselves anyway in order to get the
-list of relevant theorems, and comparator is designed to avoid recompiling the
+This workflow ensures that, when we invoke the `comparator` tool, it already
+has access to the compiled `.olean` files it needs. This isn't required, but
+we needed to compile the challenge ourselves anyway in order to get the list
+of relevant theorems. Comparator is designed to avoid recompiling the
 challenge and solution if they've already been compiled to olean by other
 means.
 
@@ -101,7 +102,7 @@ Comparator Live can be run in development mode; the only dependencies are
 In development mode, `comparator` and `lean4export` are dependencies of the
 project.
 
-In production mode, the correct version of comparator or lean4export needs to
+In production mode, the correct version of Comparator or lean4export needs to
 be _checked out_ and built in a subdirectory of each supported project, like
 this:
 

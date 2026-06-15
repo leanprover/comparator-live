@@ -5,6 +5,7 @@ import {
   Code,
   Dialog,
   Grid,
+  Link,
   Portal,
   Strong,
   Text,
@@ -24,6 +25,14 @@ import {
   requestVerificationAtom,
 } from "./store/verifier.ts";
 import { oxford } from "./utils/language.tsx";
+
+function Comparator() {
+  return (
+    <Link target="_blank" href="https://github.com/leanprover/comparator/">
+      Comparator
+    </Link>
+  );
+}
 
 export default function Verifier() {
   const statusClass = useAtomValue(statusClassAtom);
@@ -53,7 +62,7 @@ export default function Verifier() {
   if (!isComparatorInitialized) {
     status = (
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
-        <Text>Verifying that the solution solves the challenge with comparator.</Text>
+        <Text>Verifying that the solution solves the challenge with Comparator.</Text>
         <Text>Loading...</Text>
       </Box>
     );
@@ -75,7 +84,7 @@ export default function Verifier() {
   } else if (comparatorResult.type === "verification-failed") {
     status = (
       <Box paddingLeft="3" paddingBlock="1" marginBlock="auto">
-        <Strong>Failed.</Strong> There are problems with this solution:{" "}
+        <Strong>Failed.</Strong> <Comparator /> found problems with this solution:{" "}
         {comparatorResult.description}
       </Box>
     );
@@ -111,9 +120,11 @@ export default function Verifier() {
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
         {comparatorResult.theoremNames.length === 0 && (
           <>
-            <Strong>Nothing For Comparator To Check.</Strong> There are no theorems stated in the
-            challenge. Therefore, it's not possible to verify the contents of the solution against a
-            challenge.
+            <Strong>
+              Nothing For <Comparator /> To Check.
+            </Strong>{" "}
+            There are no theorems stated in the challenge. Therefore, it's not possible to verify
+            the contents of the solution against a challenge.
           </>
         )}
         {comparatorResult.theoremNames.length > 0 && (
@@ -125,7 +136,7 @@ export default function Verifier() {
                   ? "Successfully validated against locally-trusted challenge."
                   : "Success."}
             </Strong>{" "}
-            Lean's kernel verified that the solution proves the claims described in the challenge's
+            <Comparator /> verified that the solution proves the claims described in the challenge's
             theorem{comparatorResult.theoremNames.length > 1 && "s"} (
             {oxford(
               comparatorResult.theoremNames
@@ -149,7 +160,7 @@ export default function Verifier() {
   } else {
     status = (
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">
-        <Text>Verifying that the solution solves the challenge with comparator.</Text>
+        <Text>Verifying that the solution solves the challenge with Comparator.</Text>
         {comparatorResult.type === "in-preparation" && <Text>Loading...</Text>}
         {comparatorResult.type === "in-queue" && (
           <Text>

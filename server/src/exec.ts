@@ -218,7 +218,7 @@ export async function comparator(taskId: string, project: string, theoremNames: 
   let args: string[];
   let env: { [key: string]: string };
   if (IS_DEVELOPMENT) {
-    console.error("Running insecure comparator without a sandbox", {
+    console.error("Running Comparator insecurely without a sandbox", {
       taskId,
       project,
       theoremNames,

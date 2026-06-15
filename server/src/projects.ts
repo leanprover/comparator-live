@@ -24,7 +24,7 @@ function toolchainToName(toolchain: string, prefixLean: boolean): string {
 }
 
 /**
- * Gets a sorted list of projects that are set up for comparator.
+ * Gets a sorted list of projects that are set up for Comparator Live.
  *
  * Mimics `/api/projects` endpoint for lean4web, but goes ahead and sorts
  * server-side: the client should treat the default project as the first one

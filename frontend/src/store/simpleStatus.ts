@@ -35,7 +35,7 @@ export const statusClassAtom = atom((get): SimpleStatus => {
     case "verification-ok": {
       if (comparator.theoremNames.length === 0) {
         // Even if a user trusts a theorem-less development, it means
-        // comparator is effectively doing nothing, so we're going to
+        // Comparator is effectively doing nothing, so we're going to
         // give the error condition. (Due to how bubblewrap overlays
         // things, this can also happen if a Challenge.olean appears in
         // the project template's root folder, which is another reason

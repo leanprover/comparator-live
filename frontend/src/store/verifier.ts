@@ -11,7 +11,7 @@ import { atomWithMutation } from "jotai-tanstack-query";
 
 import { challengeAtom, defaultProjectAtom, projectAtom, solutionAtom } from "./params.ts";
 
-/** Snapshot of editor state that can be sent to comparator. */
+/** Snapshot of editor state that can be sent to Comparator. */
 interface ComparatorJobParams {
   project: string | null;
   challenge: string;
@@ -19,7 +19,7 @@ interface ComparatorJobParams {
 }
 
 /**
- * Stores the last editor state snapshot that was sent to comparator.
+ * Stores the last editor state snapshot that was sent to Comparator.
  * Written to by `requestVerificationAtom` (when a verification is requested),
  * by `clearVerificationAtom` (when a verification is cancelled). Not written
  * anywhere else.
