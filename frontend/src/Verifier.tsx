@@ -82,10 +82,19 @@ export default function Verifier() {
     );
     action = runVerificationAction;
   } else if (comparatorResult.type === "verification-failed") {
+    // Link the word "Comparator" if it's the first word in the result
+    const comparatorResultMatch = comparatorResult.description.match(/^Comparator (.*)$/);
+    const comparatorResultElememt = comparatorResultMatch ? (
+      <>
+        <Comparator /> {comparatorResultMatch[1]}
+      </>
+    ) : (
+      comparatorResult.description
+    );
+
     status = (
       <Box paddingLeft="3" paddingBlock="1" marginBlock="auto">
-        <Strong>Failed.</Strong> <Comparator /> found problems with this solution:{" "}
-        {comparatorResult.description}
+        <Strong>Failed.</Strong> {comparatorResultElememt}
       </Box>
     );
     action = (

@@ -7,9 +7,13 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { initializeDefaultStore } from "./store/initialize.ts";
 
-const config = defineConfig({});
-
-export const system = createSystem(defaultConfig, config);
+export const system = createSystem(defaultConfig, {
+  theme: {
+    recipes: {
+      link: { base: { colorPalette: "teal" } },
+    },
+  },
+});
 
 initializeDefaultStore();
 createRoot(document.getElementById("root")!).render(

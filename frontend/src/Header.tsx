@@ -175,11 +175,7 @@ export default function Header() {
               <Dialog.Body display="flex" flexDir="column" gap="2">
                 <Text>
                   Comparator Live is an online version of Lean's{" "}
-                  <Link
-                    href="https://github.com/leanprover/comparator"
-                    target="_blank"
-                    colorPalette="teal"
-                  >
+                  <Link href="https://github.com/leanprover/comparator" target="_blank">
                     Comparator verification tool
                   </Link>
                   .
@@ -189,7 +185,6 @@ export default function Header() {
                   <Link
                     href="https://lean-lang.org/doc/reference/latest/ValidatingProofs/"
                     target="_blank"
-                    colorPalette="teal"
                   >
                     Validating a Lean Proof
                   </Link>

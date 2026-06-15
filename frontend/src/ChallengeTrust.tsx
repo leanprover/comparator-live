@@ -46,7 +46,7 @@ export function ChallengeTrust() {
               <Span key={i}>
                 {" ["}
                 {
-                  <Link href={href} target="_blank" colorPalette="teal">
+                  <Link href={href} target="_blank">
                     {i + 1}
                   </Link>
                 }
