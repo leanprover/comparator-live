@@ -13,11 +13,32 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/alternating_sign_matrix_count/"
     ]
   },
+  "bd869f8fa716342696a63c98835efb99f39cc39251f279804ac81ede15eff6cb": {
+    "name": "The Annulus Theorem in dimension 4 (Quinn)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/annulus_theorem_dim_four/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/annulus_theorem_dim_four/"
+    ]
+  },
+  "d9e238769bbee6c2a25cb8afca61ef420ff198dd2ebde780c465df8ec9796a73": {
+    "name": "The Annulus Theorem in dimension ≥ 5 (Kirby)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/annulus_theorem_high_dim/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/annulus_theorem_high_dim/"
+    ]
+  },
   "054a7687ad7bf73a8cf61ccba3cb35dee3d6e86cdd6498e8d26d9e9adf17928b": {
     "name": "Anosov–Bowen shadowing lemma",
     "sources": [
       "https://lean-lang.org/eval/problems/anosov_bowen_shadowing/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/anosov_bowen_shadowing/"
+    ]
+  },
+  "14d93878c828c5ee1b332a4c3c71c0c723c996d5959e459b985de86f2211365a": {
+    "name": "Existence of an aspherical integer homology 4-sphere",
+    "sources": [
+      "https://lean-lang.org/eval/problems/aspherical_integer_homology_four_sphere/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/aspherical_integer_homology_four_sphere/"
     ]
   },
   "54a2521d65d4a4bc010417a00ca13a4e85b62e96c87440703b770998dcb8f60c": {
@@ -76,6 +97,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/boone_higman_simple/"
     ]
   },
+  "1e6261d45654e79258c3180178e43086a3a6fb6113623c2628ff8045648cd65f": {
+    "name": "Bourgain's polynomial ergodic theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/bourgain_polynomial_ergodic/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/bourgain_polynomial_ergodic/"
+    ]
+  },
   "d3294b87ff644c9ee9876d0911effbc5b995144190a39d45fb1a034cff1d721c": {
     "name": "Character values of finite groups lie in cyclotomic fields",
     "sources": [
@@ -111,6 +139,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/brouwer_fixed_point/"
     ]
   },
+  "c012cc4d3069b4c914dcd6b15bc881d2425be832ddf1bfc2750d00c608b45678": {
+    "name": "Brun's theorem (convergence of the twin-prime reciprocal sum)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/brun_constant_converges/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/brun_constant_converges/"
+    ]
+  },
   "6430f39e1a487f9335b23c8fa0eea6b075ed08e15bc847e68221fe3288e93dd5": {
     "name": "Comparison principle for the Dirichlet BVP",
     "sources": [
@@ -139,6 +174,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/chebyshev_sign_change/"
     ]
   },
+  "12eaab95466ec9e28f50eed29bf94b5e2d35d7d4762cb9c82b224b0986764402": {
+    "name": "Chen's theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/chen_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/chen_theorem/"
+    ]
+  },
   "2ebcb708d931e5ca9ba63717521c2eb241ae7e01c1cfdf26094cd5b448e83314": {
     "name": "Choquet's representation theorem",
     "sources": [
@@ -160,11 +202,25 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/ci_regenerate_main_check/"
     ]
   },
+  "7241b07232d84a8b53d1762adbcab42645945bd1ebb6a547c0559ad35849a1d4": {
+    "name": "Coherent cohomology of a proper scheme over ℚ is finite-dimensional",
+    "sources": [
+      "https://lean-lang.org/eval/problems/coherent_cohomology_finite_dimensional/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/coherent_cohomology_finite_dimensional/"
+    ]
+  },
   "6cae3090c29f4f7145b64cf409e656f8f13b9a1351f5e94a8d273730384e9990": {
     "name": "Commuting probabilities are closed",
     "sources": [
       "https://lean-lang.org/eval/problems/commProb_closed/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/commProb_closed/"
+    ]
+  },
+  "75c1e5e3a047a7ab68a55d01814251798d88d784b2ed6291ddaf43ca175f10e2": {
+    "name": "Complete reducibility for compact groups",
+    "sources": [
+      "https://lean-lang.org/eval/problems/compact_group_semisimple/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/compact_group_semisimple/"
     ]
   },
   "439b5dac3c32d1664945e88099d84b65e510333f159e26bd172b90a76323cb58": {
@@ -270,6 +326,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/entropy_dimension_lyapunov/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/entropy_dimension_lyapunov/"
+    ]
+  },
+  "01a5309e1fa0e106bf9aec64d5bc847a1b9920f77017b67e67562de0974fa83d": {
+    "name": "Equichordal point theorem (convex curves have a unique equichordal point)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/equichordal_point_unique/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/equichordal_point_unique/"
     ]
   },
   "47fb4a3d715921b4a000026a5373b78f53d6f70a81fbef17181ef5c97914ebcd": {
@@ -398,6 +461,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/fraser_kakeya_fourier_decay/"
     ]
   },
+  "4833369de7872ad0e9f4a097b8f815b233ce49709f0ba0cac98d6afbd12c22ab": {
+    "name": "Frobenius determinant theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/frobenius_group_determinant/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/frobenius_group_determinant/"
+    ]
+  },
   "3114ffd5b33f867e868a630630215c50939500b74047a20b2eab6648552298ce": {
     "name": "Frobenius's theorem: the Frobenius kernel is normal",
     "sources": [
@@ -431,6 +501,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/g2_irrep_tensor_square_decomp/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/g2_irrep_tensor_square_decomp/"
+    ]
+  },
+  "35f17f7c925636f47393432162e57d70157c0ab0c47b508d4ba764277f433e50": {
+    "name": "Gauss-Wantzel constructible regular polygon theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/gauss_wantzel_constructible_polygon/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/gauss_wantzel_constructible_polygon/"
     ]
   },
   "2db4134382b5cc75cb7bfd3179bb11bfe1945484b48d10acd41738130d85d024": {
@@ -480,6 +557,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/green_tao/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/green_tao/"
+    ]
+  },
+  "84d21948e4b9c604b521400ffa235a492a65e42531f675b7b2995a069f8e5dcb": {
+    "name": "No bounded projection from L^1 onto H^1",
+    "sources": [
+      "https://lean-lang.org/eval/problems/H1_not_closedComplemented/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/H1_not_closedComplemented/"
     ]
   },
   "fe238c8da4119ffe7650a71a4bc0ef798f8ec4d1f633399cebf5fdd728072454": {
@@ -538,7 +622,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/hippocrates_lunes/"
     ]
   },
-  "19616eb08ebb87dfa26e66c5dd7d75e6469ff57c315b1b2ddc132823d7331060": {
+  "05659e6611d9e623a4aaea093d5399f46c3fe95755afd7dd53b9caf913f9da5c": {
     "name": "Hopf–Rinow theorem",
     "sources": [
       "https://lean-lang.org/eval/problems/hopf_rinow/",
@@ -643,6 +727,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/kepler_conjecture/"
     ]
   },
+  "9a65df36b392ffb7ca729876a5274d89f44d082100324241ee10811367bc768a": {
+    "name": "Kirk's normal-structure fixed point theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/kirk_normal_structure/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/kirk_normal_structure/"
+    ]
+  },
   "48b7611c9e10784de1269ce96371530dce48ec2884bc53d3e4a56976f1702a73": {
     "name": "Kolmogorov–Arnold superposition theorem (non-universal Lorentz form)",
     "sources": [
@@ -734,8 +825,8 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/lp_maximum_principle/"
     ]
   },
-  "c6cf977be8e354b6fb4837cef8d76e7e7a5a8d0d0d018bd2ed8c214d18c32b91": {
-    "name": "Existence of an order-10200960 group with a 22-dim irrep whose tensor square has 4 isotypic components",
+  "46f141442c9f2f64c9cbbc392eb1088d68a312980c240942e0ba655faa6ff2ab": {
+    "name": "Existence of a simple group of order 10200960 with a 22-dim irrep whose tensor square has 4 isotypic components",
     "sources": [
       "https://lean-lang.org/eval/problems/m23_irrep_tensor_square_decomp/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/m23_irrep_tensor_square_decomp/"
@@ -748,11 +839,25 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/mandelbar_not_path_connected/"
     ]
   },
+  "6461c99a88c836d185d70adfc2a4c615245afb2cd85ea39ef7168d5be43591c4": {
+    "name": "Hausdorff dimension of the Mandelbrot boundary (Shishikura)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/mandelbrot_boundary_dimh/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/mandelbrot_boundary_dimh/"
+    ]
+  },
   "c1da87e15b14e2142fb8b24f547a9b18972e1c40f934c39bea57858960eb2b1e": {
     "name": "Mandelbrot set is connected (Douady–Hubbard)",
     "sources": [
       "https://lean-lang.org/eval/problems/mandelbrot_connected/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/mandelbrot_connected/"
+    ]
+  },
+  "3e446c64e3dca31c330d9622df2351a13b5fd0134100390c0adda1e45b6f3282": {
+    "name": "Manolescu's disproof of the triangulation conjecture",
+    "sources": [
+      "https://lean-lang.org/eval/problems/manolescu_triangulation_disproof/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/manolescu_triangulation_disproof/"
     ]
   },
   "d295237f29debb240aae8d229b6e44e6d11b2f15de0bbc09d01be055bac014bd": {
@@ -874,11 +979,32 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/noncomputable_hole_example/"
     ]
   },
+  "47160dfc39059a9287ce0bdfb96ae55aada16787959a3153b68ad8df79cea19c": {
+    "name": "A 3-manifold group with no faithful representation into GL(4, ℝ)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/nonlinear_three_manifold_group/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/nonlinear_three_manifold_group/"
+    ]
+  },
+  "b0589dd28dbe0451122ffe51419a93781df4a90969e7c090ea6bb33b51672d2c": {
+    "name": "Normal spectral theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/normal_spectral_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/normal_spectral_theorem/"
+    ]
+  },
   "334646eda0b4b2e7805338cd288e6924b7d27fcb3f99f718507e2025a7a74cd6": {
     "name": "Novikov's theorem: the word problem is undecidable for finitely presented groups",
     "sources": [
       "https://lean-lang.org/eval/problems/novikov_unsolvable/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/novikov_unsolvable/"
+    ]
+  },
+  "f12b0adff3dca7fbdcd3f63340aacabf2d64e169b4df9236fc17e20ef5f9093c": {
+    "name": "Nyquist–Shannon sampling theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/nyquist_shannon_sampling/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/nyquist_shannon_sampling/"
     ]
   },
   "1e44f1388ab52888f0bfe86c1bb01602705430133fc39a3f22a69bafb00ef6fb": {
@@ -907,6 +1033,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/pascal/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/pascal/"
+    ]
+  },
+  "024fa9dc617c815f0fe5322c50002a711dc7ecbef4fc612865be1c1fc9a90efa": {
+    "name": "Peano existence theorem for ODEs",
+    "sources": [
+      "https://lean-lang.org/eval/problems/peano_existence/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/peano_existence/"
     ]
   },
   "b77e42866bf2b6f4cde4ee38c8f5ac9a30e905fe639b3936ae0810e689c03e7f": {
@@ -1049,6 +1182,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/riemann_hypothesis_iff_lagarias_elementary_criterion/"
     ]
   },
+  "158533f94104565e015085988fff5062f30183ab6e9debfdc0ac84f6b35a22e2": {
+    "name": "Riesz brothers' theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/riesz_brothers_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/riesz_brothers_theorem/"
+    ]
+  },
   "7d367bf46e93578ad54bf4450b7873318d457d9a14e3dfa11b69fe70027d5b2f": {
     "name": "Riesz's rising sun lemma",
     "sources": [
@@ -1112,11 +1252,25 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/schreier_conjecture/"
     ]
   },
+  "8c6764f4cd2546d0c53a99a67b6db3aea7d678ae9f9c049ac7373963ba36c086": {
+    "name": "Radial symmetry for positive semilinear Poisson solutions",
+    "sources": [
+      "https://lean-lang.org/eval/problems/semilinear_poisson_radial_symmetry/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/semilinear_poisson_radial_symmetry/"
+    ]
+  },
   "214651886b853141960d6fd27e1b3e55eb7c0c30dbcff99485068e5dc4a849e9": {
     "name": "Shafarevich's relation-rank bound",
     "sources": [
       "https://lean-lang.org/eval/problems/shafarevich_relation_rank_bound/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/shafarevich_relation_rank_bound/"
+    ]
+  },
+  "df23badf37bb5c521e29f9af46233467734e385415188ad13cb8a8f00460af85": {
+    "name": "Shannon capacity of the pentagon",
+    "sources": [
+      "https://lean-lang.org/eval/problems/shannon_capacity_pentagon/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/shannon_capacity_pentagon/"
     ]
   },
   "f72fd8621807a08193cd14a124d7a2c4bf7be8010d2662b5ac6a96d9aacb1dcb": {
@@ -1238,6 +1392,20 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/topological_classification_of_surfaces/"
     ]
   },
+  "ed8044c687eb3d9fe671d60d8101bae9b9c10afb2d6bfb4bcf21a0ba3aa9a6ca": {
+    "name": "Trace Cayley-Hamilton / Newton identity",
+    "sources": [
+      "https://lean-lang.org/eval/problems/trace_cayley_hamilton_newton/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/trace_cayley_hamilton_newton/"
+    ]
+  },
+  "98cfc0442861b4b2b11aa4202277d9707b489131eb059b238251e54fb9082a60": {
+    "name": "General recursive equals Turing computable",
+    "sources": [
+      "https://lean-lang.org/eval/problems/turing_recursive_equiv/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/turing_recursive_equiv/"
+    ]
+  },
   "21fefc7fafe16596fc203dec02e0cadfeeeaa8464a0248a5d1755e88cc741cca": {
     "name": "Tverberg's theorem",
     "sources": [
@@ -1294,6 +1462,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/wallpaper_groups_17/"
     ]
   },
+  "eac0a1fbee750229f0fb9db2a38ebcc7fa728001da9fb2b76afb8325e4c4fdb2": {
+    "name": "Watanabe's disproof of the 4-dimensional Smale conjecture",
+    "sources": [
+      "https://lean-lang.org/eval/problems/watanabe_four_dim_smale_disproof/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/watanabe_four_dim_smale_disproof/"
+    ]
+  },
   "e0ed7eb10cd7c96d1f2bb9de96f46557a1bc99c7868eca5bc8bb4ffae3664f1e": {
     "name": "Weak Morse inequalities",
     "sources": [
@@ -1329,11 +1504,32 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/wiener_atom_detection/"
     ]
   },
+  "399b1709f88ae43efd79af6812a468968f8b6ccb96fa72705b666187d8ea090b": {
+    "name": "Wiener's 1/f theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/wiener_inverse_closed/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/wiener_inverse_closed/"
+    ]
+  },
+  "7e887a0150f03dda80bda6b45daba878f378e3b70fff564358ed001a7203e6c1": {
+    "name": "Wiener–Lévy theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/wiener_levy_analytic_calculus/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/wiener_levy_analytic_calculus/"
+    ]
+  },
   "151f6c182aab48480d8d3f12c162edfbfb522d474d4188dd3c668759ac87acef": {
     "name": "Wigner semicircle law",
     "sources": [
       "https://lean-lang.org/eval/problems/wigner_semicircle/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/wigner_semicircle/"
+    ]
+  },
+  "60ab84d865a340c0d075bc9457aa9ac2ad6c86d80672edffb8fb25410ac3d468": {
+    "name": "Bounded gaps between primes",
+    "sources": [
+      "https://lean-lang.org/eval/problems/zhang_bounded_prime_gaps/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/zhang_bounded_prime_gaps/"
     ]
   }
 }
