@@ -37,8 +37,8 @@ export function ChallengeTrust() {
             <FontAwesomeIcon icon={faWarning} size="sm" className={recognitionStatus} /> Not a known
             challenge!{" "}
             <Em>
-              You should not trust Comparator's verification unless you are confident that this
-              challenge is free of errors or misleading content.
+              Comparator's results are only meaningful if you are confident that this challenge is
+              free of errors or misleading content.
             </Em>
           </Text>
         )}
