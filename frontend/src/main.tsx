@@ -1,6 +1,6 @@
 import "./style.css";
 
-import { ChakraProvider, createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
+import { ChakraProvider, createSystem, defaultConfig } from "@chakra-ui/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 

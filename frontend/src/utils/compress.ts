@@ -1,3 +1,5 @@
+// lz-string's typescript is very broken
+// eslint-disable-next-line import-x/default
 import LZString from "lz-string";
 
 /**
