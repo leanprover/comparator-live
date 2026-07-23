@@ -36,10 +36,7 @@ export type CheckVerifyResponse = z.infer<typeof zCheckVerifyResponse>;
 
 /** Client-only superset of `CheckVerifyResponse` */
 export type CheckVerifyStatus =
-  | CheckVerifyResponse
-  | { type: "idle" }
-  | { type: "in-preparation" }
-  | { type: "connection-lost" };
+  CheckVerifyResponse | { type: "idle" } | { type: "in-preparation" } | { type: "connection-lost" };
 
 export function checkVerifyStatusIsTerminal(status: CheckVerifyStatus) {
   return status.type === "verification-failed" || status.type === "verification-ok";
