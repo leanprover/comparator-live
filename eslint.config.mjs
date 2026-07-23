@@ -1,6 +1,6 @@
 import eslint from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
-import eslintPluginImport from "eslint-plugin-import";
+import eslintPluginImport from "eslint-plugin-import-x";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import reactHooks from "eslint-plugin-react-hooks";
 import { reactRefresh } from "eslint-plugin-react-refresh";
@@ -30,17 +30,18 @@ export default defineConfig([
       ecmaVersion: "latest",
     },
     settings: {
-      "import/resolver": { typescript: true },
+      "import-x/resolver": { typescript: true },
     },
     plugins: {
       "simple-import-sort": simpleImportSort,
     },
     rules: {
       eqeqeq: "error",
-      "import/no-amd": "error",
-      "import/no-commonjs": "error",
-      "import/no-empty-named-blocks": "error",
-      "import/no-extraneous-dependencies": [
+      "import-x/extensions": ["error", "ignorePackages"],
+      "import-x/no-amd": "error",
+      "import-x/no-commonjs": "error",
+      "import-x/no-empty-named-blocks": "error",
+      "import-x/no-extraneous-dependencies": [
         "error",
         {
           // devDependencies can be imported in config and test files
@@ -52,9 +53,9 @@ export default defineConfig([
           includeInternal: true,
         },
       ],
-      "import/no-import-module-exports": "error",
-      "import/no-named-as-default": "error",
-      "import/no-named-as-default-member": "off", // warn -> off (produces some false positives)
+      "import-x/no-import-module-exports": "error",
+      "import-x/no-named-as-default": "error",
+      "import-x/no-named-as-default-member": "off", // warn -> off (produces some false positives)
       "no-console": "warn",
       "no-param-reassign": "error",
       "no-throw-literal": "error",
@@ -105,7 +106,7 @@ export default defineConfig([
           leadingUnderscore: "require",
         },
         {
-          // No limits on names that might be specified by someone else's JSON
+          // No limits on things like 'Content-Type' in a fetch object
           selector: "objectLiteralProperty",
           format: null,
         },
@@ -141,7 +142,7 @@ export default defineConfig([
   },
   {
     files: ["{client,frontend}/**/*.{ts,tsx}"],
-    extends: [reactHooks.configs.flat.recommended, reactRefresh.configs.recommended],
+    extends: [reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
   },
   {
     // Test files may need to make use of the `any` type in a way we want to

@@ -930,7 +930,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/morley_theorem/"
     ]
   },
-  "d8249b83758298e94ace14e81621e81f266205c63a6e1a93774bed79818e1b59": {
+  "8cedb684d900753011c8ba02fff0421cbfbc3e004d5f208c579b7d5b4fe0d83b": {
     "name": "Morse inequalities",
     "sources": [
       "https://lean-lang.org/eval/problems/morse_inequality/",
@@ -1469,7 +1469,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/watanabe_four_dim_smale_disproof/"
     ]
   },
-  "e0ed7eb10cd7c96d1f2bb9de96f46557a1bc99c7868eca5bc8bb4ffae3664f1e": {
+  "005599198a3f196450347f5a4f66571799d21d79655d381e536902f596d0bbb2": {
     "name": "Weak Morse inequalities",
     "sources": [
       "https://lean-lang.org/eval/problems/weak_morse_inequality/",
