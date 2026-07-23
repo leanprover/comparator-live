@@ -3,6 +3,8 @@ import { zProjectListResponse } from "@comparator/shared";
 import { produce } from "immer";
 import { atom } from "jotai";
 import { atomWithQuery } from "jotai-tanstack-query";
+// lz-string's typescript is very broken
+// eslint-disable-next-line import-x/default
 import LZString from "lz-string";
 import { z } from "zod";
 
