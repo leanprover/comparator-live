@@ -131,18 +131,27 @@ export const leanConfigsAtom = atom((get) => {
   const { data } = get(projectListQueryAtom);
   if (!data) {
     return createListCollection({
-      items: [{ label: "Loading projects...", value: "loading" }],
+      items: [{ label: "Loading projects...", value: "loading", hidden: true }],
     });
   } else if (data.some(({ project }) => project === "unknown" || project === "loading")) {
     throw new Error(`Project listing includes a project with a reserved name`);
   } else {
     return createListCollection({
       items: [
-        ...data.map(({ project, name }) => ({ label: name, value: project })),
-        { label: "Unsupported project", value: "unknown" },
+        ...data.map(({ project, name, hidden }) => ({ label: name, value: project, hidden })),
+        { label: "Unsupported project", value: "unknown", hidden: true },
       ],
     });
   }
+});
+
+export const displayedLeanConfigsAtom = atom((get) => {
+  const leanConfigs = get(leanConfigsAtom);
+  const projectSelection = get(projectSelectionAtom);
+  return leanConfigs.filter((_key, _index, leanConfig) => {
+    if (leanConfig.hidden) return leanConfig.value === projectSelection;
+    return true;
+  });
 });
 
 /**

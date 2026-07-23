@@ -1,5 +1,6 @@
 {
   "name": "Stable Release (_Vers_ with mathlib)",
   "sortOrder": 1000,
-  "comparator": true
+  "comparator": true,
+  "hidden": true
 }

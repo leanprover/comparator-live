@@ -24,7 +24,7 @@ import { useState } from "react";
 
 import {
   defaultProjectAtom,
-  leanConfigsAtom,
+  displayedLeanConfigsAtom,
   projectAtom,
   projectSelectionAtom,
 } from "./store/params.ts";
@@ -33,11 +33,11 @@ import { LIVE_LEAN_URI } from "./utils/consts.ts";
 
 export default function Header() {
   const defaultProject = useAtomValue(defaultProjectAtom);
-  const leanConfigs = useAtomValue(leanConfigsAtom);
   const statusClass = useAtomValue(statusClassAtom);
   const [project, setProject] = useAtom(projectAtom);
   const projectSelection = useAtomValue(projectSelectionAtom);
   const [openAbout, setOpenAbout] = useState(false);
+  const displayedLeanConfigs = useAtomValue(displayedLeanConfigsAtom);
 
   return (
     <Grid
@@ -69,7 +69,7 @@ export default function Header() {
       <GridItem colSpan={{ base: 3, md: 1 }}>
         <Flex>
           <Select.Root
-            collection={leanConfigs}
+            collection={displayedLeanConfigs}
             disabled={!defaultProject}
             value={[projectSelection]}
             onValueChange={(e) => {
@@ -90,20 +90,14 @@ export default function Header() {
             <Portal>
               <Select.Positioner>
                 <Select.Content>
-                  {leanConfigs.items
-                    .filter((leanConfig) => {
-                      if (leanConfig.value === "unknown") return projectSelection === "unknown";
-                      if (leanConfig.value === "loading") return projectSelection === "loading";
-                      return true;
-                    })
-                    .map((leanConfig) => (
-                      <Select.Item item={leanConfig} key={leanConfig.value}>
-                        {leanConfig.value === "unknown"
-                          ? `Unsupported project "${project}"`
-                          : leanConfig.label}
-                        <Select.ItemIndicator />
-                      </Select.Item>
-                    ))}
+                  {displayedLeanConfigs.items.map((leanConfig) => (
+                    <Select.Item item={leanConfig} key={leanConfig.value}>
+                      {leanConfig.value === "unknown"
+                        ? `Unsupported project "${project}"`
+                        : leanConfig.label}
+                      <Select.ItemIndicator />
+                    </Select.Item>
+                  ))}
                 </Select.Content>
               </Select.Positioner>
             </Portal>
