@@ -6,8 +6,8 @@ PROJECT_DIR="$(realpath "$1")" # Read-only project source
 shift
 WORK_DIR="$(realpath "$1")"    # Task-specific temporary directory
 shift
-
-
+NANODA_DIR="$(realpath "$1")"  # Path to nanoda
+shift
 
 GIT_PATH=$(dirname $(realpath $(which git)))
 DIRNAME_PATH=$(dirname $(realpath $(which dirname)))
@@ -43,6 +43,7 @@ mkdir -p "$WORK_DIR/Comparator-staging"
 exec bwrap \
      --ro-bind /nix /nix \
      --ro-bind "$LEAN_ROOT" /lean \
+     --ro-bind "$NANODA_DIR" /nanoda \
      \
      --dev /dev \
      --tmpfs /tmp \
@@ -53,6 +54,7 @@ exec bwrap \
      --setenv LEAN_NUM_THREADS "4" \
      --setenv PATH "$GIT_PATH:$DIRNAME_PATH:/lean/bin:$WHICH_PATH:$LANDRUN_PATH" \
      --setenv COMPARATOR_LEAN4EXPORT "/project/lean4export/.lake/build/bin/lean4export" \
+     --setenv COMPARATOR_NANODA "/nanoda/nanoda_lib" \
      \
      --ro-bind "$PROJECT_DIR" /project \
      --ro-bind "$WORK_DIR/Challenge/config.json" /project/config.json \
