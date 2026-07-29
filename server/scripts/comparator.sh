@@ -54,7 +54,7 @@ exec bwrap \
      --setenv LEAN_NUM_THREADS "4" \
      --setenv PATH "$GIT_PATH:$DIRNAME_PATH:/lean/bin:$WHICH_PATH:$LANDRUN_PATH" \
      --setenv COMPARATOR_LEAN4EXPORT "/project/lean4export/.lake/build/bin/lean4export" \
-     --setenv COMPARATOR_NANODA "/nanoda/nanoda_lib" \
+     --setenv COMPARATOR_NANODA "/nanoda/nanoda_bin" \
      \
      --ro-bind "$PROJECT_DIR" /project \
      --ro-bind "$WORK_DIR/Challenge/config.json" /project/config.json \
