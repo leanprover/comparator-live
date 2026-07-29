@@ -12,17 +12,17 @@ maxSynthPendingDepth = 3
 [[require]]
 name = "lean4export"
 scope = "leanprover"
-rev = "v4.30.0"
+rev = "v4.32.0"
 
 [[require]]
 name = "comparator"
 git = "https://github.com/leanprover/comparator"
-rev = "v4.30.0"
+rev = "v4.32.0"
 
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
-rev = "v4.30.0"
+rev = "v4.32.1"
 
 [[lean_lib]]
 name = "Challenge"
