@@ -82,7 +82,7 @@ export default defineConfig([
         },
         {
           // Functions, methods, and members are too: `allGuessed`, `start`, `viewAs`, `isDone`
-          selector: ["function", "method", "memberLike"],
+          selector: ["function", "memberLike"],
           format: ["camelCase"],
         },
         {
@@ -92,15 +92,20 @@ export default defineConfig([
         },
         {
           // Usually we want to stick with camelCase for global variables, and
-          // UPPER_CASE for global constants, but there are many exceptions
+          // UPPER_CASE for global constants, but there are so many exceptions
           selector: "variable",
-          modifiers: ["global", "const"],
-          types: ["boolean", "number", "string", "array"],
+          modifiers: ["global"],
           format: ["UPPER_CASE", "PascalCase", "camelCase"],
         },
         {
+          // global functions are camelCase unless they're ReactComponents
+          selector: "function",
+          modifiers: ["global"],
+          format: ["PascalCase", "camelCase"],
+        },
+        {
           // Private methods and fields must have a leading underscore: this._count
-          selector: ["memberLike", "method"],
+          selector: "memberLike",
           modifiers: ["private"],
           format: ["camelCase"],
           leadingUnderscore: "require",
@@ -109,13 +114,6 @@ export default defineConfig([
           // No limits on things like 'Content-Type' in a fetch object
           selector: "objectLiteralProperty",
           format: null,
-        },
-        {
-          // Usually we want to stick with camelCase for global variables, and
-          // UPPER_CASE for global constants, but there are many exceptions
-          selector: ["function", "variable"],
-          modifiers: ["global"],
-          format: ["camelCase", "PascalCase"],
         },
       ],
       "@typescript-eslint/no-unused-vars": [

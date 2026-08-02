@@ -1,21 +1,7 @@
-/* Visit https://www.typescriptlang.org/tsconfig/ to learn about this file */
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    /* Basic configuration */
     "lib": ["ES2024"],
-    "module": "nodenext",
-    "skipLibCheck": true,
-    "noEmit": true,
-
-    /* Support the use of type stripping in Node */
-    "allowImportingTsExtensions": true,
-    "erasableSyntaxOnly": true,
-    "verbatimModuleSyntax": true,
-
-    /* Linting */
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUncheckedIndexedAccess": true
+    "module": "nodenext"
   }
 }

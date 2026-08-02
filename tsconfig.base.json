@@ -1,0 +1,26 @@
+/* Visit https://www.typescriptlang.org/tsconfig/ to learn about this file.
+ * A file named `tsconfig.base.json` won't affect the behavior of typescript
+ * on its own; it is included in each of the tsconfig.json files in the
+ * individual workspaces with the line "extends": "../tsconfig.base.json".
+ *
+ * Running `npx tsc --showConfig` in a specific subdirectory will show the
+ * merged typescript configuration that project is working with.
+ */
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "noEmit": true,
+
+    /* These options support consistent usage of the same imports across
+     * projects that use a Vite-style bundler or Node-style type stripping. */
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+
+    /* Linting */
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true
+  }
+}
