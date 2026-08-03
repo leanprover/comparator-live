@@ -53,11 +53,11 @@ const isFailing: boolean[] = CHALLENGE_MATRIX.map(() => false);
 export function stats() {
   const filtered = lastStartTimes.filter((t) => t !== null).map((t) => t.getTime());
   return {
-    failing_count: isFailing.filter((b) => b).length,
-    tested_count: filtered.length,
-    oldest_start_timestamp_seconds:
+    challenges_failing: isFailing.filter((b) => b).length,
+    challenges_tested: filtered.length,
+    oldest_challenge_start_timestamp_seconds:
       filtered.length > 0 ? Math.min(...filtered) / 1000 : startTimeSeconds,
-    newest_start_timestamp_seconds:
+    newest_challenge_start_timestamp_seconds:
       filtered.length > 0 ? Math.max(...filtered) / 1000 : startTimeSeconds,
   };
 }
