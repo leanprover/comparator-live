@@ -1,11 +1,12 @@
 /* eslint no-console: "off" */
 
+import { env } from "node:process";
+
 import {
   type StartVerifyRequest,
   zCheckVerifyResponse,
   zStartVerifyResponse,
 } from "@comparator/shared";
-import { env } from "process";
 
 const BASE_URI = env.BASE_URI ?? "http://localhost:3000";
 const DELAY = env.DELAY ? Number(env.DELAY) : 15 * 60 * 1000; // 15 minutes
@@ -36,7 +37,7 @@ const CHALLENGES = [
 const CHALLENGE_MATRIX: {
   request: StartVerifyRequest;
   expect: "verification-failed" | "verification-ok";
-}[] = CHALLENGES.map(({ challenge, proof, ok }) =>
+}[] = CHALLENGES.flatMap(({ challenge, proof, ok }) =>
   PROJECTS.map((project) => ({
     request: {
       project,
@@ -45,7 +46,7 @@ const CHALLENGE_MATRIX: {
     },
     expect: ok ? ("verification-ok" as const) : ("verification-failed" as const),
   })),
-).flat();
+);
 
 const startTimeSeconds = Date.now() / 1000;
 const lastStartTimes: (Date | null)[] = CHALLENGE_MATRIX.map(() => null);
@@ -98,7 +99,7 @@ async function watchdog() {
       let verdict: null | "verification-failed" | "verification-ok" = null;
       for (const line of (await track.text()).split("\n")) {
         if (line.startsWith("data: ")) {
-          const value = zCheckVerifyResponse.parse(JSON.parse(line.slice(5).trim()));
+          const value = zCheckVerifyResponse.parse(JSON.parse(line.slice(6).trim()));
           if (value.type === "verification-failed" || value.type === "verification-ok") {
             verdict = value.type;
           }

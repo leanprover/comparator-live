@@ -1,11 +1,13 @@
 // Run this script to launch the server.
 /* eslint no-console: "off" */
 
+import { env } from "node:process";
+
 import express from "express";
 
 import { stats } from "./watchdog.ts";
 
-const PORT = parseInt(process.env.PORT || "3009");
+const PORT = parseInt(env.PORT || "3009");
 
 const app = express();
 app.get("/", (_req, res) => {
