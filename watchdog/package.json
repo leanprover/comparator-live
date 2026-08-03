@@ -1,0 +1,24 @@
+{
+  "name": "@comparator/watchdog",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "check": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prettier": "prettier --ignore-path ../.gitignore --check . ",
+    "prettier:fix": "prettier --ignore-path ../.gitignore --write .",
+    "dev": "NODE_ENV=development node --watch ./src/server.ts",
+    "start": "NODE_ENV=production node ./src/server.ts"
+  },
+  "dependencies": {
+    "@comparator/shared": "^1.0.0",
+    "amaro": "^1.1.9",
+    "express": "^5.2.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.13.2"
+  }
+}

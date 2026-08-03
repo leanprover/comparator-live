@@ -6,13 +6,15 @@
     "frontend",
     "server",
     "shared",
-    "scripts"
+    "scripts",
+    "watchdog"
   ],
   "files": [
     "*/package.json",
     "frontend/dist",
     "server/scripts",
     "server/src",
+    "watchdog/src",
     "shared"
   ],
   "scripts": {
