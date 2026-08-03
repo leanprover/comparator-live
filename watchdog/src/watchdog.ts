@@ -43,9 +43,17 @@ const CHALLENGES: {
   },
   {
     request: {
-      project: "MathlibDemo",
+      project: "MathlibDemoForComparator",
       challenge: "theorem triv : True := by sorry",
       solution: "theorem triv : True := True.intro",
+    },
+    expect: "verification-ok",
+  },
+  {
+    request: {
+      project: "MathlibDemoForComparator",
+      challenge: "theorem triv : True := by sorry",
+      solution: "import Mathlib\ntheorem triv : True := True.intro",
     },
     expect: "verification-ok",
   },

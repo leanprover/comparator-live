@@ -61,7 +61,7 @@ export async function getProjects(): Promise<ProjectListing[]> {
             // XXX HACK, UNDO
             // This is to let MathlibDemo delete its ilean files, which would break comparator
             project:
-              config.default && config.name === "MathlibDemo"
+              config.default && entry.name === "MathlibDemo"
                 ? "MathlibDemoForComparator"
                 : entry.name,
             name: config.name
