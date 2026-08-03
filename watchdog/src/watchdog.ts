@@ -13,55 +13,43 @@ console.log(
   `Comparator watchdog running against ${BASE_URI} with a ${DELAY / (60 * 1000)}-minute delay`,
 );
 
-const CHALLENGES: {
+const PROJECTS = ["mathlib-release", "mathlib-stable", "MathlibDemoForComparator"];
+
+const CHALLENGES = [
+  {
+    challenge: "theorem triv : True",
+    proof: "True.intro",
+    ok: true,
+  },
+  {
+    challenge: "import Mathlib.Tactic.Ring\ntheorem test (x y : Int) : x + y = y + 0 + x",
+    proof: "by ring",
+    ok: true,
+  },
+  {
+    challenge: "theorem boom : False",
+    proof: "by sorry",
+    ok: false,
+  },
+] as const;
+
+const CHALLENGE_MATRIX: {
   request: StartVerifyRequest;
   expect: "verification-failed" | "verification-ok";
-}[] = [
-  {
+}[] = CHALLENGES.map(({ challenge, proof, ok }) =>
+  PROJECTS.map((project) => ({
     request: {
-      project: "mathlib-release",
-      challenge: "theorem triv : True := by sorry",
-      solution: "theorem triv : True := True.intro",
+      project,
+      challenge: `${challenge} := by sorry`,
+      solution: `${challenge} := ${proof}`,
     },
-    expect: "verification-ok",
-  },
-  {
-    request: {
-      project: "mathlib-stable",
-      challenge: "theorem triv : True := by sorry",
-      solution: "theorem triv : True := True.intro",
-    },
-    expect: "verification-ok",
-  },
-  {
-    request: {
-      project: "mathlib-stable",
-      challenge: "theorem boom : False := by sorry",
-      solution: "theorem triv : True := True.intro",
-    },
-    expect: "verification-failed",
-  },
-  {
-    request: {
-      project: "MathlibDemoForComparator",
-      challenge: "theorem triv : True := by sorry",
-      solution: "theorem triv : True := True.intro",
-    },
-    expect: "verification-ok",
-  },
-  {
-    request: {
-      project: "MathlibDemoForComparator",
-      challenge: "theorem triv : True := by sorry",
-      solution: "import Mathlib\ntheorem triv : True := True.intro",
-    },
-    expect: "verification-ok",
-  },
-];
+    expect: ok ? ("verification-ok" as const) : ("verification-failed" as const),
+  })),
+).flat();
 
 const startTimeSeconds = Date.now() / 1000;
-const lastStartTimes: (Date | null)[] = CHALLENGES.map(() => null);
-const isFailing: boolean[] = CHALLENGES.map(() => false);
+const lastStartTimes: (Date | null)[] = CHALLENGE_MATRIX.map(() => null);
+const isFailing: boolean[] = CHALLENGE_MATRIX.map(() => false);
 export function stats() {
   const filtered = lastStartTimes.filter((t) => t !== null).map((t) => t.getTime());
   return {
@@ -76,7 +64,7 @@ export function stats() {
 
 let nextChallenge = 0;
 function incrChallenge() {
-  nextChallenge = (nextChallenge + 1) % CHALLENGES.length;
+  nextChallenge = (nextChallenge + 1) % CHALLENGE_MATRIX.length;
 }
 
 /* Repeatedly tests challenges in a rotating fashion */
@@ -90,7 +78,7 @@ async function watchdog() {
       );
     }
     try {
-      const { request, expect } = CHALLENGES[thisChallenge]!;
+      const { request, expect } = CHALLENGE_MATRIX[thisChallenge]!;
       const response = await fetch(`${BASE_URI}/comparator/api/start`, {
         method: "POST",
         body: JSON.stringify(request),
