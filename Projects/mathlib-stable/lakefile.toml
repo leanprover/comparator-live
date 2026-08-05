@@ -17,7 +17,7 @@ rev = "v4.32.0"
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
-rev = "v4.32.1"
+rev = "v4.32.0"
 
 [[lean_lib]]
 name = "Challenge"
