@@ -6,7 +6,7 @@ import { promisify } from "node:util";
 
 import { z } from "zod";
 
-import { IS_DEVELOPMENT, PROJ_ROOT } from "./env.ts";
+import { DEPS_ROOT, IS_DEVELOPMENT, PROJ_ROOT } from "./env.ts";
 
 export interface VerifyTask {
   taskId: string;
@@ -236,15 +236,15 @@ export async function comparator(taskId: string, project: string, theoremNames: 
     );
 
     cmd = "lake";
-    args = ["exe", "comparator", "config.json"];
+    args = ["env", join(DEPS_ROOT, "comparator/.lake/build/bin/comparator"), "config.json"];
     env = {
-      COMPARATOR_NANODA: join(PROJ_ROOT, "./nanoda_lib/target/release/nanoda_bin"),
-      COMPARATOR_LANDRUN: ".lake/packages/comparator/scripts/fake-landrun.sh",
+      COMPARATOR_NANODA: join(DEPS_ROOT, "nanoda_lib/target/release/nanoda_bin"),
+      COMPARATOR_LANDRUN: join(DEPS_ROOT, "comparator/scripts/fake-landrun.sh"),
       COMPARATOR_LEAN4EXPORT: ".lake/packages/lean4export/.lake/build/bin/lean4export",
     };
   } else {
     cmd = script("comparator.sh");
-    args = [projDir, workDir, join(projectDir("nanoda_lib"), "target/release")];
+    args = [projDir, workDir, DEPS_ROOT];
     env = {};
   }
 

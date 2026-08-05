@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -euo pipefail # realpath or dirname failure should abort
 
 PROJECT_DIR="$(realpath "$1")" # Read-only project source
@@ -44,6 +43,7 @@ exec bwrap \
      --ro-bind /nix /nix \
      --ro-bind "$LEAN_ROOT" /lean \
      \
+     \
      --dev /dev \
      --tmpfs /tmp \
      --proc /proc \
@@ -52,6 +52,7 @@ exec bwrap \
      --setenv HOME "/tmp" \
      --setenv LEAN_NUM_THREADS "4" \
      --setenv PATH "$GIT_PATH:$DIRNAME_PATH" \
+     \
      \
      \
      --ro-bind "$PROJECT_DIR" /project \

@@ -15,11 +15,6 @@ scope = "leanprover"
 rev = "v4.32.0"
 
 [[require]]
-name = "comparator"
-git = "https://github.com/leanprover/comparator"
-rev = "v4.32.0"
-
-[[require]]
 name = "mathlib"
 scope = "leanprover-community"
 rev = "v4.32.1"

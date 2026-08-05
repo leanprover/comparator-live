@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
-
 set -euo pipefail # realpath or dirname failure should abort
 
 PROJECT_DIR="$(realpath "$1")" # Read-only project source
 shift
 WORK_DIR="$(realpath "$1")"    # Task-specific temporary directory
 shift
-NANODA_DIR="$(realpath "$1")"  # Path to nanoda
+DEPS_DIR="$(realpath "$1")"    # Project dependencies path
 shift
 
 GIT_PATH=$(dirname $(realpath $(which git)))
@@ -23,7 +22,7 @@ SCRIPT=$(cat <<EOF
 ulimit -t 60       # 60 seconds
 ulimit -u 65536    # 65536 subprocesses spawnable (lake can use a lot here!)
 ulimit -f 524288   # File output size limits
-exec /lean/bin/lake env comparator/.lake/build/bin/comparator config.json
+exec /lean/bin/lake env /deps/comparator/.lake/build/bin/comparator config.json
 EOF
 )
 
@@ -43,7 +42,7 @@ mkdir -p "$WORK_DIR/Comparator-staging"
 exec bwrap \
      --ro-bind /nix /nix \
      --ro-bind "$LEAN_ROOT" /lean \
-     --ro-bind "$NANODA_DIR" /nanoda \
+     --ro-bind "$DEPS_DIR" /deps \
      \
      --dev /dev \
      --tmpfs /tmp \
@@ -54,7 +53,7 @@ exec bwrap \
      --setenv LEAN_NUM_THREADS "4" \
      --setenv PATH "$GIT_PATH:$DIRNAME_PATH:/lean/bin:$WHICH_PATH:$LANDRUN_PATH" \
      --setenv COMPARATOR_LEAN4EXPORT "/project/lean4export/.lake/build/bin/lean4export" \
-     --setenv COMPARATOR_NANODA "/nanoda/nanoda_bin" \
+     --setenv COMPARATOR_NANODA "/deps/nanoda_lib/target/release/nanoda_bin" \
      \
      --ro-bind "$PROJECT_DIR" /project \
      --ro-bind "$WORK_DIR/Challenge/config.json" /project/config.json \
