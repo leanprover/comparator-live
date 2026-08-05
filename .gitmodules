@@ -1,0 +1,6 @@
+[submodule "Dependencies/comparator"]
+	path = Dependencies/comparator
+	url = https://github.com/leanprover/comparator.git
+[submodule "Dependencies/nanoda_lib"]
+	path = Dependencies/nanoda_lib
+	url = https://github.com/ammkrn/nanoda_lib.git
