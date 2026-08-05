@@ -6,6 +6,20 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/abel_ruffini/"
     ]
   },
+  "8dc66e791a6b56d93fa44c9527358fb416957765535fd2acc753fce27d38d635": {
+    "name": "Ado's theorem in characteristic zero",
+    "sources": [
+      "https://lean-lang.org/eval/problems/adoCharZero/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/adoCharZero/"
+    ]
+  },
+  "ce12ef7946aaf81c55ccc8b7adb84da40f282fa8b91b665bd49ff5cb453c94b8": {
+    "name": "Ado–Iwasawa theorem over an arbitrary field",
+    "sources": [
+      "https://lean-lang.org/eval/problems/adoIwasawa/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/adoIwasawa/"
+    ]
+  },
   "5e52d6873125690384b54161d3d44a4bdf8d782d5a70e9ba1617a99b85acf7db": {
     "name": "The alternating sign matrix theorem",
     "sources": [
@@ -83,14 +97,14 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/bezout_projective_multiplicity/"
     ]
   },
-  "811e2d12865f1f35cb55de27dc7119e35aecb0e236511c3b7c6caf5efe8f21dd": {
+  "45ff810ab73b35f3be90515b2177d0b37d7a74324eeb948af977039f0b247341": {
     "name": "Boone–Higman theorem (easy direction)",
     "sources": [
       "https://lean-lang.org/eval/problems/boone_higman_embedding/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/boone_higman_embedding/"
     ]
   },
-  "cb801141f1fd310a19aeff9dfd42982135bd8a4e9007161c63d6765d32e3cbd9": {
+  "64aa20ba20e01f459711ca3b5804f074aa4011bf11bb1b948a28d509311c954f": {
     "name": "Kuznetsov's theorem: finitely presented simple groups have solvable word problem",
     "sources": [
       "https://lean-lang.org/eval/problems/boone_higman_simple/",
@@ -160,6 +174,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/cauchy_kovalevskaya/"
     ]
   },
+  "9a51a4f99bb6291e166142741f9ce97a932a006a4953c7fbaf80229bc62212a2": {
+    "name": "Linear independence results of Calegari–Dimitrov–Tang",
+    "sources": [
+      "https://lean-lang.org/eval/problems/cdt_linearIndependent/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/cdt_linearIndependent/"
+    ]
+  },
   "9959c9cb023eb1b0940e502caa1c178ba8f29982189c94e4d112c53442d11d37": {
     "name": "Cerf's theorem: every self-diffeomorphism of S3 is smoothly isotopic to a linear isometry",
     "sources": [
@@ -200,6 +221,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/ci_regenerate_main_check/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/ci_regenerate_main_check/"
+    ]
+  },
+  "c4bb0d1139c13bd5431b39afcecfda96c44223a0520bf5dc8323345e2a313af9": {
+    "name": "Fourier interpolation in dimensions 8 and 24",
+    "sources": [
+      "https://lean-lang.org/eval/problems/ckmrv_fourier_interpolation/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/ckmrv_fourier_interpolation/"
     ]
   },
   "7241b07232d84a8b53d1762adbcab42645945bd1ebb6a547c0559ad35849a1d4": {
@@ -244,7 +272,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/conway_knot_topologically_slice/"
     ]
   },
-  "6c4f8af110553344e5150bf04ccbf625bae0187b18e3f08bf69d976a1512c9f6": {
+  "63eaf6d724984f7e3343b68c37f83157552cbe55e21f041f0a4016631fa19567": {
     "name": "Conway–Schneeberger fifteen theorem",
     "sources": [
       "https://lean-lang.org/eval/problems/conway_schneeberger_fifteen/",
@@ -300,11 +328,25 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/dehn_sommerville/"
     ]
   },
+  "59df45708c9d4e36caa0e5fc00e8232bf5e88579fb35710d6bac88e96cd74a16": {
+    "name": "Derived solidification of free CW complexes (light condensed mathematics)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/derived_solidification_free_CW_homology/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/derived_solidification_free_CW_homology/"
+    ]
+  },
   "f1bc83af1c70f994f5fe9418fd6c2543bdbd9947d3e05b38056aabed42ccea44": {
     "name": "Dirichlet eigenvalues of -y'' = lambda y on [0,pi] are n^2",
     "sources": [
       "https://lean-lang.org/eval/problems/dirichlet_eigenvalues_eq_nat_sq/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/dirichlet_eigenvalues_eq_nat_sq/"
+    ]
+  },
+  "3faeee65f029b9b4e4c87257c7ed935af9d985a676e013eb386578e29730432b": {
+    "name": "Duffin-Schaeffer conjecture",
+    "sources": [
+      "https://lean-lang.org/eval/problems/duffin_schaeffer/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/duffin_schaeffer/"
     ]
   },
   "3e4a659e84b63202da541602d2c9e2bf1ca8159f8a6f67d343907ce62cf75de0": {
@@ -461,6 +503,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/fraser_kakeya_fourier_decay/"
     ]
   },
+  "181a7b94ffe81a2ec9d926b4d491fdb38883a1fddda1b021ef28e96978938c16": {
+    "name": "Friedlander–Iwaniec theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/friedlander_iwaniec/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/friedlander_iwaniec/"
+    ]
+  },
   "4833369de7872ad0e9f4a097b8f815b233ce49709f0ba0cac98d6afbd12c22ab": {
     "name": "Frobenius determinant theorem",
     "sources": [
@@ -573,7 +622,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/hadwiger/"
     ]
   },
-  "eae19ef4efe44b89904a3a589d08aa7f29b8aa36ebfefdc1204e099991b2bdda": {
+  "e13150341530de9422422ab7b86b7afb74701a26267acbbd444ef0be5d82a4ba": {
     "name": "Halmos's generic weak-mixing theorem",
     "sources": [
       "https://lean-lang.org/eval/problems/halmos_generic_weak_mixing/",
@@ -615,11 +664,25 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/higman_infinite_simple/"
     ]
   },
+  "a2dfc2e2b0e0700f5456f1f29031d99bfc8be57ba8be735d211b90b0bde076b5": {
+    "name": "No continuous faithful ℤ_p action on a connected 3-manifold (Pardon 2013)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hilbert_smith_padic_dimension_three/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hilbert_smith_padic_dimension_three/"
+    ]
+  },
   "0df76829ae9170ab4909cf39040add2303ebd36a68269770da9cfeec6fdf8af6": {
     "name": "Hippocrates' theorem on lunes",
     "sources": [
       "https://lean-lang.org/eval/problems/hippocrates_lunes/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/hippocrates_lunes/"
+    ]
+  },
+  "4b476be69ba510795e9df21cd7ac2b03bd2327b522db158f136a60e7dc899cf1": {
+    "name": "Connective constant of the honeycomb lattice",
+    "sources": [
+      "https://lean-lang.org/eval/problems/honeycomb_connective_constant/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/honeycomb_connective_constant/"
     ]
   },
   "05659e6611d9e623a4aaea093d5399f46c3fe95755afd7dd53b9caf913f9da5c": {
@@ -802,6 +865,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/linear_ode_asymptotic_stability/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/linear_ode_asymptotic_stability/"
+    ]
+  },
+  "280ed6bead4d246501b8cedf50f11092980e99820669ce7e96e615dd9c31c6c6": {
+    "name": "Linnik's theorem (L = 5.5)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/linnik/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/linnik/"
     ]
   },
   "c7954c18a83c00afa7c214209999074889a178bf1aaf6b6a1ced6e27e5a5db39": {
@@ -1028,6 +1098,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/parallel_postulate_independent/"
     ]
   },
+  "8ca593beda2de6773922133bfd2179cc581b383b31232b8aff5ef4f7db6afee0": {
+    "name": "Pardon's lower bound for torus-knot distortion",
+    "sources": [
+      "https://lean-lang.org/eval/problems/pardon_torus_knot_distortion/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/pardon_torus_knot_distortion/"
+    ]
+  },
   "24a5103988e0e6283a3b79dff80cf1fa07a886a2630c80fc58a34ecd7f3e6505": {
     "name": "Pascal's theorem",
     "sources": [
@@ -1168,6 +1245,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/radon_transform_inversion/"
     ]
   },
+  "b69baaaa2e0b1897d3cab8a659cc6ba1eb095eb66c71d9c00d2975bdb38248d0": {
+    "name": "Ramanujan–Petersson conjecture for the τ-function (Deligne's theorem)",
+    "sources": [
+      "https://lean-lang.org/eval/problems/ramanujan_petersson/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/ramanujan_petersson/"
+    ]
+  },
   "a297a0b9f0bb30cab938abc2621d77153bc326e3d07ec2e65b2ff60984e8a1aa": {
     "name": "Sard's regular-value corollary",
     "sources": [
@@ -1238,6 +1322,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/schlafli_classification/"
     ]
   },
+  "b92d23f0b4bad32cd4b7dfefa0001f4e04afba8b1006b85a01b92b8e3289c845": {
+    "name": "Schmidt's subspace theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/schmidt_subspace/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/schmidt_subspace/"
+    ]
+  },
   "1795bc41e76c3d10cd87948a93e48e1b6288f5d3e3256c92883332ef25f0f315": {
     "name": "Schoenflies theorem",
     "sources": [
@@ -1264,6 +1355,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/shafarevich_relation_rank_bound/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/shafarevich_relation_rank_bound/"
+    ]
+  },
+  "79d5ed97f74ff65435e82fe21f18629093deaad35dcef693f4acca247e6fbb48": {
+    "name": "Shafarevich's theorem on solvable Galois groups",
+    "sources": [
+      "https://lean-lang.org/eval/problems/shafarevich_solvable_galois/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/shafarevich_solvable_galois/"
     ]
   },
   "df23badf37bb5c521e29f9af46233467734e385415188ad13cb8a8f00460af85": {
@@ -1329,6 +1427,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/stable_unstable_manifolds/"
     ]
   },
+  "034e9dd81cbd36ace08dc4430a4c571cd3ae31ce5bf77cf01d5aa19c35c8bfca": {
+    "name": "Strong Mason conjecture for matroid independent sets",
+    "sources": [
+      "https://lean-lang.org/eval/problems/strong_mason_conjecture/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/strong_mason_conjecture/"
+    ]
+  },
   "8565e40cbd710c15d675cf82c8587a8d1ae5b0379d6a635a6e3757939a8a1be1": {
     "name": "Strong Subadditivity of von Neumann Entropy",
     "sources": [
@@ -1378,6 +1483,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/szemeredi/"
     ]
   },
+  "f00220d70e808e8d6c6fb9ea878d5635c5010acb9e970be4952c4ce39b8569d2": {
+    "name": "Avila-Jitomirskaya Ten Martini Problem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/ten_martini_problem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/ten_martini_problem/"
+    ]
+  },
   "9a84ef624e87c86df56fa4366253d840486b213117ec4d8c50683cbd83399e79": {
     "name": "Thue–Siegel–Roth theorem (irrationality measure ≤ 2 for algebraic irrationals)",
     "sources": [
@@ -1411,6 +1523,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/tverberg_theorem/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/tverberg_theorem/"
+    ]
+  },
+  "ad8a9e8550072d299e524bff093d7e889b8c6b93e585ae47f009ef24f7de1fcb": {
+    "name": "The 290 theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/two_ninety_theorem/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/two_ninety_theorem/"
     ]
   },
   "cfe3cc12caa3ef57ccb6114ca41241c0e6636c4a14d5b30db06745771a67f6f6": {
@@ -1448,6 +1567,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/variable_binder_example/"
     ]
   },
+  "c467b7597fd5a308c748340f18418763bd4344d1c3b76653f7f0aee9241bfab1": {
+    "name": "Vinogradov mean value theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/vinogradov_mean_value/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/vinogradov_mean_value/"
+    ]
+  },
   "7cae22191fb8a06c8a06a88d5208aa38ef6170b6062ddc46a1c78ca1008221af": {
     "name": "von Neumann double commutant theorem",
     "sources": [
@@ -1462,6 +1588,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/wallpaper_groups_17/"
     ]
   },
+  "016bfa1664367ced7c5070df915f42783dd3a4fe2904d7e8c7f1eac0a2f633df": {
+    "name": "Wang-Zahl: the three-dimensional Kakeya conjecture",
+    "sources": [
+      "https://lean-lang.org/eval/problems/wang_zahl_kakeya_dimH/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/wang_zahl_kakeya_dimH/"
+    ]
+  },
   "eac0a1fbee750229f0fb9db2a38ebcc7fa728001da9fb2b76afb8325e4c4fdb2": {
     "name": "Watanabe's disproof of the 4-dimensional Smale conjecture",
     "sources": [
@@ -1474,6 +1607,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/weak_morse_inequality/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/weak_morse_inequality/"
+    ]
+  },
+  "180149889d83dbd1b8a08980ef3d77abdbce9c3aa17f86a70d5e77a917808528": {
+    "name": "Weil conjectures in terms of point counts",
+    "sources": [
+      "https://lean-lang.org/eval/problems/weil_conjectures/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/weil_conjectures/"
     ]
   },
   "e17c602358aa87adc5cf5aebbafdc77344e75def5a12058dccd749fcf786fa47": {
