@@ -1,18 +1,20 @@
 # Comparator Live
 
 Comparator Live gives an online interface to
-[Lean's Comparator tool](https://github.com/leanprover/comparator/) tool,
-Lean's "gold standard" for validating proofs from untrusted sources.
+[Lean's Comparator tool](https://lean-lang.org/doc/reference/latest/find/?domain=Verso.Genre.Manual.section&name=lake-comparator)
+tool, Lean's
+[gold standard](https://lean-lang.org/doc/reference/latest/find/?domain=Verso.Genre.Manual.section&name=validating-comparator)
+for validating proofs from untrusted sources.
 
 Comparator Live is intended as a limited-purpose tool: its goal is to clearly
 signify the conditions under which users can rely on a Lean proof from an
 unreliable, potentially malicious, or AI source. To this end, Comparator Live
-differs in several ways from the the command-line `comparator` utility that it
-invokes:
+differs in several ways from the the command-line `lake comparator` utility
+that it invokes:
 
-- While the command-line tool `comparator` allows configuration of permitted
-  axioms, Comparator Live always uses the standard set of three permitted
-  axioms: `propext`, `Quot.sound`, and `Classical.choice`.
+- While `lake comparator` allows configuration of permitted axioms, Comparator
+  Live always uses the standard set of three permitted axioms: `propext`,
+  `Quot.sound`, and `Classical.choice`.
 - While the command-line tool `comparator` allows set of challenge theorems to
   be configured, Comparator Live automatically infers the challenge theorems
   as all the theorems declared in the challenge.
@@ -69,19 +71,19 @@ After this, the `challenge-thms` utility is run with an overlay setup of
 Putting the `$PROJECT_DIR` on top helps ensure the integrity of the
 `challenge-thms` executable, which lives in `$PROJECT_DIR`.
 
-Finally, `lake comparator` is run with an overlay setup of
-`$PROJECT_DIR` -> `$WORK_DIR/Solution` -> `$WORK_DIR/Challenge` -> (temp dir
-to capture writes). Placing the challenge on top in the overlay ensures that
-the the solution cannot corrupt the challenge: any files written by the
-challenge compilation process will be visible regardless of what files the
-solution wrote.
+Finally, `lake comparator` is run with an overlay setup of `$PROJECT_DIR` ->
+`$WORK_DIR/Solution` -> `$WORK_DIR/Challenge` -> (temp dir to capture writes).
+Placing the challenge on top in the overlay ensures that the the solution
+cannot corrupt the challenge: any files written by the challenge compilation
+process will be visible regardless of what files the solution wrote.
+Comparator was only added to `lake` in Lean `v4.35.0`: earlier toolchains do
+not work with Comparator Live.
 
-This workflow ensures that, when we invoke comparator, it already
-has access to the compiled `.olean` files it needs. This isn't required, but
-we needed to compile the challenge ourselves anyway in order to get the list
-of relevant theorems. Comparator is designed to avoid recompiling the
-challenge and solution if they've already been compiled to olean by other
-means.
+This workflow ensures that, when we invoke comparator, it already has access
+to the compiled `.olean` files it needs. This isn't required, but we needed to
+compile the challenge ourselves anyway in order to get the list of relevant
+theorems. Comparator is designed to avoid recompiling the challenge and
+solution if they've already been compiled to olean by other means.
 
 ## Development mode setup
 
@@ -113,6 +115,4 @@ Production mode expects the following environment variables set:
   above
 
 Production mode also expects a nix-specific setup with a number of
-dependencies to be present. This includes Landrun compiled from the master
-branch of the repository - as of mid-2026 the current release of Landrun isn't
-a security risk, it just won't work.
+dependencies to be present, including bubblewrap.
