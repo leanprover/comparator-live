@@ -69,14 +69,14 @@ After this, the `challenge-thms` utility is run with an overlay setup of
 Putting the `$PROJECT_DIR` on top helps ensure the integrity of the
 `challenge-thms` executable, which lives in `$PROJECT_DIR`.
 
-Finally, the `comparator` utility is run with an overlay setup of
+Finally, `lake comparator` is run with an overlay setup of
 `$PROJECT_DIR` -> `$WORK_DIR/Solution` -> `$WORK_DIR/Challenge` -> (temp dir
 to capture writes). Placing the challenge on top in the overlay ensures that
 the the solution cannot corrupt the challenge: any files written by the
 challenge compilation process will be visible regardless of what files the
 solution wrote.
 
-This workflow ensures that, when we invoke the `comparator` tool, it already
+This workflow ensures that, when we invoke comparator, it already
 has access to the compiled `.olean` files it needs. This isn't required, but
 we needed to compile the challenge ourselves anyway in order to get the list
 of relevant theorems. Comparator is designed to avoid recompiling the
@@ -91,33 +91,15 @@ Comparator Live can be run in development mode; the only dependencies are
 1. In each of the repository's `./Projects/` directories, run
    ```
    lake build
-   lake build comparator
-   lake build lean4export
    ```
 2. Run `npm install` and then `npm run dev` in the repository's root directory
 3. Go to `http://localhost/5173`
 
 ## Production mode setup
 
-In development mode, `comparator` and `lean4export` are dependencies of the
-project.
-
-In production mode, the correct version of Comparator or lean4export needs to
-be _checked out_ and built in a subdirectory of each supported project, like
-this:
-
-```
- - Projects/
-   - mathlib-release/ (Lean v4.31.0-rc1)
-     - comparator/ (Lean v4.31.0-rc1 or higher)
-     - lean4export/ (Lean v4.31.0-rc1)
-   - mathlib-stable/ (Lean v4.30.0)
-     - comparator/ (Lean v4.30.0 or higher)
-     - lean4export/ (Lean v4.30.0)
-```
-
-For bubblewrap to work correctly, several files must exist so that they can be
-used as mount points. Each project used by Comparator must contain:
+For bubblewrap to work correctly in production, several files must exist so
+that they can be used as mount points. Each project used by Comparator must
+contain:
 
 - Solution.lean
 - Challenge.lean (must _not_ be built)

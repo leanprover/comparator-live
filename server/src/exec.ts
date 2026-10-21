@@ -207,7 +207,6 @@ export async function comparator(taskId: string, project: string, theoremNames: 
         solution_module: "Solution",
         theorem_names: theoremNames,
         permitted_axioms: ["propext", "Quot.sound", "Classical.choice"],
-        enable_nanoda: true,
       },
       undefined,
       2,
@@ -236,15 +235,11 @@ export async function comparator(taskId: string, project: string, theoremNames: 
     );
 
     cmd = "lake";
-    args = ["exe", "comparator", "config.json"];
-    env = {
-      COMPARATOR_NANODA: join(PROJ_ROOT, "./nanoda_lib/target/release/nanoda_bin"),
-      COMPARATOR_LANDRUN: ".lake/packages/comparator/scripts/fake-landrun.sh",
-      COMPARATOR_LEAN4EXPORT: ".lake/packages/lean4export/.lake/build/bin/lean4export",
-    };
+    args = ["comparator", "--paranoid", "--config=config.json", "--inadvisably-no-sandbox"];
+    env = {};
   } else {
     cmd = script("comparator.sh");
-    args = [projDir, workDir, join(projectDir("nanoda_lib"), "target/release")];
+    args = [projDir, workDir];
     env = {};
   }
 

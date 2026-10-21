@@ -10,19 +10,9 @@ weak.linter.mathlibStandardSet = true
 maxSynthPendingDepth = 3
 
 [[require]]
-name = "lean4export"
-scope = "leanprover"
-rev = "v4.30.0"
-
-[[require]]
-name = "comparator"
-git = "https://github.com/leanprover/comparator"
-rev = "v4.30.0"
-
-[[require]]
 name = "mathlib"
 scope = "leanprover-community"
-rev = "v4.30.0"
+rev = "v4.36.0-rc1"
 
 [[lean_lib]]
 name = "Challenge"
