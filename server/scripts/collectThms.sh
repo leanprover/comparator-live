@@ -48,6 +48,7 @@ exec bwrap \
      --tmpfs /tmp \
      --proc /proc \
      \
+     \
      --clearenv \
      --setenv HOME "/tmp" \
      --setenv LEAN_NUM_THREADS "4" \

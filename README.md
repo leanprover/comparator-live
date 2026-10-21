@@ -1,18 +1,20 @@
 # Comparator Live
 
 Comparator Live gives an online interface to
-[Lean's Comparator tool](https://github.com/leanprover/comparator/) tool,
-Lean's "gold standard" for validating proofs from untrusted sources.
+[Lean's Comparator tool](https://lean-lang.org/doc/reference/latest/find/?domain=Verso.Genre.Manual.section&name=lake-comparator)
+tool, Lean's
+[gold standard](https://lean-lang.org/doc/reference/latest/find/?domain=Verso.Genre.Manual.section&name=validating-comparator)
+for validating proofs from untrusted sources.
 
 Comparator Live is intended as a limited-purpose tool: its goal is to clearly
 signify the conditions under which users can rely on a Lean proof from an
 unreliable, potentially malicious, or AI source. To this end, Comparator Live
-differs in several ways from the the command-line `comparator` utility that it
-invokes:
+differs in several ways from the the command-line `lake comparator` utility
+that it invokes:
 
-- While the command-line tool `comparator` allows configuration of permitted
-  axioms, Comparator Live always uses the standard set of three permitted
-  axioms: `propext`, `Quot.sound`, and `Classical.choice`.
+- While `lake comparator` allows configuration of permitted axioms, Comparator
+  Live always uses the standard set of three permitted axioms: `propext`,
+  `Quot.sound`, and `Classical.choice`.
 - While the command-line tool `comparator` allows set of challenge theorems to
   be configured, Comparator Live automatically infers the challenge theorems
   as all the theorems declared in the challenge.
@@ -69,19 +71,19 @@ After this, the `challenge-thms` utility is run with an overlay setup of
 Putting the `$PROJECT_DIR` on top helps ensure the integrity of the
 `challenge-thms` executable, which lives in `$PROJECT_DIR`.
 
-Finally, the `comparator` utility is run with an overlay setup of
-`$PROJECT_DIR` -> `$WORK_DIR/Solution` -> `$WORK_DIR/Challenge` -> (temp dir
-to capture writes). Placing the challenge on top in the overlay ensures that
-the the solution cannot corrupt the challenge: any files written by the
-challenge compilation process will be visible regardless of what files the
-solution wrote.
+Finally, `lake comparator` is run with an overlay setup of `$PROJECT_DIR` ->
+`$WORK_DIR/Solution` -> `$WORK_DIR/Challenge` -> (temp dir to capture writes).
+Placing the challenge on top in the overlay ensures that the the solution
+cannot corrupt the challenge: any files written by the challenge compilation
+process will be visible regardless of what files the solution wrote.
+Comparator was only added to `lake` in Lean `v4.35.0`: earlier toolchains do
+not work with Comparator Live.
 
-This workflow ensures that, when we invoke the `comparator` tool, it already
-has access to the compiled `.olean` files it needs. This isn't required, but
-we needed to compile the challenge ourselves anyway in order to get the list
-of relevant theorems. Comparator is designed to avoid recompiling the
-challenge and solution if they've already been compiled to olean by other
-means.
+This workflow ensures that, when we invoke comparator, it already has access
+to the compiled `.olean` files it needs. This isn't required, but we needed to
+compile the challenge ourselves anyway in order to get the list of relevant
+theorems. Comparator is designed to avoid recompiling the challenge and
+solution if they've already been compiled to olean by other means.
 
 ## Development mode setup
 
@@ -91,33 +93,15 @@ Comparator Live can be run in development mode; the only dependencies are
 1. In each of the repository's `./Projects/` directories, run
    ```
    lake build
-   lake build comparator
-   lake build lean4export
    ```
 2. Run `npm install` and then `npm run dev` in the repository's root directory
 3. Go to `http://localhost/5173`
 
 ## Production mode setup
 
-In development mode, `comparator` and `lean4export` are dependencies of the
-project.
-
-In production mode, the correct version of Comparator or lean4export needs to
-be _checked out_ and built in a subdirectory of each supported project, like
-this:
-
-```
- - Projects/
-   - mathlib-release/ (Lean v4.31.0-rc1)
-     - comparator/ (Lean v4.31.0-rc1 or higher)
-     - lean4export/ (Lean v4.31.0-rc1)
-   - mathlib-stable/ (Lean v4.30.0)
-     - comparator/ (Lean v4.30.0 or higher)
-     - lean4export/ (Lean v4.30.0)
-```
-
-For bubblewrap to work correctly, several files must exist so that they can be
-used as mount points. Each project used by Comparator must contain:
+For bubblewrap to work correctly in production, several files must exist so
+that they can be used as mount points. Each project used by Comparator must
+contain:
 
 - Solution.lean
 - Challenge.lean (must _not_ be built)
@@ -131,6 +115,4 @@ Production mode expects the following environment variables set:
   above
 
 Production mode also expects a nix-specific setup with a number of
-dependencies to be present. This includes Landrun compiled from the master
-branch of the repository - as of mid-2026 the current release of Landrun isn't
-a security risk, it just won't work.
+dependencies to be present, including bubblewrap.
