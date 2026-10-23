@@ -114,8 +114,30 @@ export default function Verifier() {
                   <Dialog.Title>{comparatorResult.description}</Dialog.Title>
                 </Dialog.Header>
                 <Dialog.Body>
-                  <Code as="pre" overflowX="auto" width="100%">
-                    {comparatorResult.output ?? "No output generated"}
+                  <Code as="pre" display="block" overflowX="auto" width="100%">
+                    {(comparatorResult.output ?? "No output generated")
+                      .split("\n")
+                      .map((line, n) => {
+                        if (
+                          line.match(
+                            /^(Building Challenge|Building Solution|Running .* kernel on solution)$/,
+                          )
+                        ) {
+                          return <span style={{ fontWeight: "bold" }}>{"\n" + line + "\n"}</span>;
+                        }
+                        const m = line.match(/^(.*) kernel (accepts|rejected) the solution$/);
+                        if (m) {
+                          const acc = m[2] === "accepts";
+                          const c = acc ? "success" : "failure";
+                          const emoji = acc ? "👍" : "✋";
+                          return (
+                            <span className={c} style={{ fontWeight: "bold" }}>
+                              {emoji + " " + line + "\n"}
+                            </span>
+                          );
+                        }
+                        return <span>{line + "\n"}</span>;
+                      })}
                   </Code>
                 </Dialog.Body>
               </Dialog.Content>
