@@ -27,6 +27,10 @@
     "name": "Fermat's Last Theorem",
     "sources": ["https://github.com/ImperialCollegeLondon/FLT/blob/main/FermatsLastTheorem.lean"]
   },
+  "92d342f8d37c65a6886a09c765552e9ff65ed2784a26e13490b2bb58f8ffb528": {
+    "name": "Euler's Four Square Identity",
+    "sources": ["https://en.wikipedia.org/wiki/Euler%27s_four-square_identity"]
+  },
   "95735ea7060c7d80102a36a2d41a30b30dae6886039bd3aeaf980619ff384082": {
     "name": "Proof of False named 'bad'",
     "sources": []
