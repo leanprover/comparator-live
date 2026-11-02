@@ -22,9 +22,6 @@ theorem PNat.pow_add_pow_ne_pow
       label: "Finite Ramsey theorem for graphs",
       contents: `
 import Mathlib.Combinatorics.SimpleGraph.Clique
-import Lake.Toml
-import Lake.Util.Message
-import Lean
 
 open SimpleGraph
 
