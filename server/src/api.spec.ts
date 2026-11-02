@@ -2,7 +2,15 @@ import supertest, { type Response } from "supertest";
 import { describe, expect, it } from "vitest";
 
 import { app } from "./app.ts";
+
 let response: Response;
+
+function sseData(body: string): unknown[] {
+  return body
+    .split("\n")
+    .filter((line) => line.startsWith("data: "))
+    .map((line): unknown => JSON.parse(line.slice(6)));
+}
 
 describe(`GET /comparator/api/track/:requestId`, () => {
   it("should successfully track a valid request", async () => {
@@ -15,22 +23,9 @@ describe(`GET /comparator/api/track/:requestId`, () => {
     expect(response.body).toStrictEqual({ type: "ready", requestId: expect.anything() });
     const requestId = response.body.requestId as string;
 
-    response = await supertest(app)
-      .get(`/comparator/api/track/${requestId}`)
-      .buffer(true)
-      .parse((res, cb) => {
-        let first: unknown = null;
-        let last: unknown = null;
-
-        // Fragile: this could fail if node ever decides to merge messages
-        res.on("data", (c: Buffer) => {
-          const contents = JSON.parse(c.toString().slice(5));
-          first = first ?? contents;
-          last = contents;
-        });
-        res.on("end", () => cb(null, [first, last]));
-      });
-    expect(response.body).toStrictEqual([
+    response = await supertest(app).get(`/comparator/api/track/${requestId}`);
+    const messages = sseData(response.text);
+    expect([messages.at(0), messages.at(-1)]).toStrictEqual([
       { type: "in-queue", position: 0 },
       { type: "verification-ok", theoremNames: ["triv"] },
     ]);

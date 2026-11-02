@@ -21,7 +21,7 @@
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@tanstack/query-core": "^5.100.9",
     "immer": "^11.1.7",
-    "jotai": "^2.19.1",
+    "jotai": "^3.0.1",
     "jotai-effect": "^2.2.3",
     "jotai-location": "^0.6.2",
     "jotai-tanstack-query": "^0.11.0",
@@ -36,6 +36,6 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "vite": "^8.0.0",
-    "vitest": "^4.0.18"
+    "vitest": "^5.0.5"
   }
 }
