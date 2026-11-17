@@ -16,7 +16,7 @@ DIRNAME_PATH=$(dirname $(realpath $(which dirname)))
 
 cd $PROJECT_DIR
 LEAN_ROOT="$(lean --print-prefix)"
-
+LEAN_INTERPRETER="$(patchelf --print-interpreter "$LEAN_ROOT/bin/lean")"
 
 SH=$(realpath $(which sh))
 SCRIPT=$(cat <<EOF
@@ -43,6 +43,7 @@ mkdir -p "$WORK_DIR/ChallengeThms-staging"
 exec bwrap \
      --ro-bind /nix /nix \
      --ro-bind "$LEAN_ROOT" /lean \
+     --ro-bind "$SYSTEM_INTERPRETER" "$LEAN_INTERPRETER" \
      \
      --dev /dev \
      --tmpfs /tmp \
