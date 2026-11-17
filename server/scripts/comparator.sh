@@ -43,7 +43,7 @@ mkdir -p "$WORK_DIR/Comparator-staging"
 exec bwrap \
      --ro-bind /nix /nix \
      --ro-bind "$LEAN_ROOT" /lean \
-     --ro-bind "$SYSTEM_INTERPRETER" "$LEAN_INTERPRETER" \
+     --ro-bind "$GLIBC_INTERPRETER" "$LEAN_INTERPRETER" \
      \
      --dev /dev \
      --tmpfs /tmp \
