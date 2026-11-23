@@ -61,6 +61,10 @@
       "https://github.com/leanprover-community/mathlib4/blob/master/Mathlib/NumberTheory/FLT/Basic.lean"
     ]
   },
+  "bb4599563dfc16d2fff20f26f2c19fb8f009ef6f6d868211c145e48b73a9ac82": {
+    "name": "There is a Natural Number Equal to One (trivial)",
+    "sources": ["https://en.wikipedia.org/wiki/Natural_number"]
+  },
   "e3fa1e8e23c5da05218a66796c4cd634c402f4e92904ba8b81f92887474fe410": {
     "name": "Collatz Conjecture",
     "sources": [

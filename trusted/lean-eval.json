@@ -237,7 +237,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/annals_on_coherence_of_one_relator_groups/"
     ]
   },
-  "1c52e71912bbb8b486bfac8ffaf02e2cfc8894f497274ed4fc59eea1af954715": {
+  "0d8967edff209633551085642aead0ff41d50e3321a99dde2a047508f1d68c4c": {
     "name": "On property (T) for Aut(F_n) and SL_n(Z)",
     "sources": [
       "https://lean-lang.org/eval/problems/annals_on_property_t/",
@@ -403,6 +403,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/aspherical_integer_homology_four_sphere/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/aspherical_integer_homology_four_sphere/"
+    ]
+  },
+  "f79ca59be60f4be63d5d9851e84b405e869bfc53471265bc58c2617caa65e620": {
+    "name": "Quasipolynomial graph isomorphism assuming Schreier's hypothesis",
+    "sources": [
+      "https://lean-lang.org/eval/problems/babai_gi/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/babai_gi/"
     ]
   },
   "54a2521d65d4a4bc010417a00ca13a4e85b62e96c87440703b770998dcb8f60c": {
@@ -713,6 +720,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/derived_solidification_free_CW_homology/"
     ]
   },
+  "9bf613b621518d6ebbdf95fa83d57cb4eed644c6e6f795c4af6f308c5678a596": {
+    "name": "The existence of designs",
+    "sources": [
+      "https://lean-lang.org/eval/problems/designs_exist/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/designs_exist/"
+    ]
+  },
   "a6223007db4629372f67b371f5de3a088e816fc591fc91d55fbc9ce2e08ef3d0": {
     "name": "Dimitrov's lower bound for the house of a nonzero algebraic integer that is not a root of unity",
     "sources": [
@@ -776,6 +790,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/equichordal_point_unique/"
     ]
   },
+  "8fb734985145f15e35bdf2d6794a3cf6378bf11975ce62791f1149bcafbe4669": {
+    "name": "Non-compact Riemann surfaces are equilaterally triangulable",
+    "sources": [
+      "https://lean-lang.org/eval/problems/equilateral_triangulation/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/equilateral_triangulation/"
+    ]
+  },
   "47fb4a3d715921b4a000026a5373b78f53d6f70a81fbef17181ef5c97914ebcd": {
     "name": "Erdős's unit-distance conjecture is false",
     "sources": [
@@ -825,7 +846,7 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/exists_topologically_slice_not_smoothly_slice/"
     ]
   },
-  "95e511ea1fdb450a2fc092c4318334330aa63881c1efe776e15527dc7146b588": {
+  "d0c9ff605d9126d784c2cf79255e80bdf9c83734b7df2be9e831a8e5c64a1174": {
     "name": "Faltings' theorem (Mordell conjecture)",
     "sources": [
       "https://lean-lang.org/eval/problems/faltings/",
@@ -1126,11 +1147,18 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/hSpace_sphere_iff/"
     ]
   },
-  "9ab22be9de30f5938f71c21874d43e48f0a2a995987cee91fa514d3c7f280ff2": {
+  "77663066da59bf3ff3e78710f80b84ab7d6a845ba9e89b39d2932fe8fdc643d7": {
     "name": "Hurewicz theorem in degree 1 (H₁ = abelianization of π₁)",
     "sources": [
       "https://lean-lang.org/eval/problems/hurewicz_h1_abelianization/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/hurewicz_h1_abelianization/"
+    ]
+  },
+  "0cd704470c6e04d5eb1aa724382633432c8e22cd436febef9148496af9852513": {
+    "name": "Total variation estimate for hyperbolic systems",
+    "sources": [
+      "https://lean-lang.org/eval/problems/hyperbolic_viscosity/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/hyperbolic_viscosity/"
     ]
   },
   "c95cad44c1c34ca877147f7de942989ea098426d0577122f1dd644f004a4b0c7": {
@@ -1546,6 +1574,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/nyquist_shannon_sampling/"
     ]
   },
+  "a8825033df3cc03ae459ddfd58ae6a5ca239df32bfabfe1e4e7fcc44e31a38bb": {
+    "name": "Ol'shanskii's Tarski monster group existence theorem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/olshanskii_tarski_monster/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/olshanskii_tarski_monster/"
+    ]
+  },
   "0b25fa611b55fa5079e5f63bbcfd7681c5aa3d238840db79f239b66ff36d9d97": {
     "name": "Oppenheim's inequality for Hadamard products",
     "sources": [
@@ -1743,7 +1778,7 @@
     ]
   },
   "b69baaaa2e0b1897d3cab8a659cc6ba1eb095eb66c71d9c00d2975bdb38248d0": {
-    "name": "Ramanujan–Petersson conjecture for the τ-function (Deligne's theorem)",
+    "name": "Ramanujan's conjecture for the τ-function (Deligne's theorem)",
     "sources": [
       "https://lean-lang.org/eval/problems/ramanujan_petersson/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/ramanujan_petersson/"
@@ -1966,6 +2001,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/substInv_X_sub_X_sq_eq_catalan/"
     ]
   },
+  "33a794aa7a7380858b768b83849610966fb76b3423ce4d195cd0e869ad1b9368": {
+    "name": "Sylvester's conjecture",
+    "sources": [
+      "https://lean-lang.org/eval/problems/sylvester/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/sylvester/"
+    ]
+  },
   "05efe7b3cb47400421d02b20f7e509ec139a8cb71d49fdcaf50ca70fef6538fd": {
     "name": "Schur-Weyl duality: S_k image equals centralizer of GL(V) image",
     "sources": [
@@ -2043,6 +2085,13 @@
       "https://github.com/leanprover/lean-eval/tree/main/generated/two_plus_two/"
     ]
   },
+  "6c09d97e0ab753eee4a0de8722a912bc6c94656e4ae15ad7029a7a776c7b5d2d": {
+    "name": "Unbounded denominators conjecture",
+    "sources": [
+      "https://lean-lang.org/eval/problems/unbounded_denominators/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/unbounded_denominators/"
+    ]
+  },
   "0f152925205b4447da14c03699c9fb75390fcff9169fef8e5c16302440c6a233": {
     "name": "Uniformization theorem for Riemann surfaces",
     "sources": [
@@ -2069,6 +2118,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/variable_binder_example/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/variable_binder_example/"
+    ]
+  },
+  "960d03756d48400ca56723a42990311dd9ac7450107ed478ca2965220a05c106": {
+    "name": "Maximal number of linearly independent vector fields on a sphere",
+    "sources": [
+      "https://lean-lang.org/eval/problems/vector_fields_sphere/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/vector_fields_sphere/"
     ]
   },
   "c467b7597fd5a308c748340f18418763bd4344d1c3b76653f7f0aee9241bfab1": {
@@ -2174,6 +2230,13 @@
     "sources": [
       "https://lean-lang.org/eval/problems/wigner_semicircle/",
       "https://github.com/leanprover/lean-eval/tree/main/generated/wigner_semicircle/"
+    ]
+  },
+  "5cc1c0121f96e7aeb280ad0998176c0d975f409e81b47d1a0e7e416554d3b26a": {
+    "name": "Zelmanov's solution of the restricted Burnside problem",
+    "sources": [
+      "https://lean-lang.org/eval/problems/zelmanov_restricted_burnside/",
+      "https://github.com/leanprover/lean-eval/tree/main/generated/zelmanov_restricted_burnside/"
     ]
   },
   "60ab84d865a340c0d075bc9457aa9ac2ad6c86d80672edffb8fb25410ac3d468": {
