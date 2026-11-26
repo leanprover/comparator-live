@@ -64,7 +64,7 @@ export default function Header() {
         ></path>
       </svg>
       <Text marginBlock="auto" flexGrow="1" className={statusClass}>
-        Comparator Live <Em>(Experimental)</Em>
+        Comparator Live
       </Text>
       <GridItem colSpan={{ base: 3, md: 1 }}>
         <Flex>

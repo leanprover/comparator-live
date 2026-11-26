@@ -235,7 +235,13 @@ export async function comparator(taskId: string, project: string, theoremNames: 
     );
 
     cmd = "lake";
-    args = ["comparator", "--paranoid", "--config=config.json", "--inadvisably-no-sandbox"];
+    args = [
+      "comparator",
+      "--paranoid",
+      "--json",
+      "--config=config.json",
+      "--inadvisably-no-sandbox",
+    ];
     env = {};
   } else {
     cmd = script("comparator.sh");

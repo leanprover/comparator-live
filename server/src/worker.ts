@@ -21,8 +21,8 @@ export async function doWork(
 
     const theoremNames = await collectThms(taskId, project);
 
-    await comparator(taskId, project, theoremNames);
-    return { type: "verification-ok", theoremNames };
+    const output = await comparator(taskId, project, theoremNames);
+    return { type: "verification-ok", theoremNames, output };
   } catch (err) {
     if (err instanceof CheckingError) {
       return {
