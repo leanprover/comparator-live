@@ -26,7 +26,11 @@ export default function ComparatorOutput({ output }: ComparatorOutputProps) {
           if (
             line.match(/^(Building Challenge|Building Solution|Running .* kernel on solution)$/)
           ) {
-            return <span style={{ fontWeight: "bold" }}>{"\n" + line + "\n"}</span>;
+            return (
+              <span key={n} style={{ fontWeight: "bold" }}>
+                {"\n" + line + "\n"}
+              </span>
+            );
           }
           const m = line.match(/^(.*) kernel (accepts|rejected) the solution$/);
           if (m) {
@@ -34,12 +38,12 @@ export default function ComparatorOutput({ output }: ComparatorOutputProps) {
             const c = acc ? "success" : "failure";
             const emoji = acc ? "👍" : "✋";
             return (
-              <span className={c} style={{ fontWeight: "bold" }}>
+              <span key={n} className={c} style={{ fontWeight: "bold" }}>
                 {emoji + " " + line + "\n"}
               </span>
             );
           }
-          return <span>{line + "\n"}</span>;
+          return <span key={n}>{line + "\n"}</span>;
         })}
       </Code>
     );
@@ -47,13 +51,12 @@ export default function ComparatorOutput({ output }: ComparatorOutputProps) {
 
   return (
     <div className="formattedOutput">
-      <ProcInform informOnly name="Challenge build" procResult={parsed.report.build_challenge} />
-      <ProcInform informOnly name="Solution build" procResult={parsed.report.build_solution} />
-      <ProcInform
-        informOnly
-        name="Resolve Dependencies"
-        procResult={parsed.report.resolve_dependencies}
-      />
+      <ProcInform name="Challenge build" procResult={parsed.report.build_challenge} />
+      <ProcInform name="Solution build" procResult={parsed.report.build_solution} />
+      <ProcInform name="Export challenge" procResult={parsed.report.build_solution} />
+      <ProcInform name="Export solution" procResult={parsed.report.build_solution} />
+      <ProcInform name="Compare solutions" procResult={parsed.report.build_solution} />
+      <ProcInform name="Resolve Dependencies" procResult={parsed.report.resolve_dependencies} />
       {[...Object.entries(parsed.report.kernel_reports)].map(([key, procResult]) => (
         <ProcResult key={key} name={key} procResult={procResult} />
       ))}
@@ -70,7 +73,6 @@ function ProcInform({
 }: {
   name: string;
   procResult: z.infer<typeof zProcResult>;
-  informOnly?: boolean;
 }) {
   const failed = procResult.judgement === "failure" && (
     <Heading size="sm" paddingTop="2">
@@ -90,7 +92,7 @@ function ProcInform({
   const stderr = procResult.output.proc.stderr && (
     <>
       <Heading size="sm" paddingTop="2">
-        {name} standard output:
+        {name} standard error:
       </Heading>
       <Code as="pre" display="block" overflowX="auto" width="100%">
         {procResult.output.proc.stderr}
@@ -109,16 +111,14 @@ function ProcInform({
 function ProcResult({
   name,
   procResult,
-  informOnly,
 }: {
   name: string;
   procResult: z.infer<typeof zProcResult>;
-  informOnly?: boolean;
 }) {
   return (
     <>
-      <Heading size="sm" paddingTop="2" className={informOnly ? undefined : procResult.judgement}>
-        {name} {!informOnly && emoJudgment(procResult.judgement)}
+      <Heading size="sm" paddingTop="2" className={procResult.judgement}>
+        {name} {emoJudgment(procResult.judgement)}
       </Heading>
       {procResult.output.proc.stderr && procResult.output.proc.stdout && (
         <>
@@ -132,11 +132,12 @@ function ProcResult({
           </Code>
         </>
       )}
-      {(procResult.output.proc.stderr || procResult.output.proc.stdout) && (
-        <Code as="pre" display="block" overflowX="auto" width="100%">
-          {procResult.output.proc.stderr || procResult.output.proc.stdout}
-        </Code>
-      )}
+      {!(procResult.output.proc.stderr && procResult.output.proc.stdout) &&
+        (procResult.output.proc.stderr || procResult.output.proc.stdout) && (
+          <Code as="pre" display="block" overflowX="auto" width="100%">
+            {procResult.output.proc.stderr || procResult.output.proc.stdout}
+          </Code>
+        )}
     </>
   );
 }

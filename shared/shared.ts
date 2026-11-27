@@ -27,6 +27,9 @@ export const zComparatorResult = z.object({
     resolve_dependencies: zProcResult,
     build_challenge: zProcResult,
     build_solution: zProcResult,
+    export_challenge: zProcResult,
+    export_solution: zProcResult,
+    compare_statements: zProcResult,
     kernel_reports: z.record(z.string(), zProcResult),
   }),
 });

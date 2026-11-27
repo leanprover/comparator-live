@@ -19,6 +19,7 @@ const basicJob = {
 };
 const basicResponse = {
   type: "verification-ok",
+  output: expect.anything(),
   theoremNames: ["triv"],
 };
 
