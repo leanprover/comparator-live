@@ -10,12 +10,12 @@ import {
   Strong,
   Text,
 } from "@chakra-ui/react";
-import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { faQuestion } from "@fortawesome/free-solid-svg-icons/faQuestion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAtomValue, useSetAtom } from "jotai";
 import { type JSX, useState } from "react";
 
+import ComparatorOutput from "./ComparatorOutput.tsx";
 import { statusClassAtom } from "./store/simpleStatus.ts";
 import { recognitionStateAtom } from "./store/trusted.ts";
 import {
@@ -114,31 +114,7 @@ export default function Verifier() {
                   <Dialog.Title>{comparatorResult.description}</Dialog.Title>
                 </Dialog.Header>
                 <Dialog.Body>
-                  <Code as="pre" display="block" overflowX="auto" width="100%">
-                    {(comparatorResult.output ?? "No output generated")
-                      .split("\n")
-                      .map((line, n) => {
-                        if (
-                          line.match(
-                            /^(Building Challenge|Building Solution|Running .* kernel on solution)$/,
-                          )
-                        ) {
-                          return <span style={{ fontWeight: "bold" }}>{"\n" + line + "\n"}</span>;
-                        }
-                        const m = line.match(/^(.*) kernel (accepts|rejected) the solution$/);
-                        if (m) {
-                          const acc = m[2] === "accepts";
-                          const c = acc ? "success" : "failure";
-                          const emoji = acc ? "👍" : "✋";
-                          return (
-                            <span className={c} style={{ fontWeight: "bold" }}>
-                              {emoji + " " + line + "\n"}
-                            </span>
-                          );
-                        }
-                        return <span>{line + "\n"}</span>;
-                      })}
-                  </Code>
+                  <ComparatorOutput output={comparatorResult.output ?? "No output generated"} />
                 </Dialog.Body>
               </Dialog.Content>
             </Dialog.Positioner>
@@ -187,7 +163,31 @@ export default function Verifier() {
         )}
       </Box>
     );
-    action = infoIconAction(comparatorResult.theoremNames.length > 0 ? faCheck : faQuestion);
+    action = (
+      <>
+        <Button size="2xl" marginInline="3" marginBlock="1" onClick={(e) => setIsOpen(true)}>
+          See Output
+        </Button>
+        <Dialog.Root role="dialog" open={isOpen} size="xl" onOpenChange={(e) => setIsOpen(e.open)}>
+          <Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+              <Dialog.Content>
+                <Dialog.CloseTrigger asChild>
+                  <CloseButton />
+                </Dialog.CloseTrigger>
+                <Dialog.Header>
+                  <Dialog.Title>Comparator's output:</Dialog.Title>
+                </Dialog.Header>
+                <Dialog.Body>
+                  <ComparatorOutput output={comparatorResult.output} />
+                </Dialog.Body>
+              </Dialog.Content>
+            </Dialog.Positioner>
+          </Portal>
+        </Dialog.Root>
+      </>
+    );
   } else {
     status = (
       <Box paddingLeft="3" paddingBlock="3" marginBlock="auto">

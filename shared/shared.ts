@@ -16,8 +16,34 @@ export type StartVerifyResponse = z.infer<typeof zStartVerifyResponse>;
 export const zVerifier = z.enum(["Lean", "Nanoda"]);
 export type Verifier = z.infer<typeof zVerifier>;
 
+const zJudgement = z.enum(["success", "failure", "skipped"]);
+const zProcOutput = z.union([
+  z.object({ str: z.object({ string: z.string() }) }),
+  z.object({ proc: z.object({ stdout: z.string(), stderr: z.string() }) }),
+]);
+export const zProcResult = z.object({ judgement: zJudgement, output: zProcOutput });
+export const zComparatorResult = z.object({
+  version: z.string(),
+  sandboxed: z.boolean(),
+  judgement: z.enum(["accepted", "failure"]),
+  report: z.object({
+    resolve_dependencies: zProcResult,
+    build_challenge: zProcResult,
+    build_solution: zProcResult,
+    export_challenge: zProcResult,
+    export_solution: zProcResult,
+    compare_statements: zProcResult,
+    check_axioms: zProcResult,
+    kernel_reports: z.record(z.string(), zProcResult),
+  }),
+});
+
 const zVerifyPossibilities = [
-  z.object({ type: z.literal("verification-ok"), theoremNames: z.array(z.string()) }),
+  z.object({
+    type: z.literal("verification-ok"),
+    theoremNames: z.array(z.string()),
+    output: z.string(),
+  }),
   z.object({
     type: z.literal("verification-failed"),
     description: z.string(),

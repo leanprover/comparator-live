@@ -13,7 +13,11 @@ export function doMockWork(challenge: string, solution: string): VerifyResult {
       ((typeof can[1] === "string" && solution.trim() === can[1].trim()) ||
         (typeof can[1] === "object" && solution.trim().match(can[1])))
     ) {
-      return { type: "verification-ok", theoremNames: challenge.trim() === "" ? [] : can[2] };
+      return {
+        type: "verification-ok",
+        theoremNames: challenge.trim() === "" ? [] : can[2],
+        output: "(omitted)",
+      };
     }
   }
   return { type: "verification-failed", description: "Mock Failure", output: "Mock Output" };

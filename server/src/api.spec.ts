@@ -27,7 +27,7 @@ describe(`GET /comparator/api/track/:requestId`, () => {
     const messages = sseData(response.text);
     expect([messages.at(0), messages.at(-1)]).toStrictEqual([
       { type: "in-queue", position: 0 },
-      { type: "verification-ok", theoremNames: ["triv"] },
+      { type: "verification-ok", output: expect.anything(), theoremNames: ["triv"] },
     ]);
   });
 }, 50_000);
