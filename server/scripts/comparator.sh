@@ -23,7 +23,7 @@ SCRIPT=$(cat <<EOF
 ulimit -t 60       # 60 seconds
 ulimit -u 65536    # 65536 subprocesses spawnable (lake can use a lot here!)
 ulimit -f 524288   # File output size limits
-exec /lean/bin/lake comparator --paranoid --config=config.json
+exec /lean/bin/lake comparator --paranoid --json --config=config.json
 EOF
 )
 
